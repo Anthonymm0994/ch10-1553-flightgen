@@ -1,0 +1,23 @@
+bus: A
+messages:
+  - name: NAV_20HZ
+    rate_hz: 20
+    rt: 10
+    tr: BC2RT
+    sa: 1
+    wc: 4
+    words:
+      - { name: altitude_ft,    src: flight.altitude_ft,    encode: bnr16, scale: 1.0 }
+      - { name: airspeed_kt,    src: flight.airspeed_kt,    encode: u16 }
+      - { name: heading_deg,    src: flight.heading_deg,    encode: bnr16, scale: 1.0 }
+      - { name: status,         src: derived.status,        encode: u16 }
+  
+  - name: GPS_5HZ
+    rate_hz: 5
+    rt: 11
+    tr: BC2RT
+    sa: 2
+    wc: 4
+    words:
+      - { name: lat_deg,        src: flight.latitude_deg,   encode: float32_split, word_order: lsw_msw }
+      - { name: lon_deg,        src: flight.longitude_deg,  encode: float32_split, word_order: lsw_msw }

@@ -1,0 +1,21 @@
+name: "Test Scenario"
+start_time_utc: "2025-01-01T12:00:00Z"
+duration_s: 15
+seed: 42
+profile:
+  base_altitude_ft: 5000
+  segments:
+    - type: climb
+      to_altitude_ft: 8000
+      ias_kt: 250
+      vs_fpm: 1000
+      duration_s: 7
+    - type: cruise
+      ias_kt: 280
+      hold_s: 8
+bus:
+  packet_bytes_target: 8192
+  jitter_ms: 0
+  errors:
+    parity_percent: 0.0
+    late_percent: 0.0
