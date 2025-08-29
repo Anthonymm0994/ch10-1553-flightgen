@@ -84,7 +84,6 @@ yarn-error.log*
 # Tauri
 ch10-studio/src-tauri/target/
 ch10-studio/dist/
-ch10-studio/portable/
 ch10-studio/src-tauri/binaries/
 
 # Keep important config files
