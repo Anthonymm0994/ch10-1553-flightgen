@@ -8,7 +8,7 @@
 
 ## Overview
 
-**CH10Gen** is a professional-grade tool that generates IRIG-106 Chapter 10 files containing realistic MIL-STD-1553 bus traffic derived from simulated flight profiles. It consists of two components:
+**CH10Gen** is a tool that generates IRIG-106 Chapter 10 files containing realistic MIL-STD-1553 bus traffic derived from simulated flight profiles. It consists of two components:
 
 - **ch10gen**: Command-line tool and Python library for CH10 generation
 - **ch10gen-studio**: Desktop GUI application for visual editing and generation
