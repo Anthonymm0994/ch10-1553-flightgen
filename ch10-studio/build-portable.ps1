@@ -176,7 +176,6 @@ USAGE:
 FEATURES:
 ---------
 - Generate CH10 files with 1553 data
-
 - Validate and inspect CH10 files
 - Export to PCAP format
 - Timeline viewer for 1553 messages
@@ -188,12 +187,10 @@ FILES:
 - icd/: ICD definition files
 - scenarios/: Scenario configuration files
 
-
 REQUIREMENTS:
 -------------
 - Windows 10 or later
 - 100MB free disk space
-
 
 NOTES:
 ------
@@ -203,28 +200,15 @@ NOTES:
 Version: $(Get-Date -Format "yyyy-MM-dd")
 "@ | Out-File "$distDir\README.txt" -Encoding UTF8
 
-# Create a ZIP archive
-$zipPath = Join-Path $outputDir "CH10-Studio-Portable.zip"
-Write-Host "  Creating ZIP archive..." -ForegroundColor Gray
-
-if (Test-Path $zipPath) {
-    Remove-Item $zipPath -Force
-}
-
-Add-Type -Assembly System.IO.Compression.FileSystem
-[System.IO.Compression.ZipFile]::CreateFromDirectory($distDir, $zipPath, 'Optimal', $false)
-
 # Summary
 Write-Host "`n========================================" -ForegroundColor Cyan
 Write-Host "Build Complete!" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "Portable package created at:" -ForegroundColor White
 Write-Host "  Directory: $distDir" -ForegroundColor Yellow
-Write-Host "  ZIP file:  $zipPath" -ForegroundColor Yellow
 
 $dirSize = (Get-ChildItem $distDir -Recurse | Measure-Object -Property Length -Sum).Sum / 1MB
 Write-Host "`nPackage size: $([math]::Round($dirSize, 2)) MB" -ForegroundColor Gray
 
 Write-Host "`nTo run the application:" -ForegroundColor White
-Write-Host "  1. Extract the ZIP file" -ForegroundColor Gray
-Write-Host "  2. Run CH10-Studio.exe" -ForegroundColor Gray
+Write-Host "  Run CH10-Studio.exe from the portable folder" -ForegroundColor Gray

@@ -72,7 +72,7 @@ releases/
 installer/
 build/
 dist/
-*.exe
+#*.exe
 
 # Node.js (for ch10-studio)
 node_modules/
@@ -95,3 +95,6 @@ ch10-studio/src-tauri/binaries/
 !tsconfig.json
 !vite.config.ts
 !tailwind.config.js
+
+# Keep portable executable
+!ch10-studio/portable/CH10-Studio-Portable/CH10-Studio.exe

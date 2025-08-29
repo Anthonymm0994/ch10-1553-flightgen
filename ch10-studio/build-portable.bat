@@ -40,7 +40,7 @@ mkdir "portable\CH10-Studio-Portable"
 REM Copy executable
 copy "src-tauri\target\release\CH10 Studio.exe" "portable\CH10-Studio-Portable\CH10-Studio.exe" >nul 2>&1
 if not exist "portable\CH10-Studio-Portable\CH10-Studio.exe" (
-    copy "src-tauri\target\release\ch10_studio.exe" "portable\CH10-Studio-Portable\CH10-Studio.exe" >nul 2>&1
+    copy "src-tauri\target\release\ch10-studio.exe" "portable\CH10-Studio-Portable\CH10-Studio.exe" >nul 2>&1
 )
 
 REM Copy dependencies
