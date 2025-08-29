@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Comprehensive test suite runner for CH10 Generator.
+Test suite runner for CH10 Generator.
 Provides detailed reporting and validation of all components.
 """
 
@@ -38,7 +38,7 @@ class TestCategory:
         self.passed_tests = 0
         self.failed_tests = 0
 
-class ComprehensiveTestRunner:
+class TestRunner:
     """Runs all tests and provides detailed reporting."""
     
     def __init__(self):
@@ -197,7 +197,7 @@ class ComprehensiveTestRunner:
     def run_all_tests(self):
         """Run all test categories."""
         print(colored("="*70, Colors.BOLD))
-        print(colored("CH10 GENERATOR - COMPREHENSIVE TEST SUITE", Colors.BOLD))
+        print(colored("CH10 GENERATOR - TEST SUITE", Colors.BOLD))
         print(colored("="*70, Colors.BOLD))
         
         start_time = time.time()
@@ -211,7 +211,7 @@ class ComprehensiveTestRunner:
         self.print_summary(elapsed)
     
     def print_summary(self, elapsed_time: float):
-        """Print comprehensive test summary."""
+        """Print test summary."""
         print(f"\n{colored('='*70, Colors.BOLD)}")
         print(colored("TEST SUMMARY", Colors.BOLD))
         print(colored("="*70, Colors.BOLD))
@@ -319,7 +319,7 @@ class ComprehensiveTestRunner:
 
 def main():
     """Main entry point."""
-    runner = ComprehensiveTestRunner()
+    runner = TestRunner()
     
     # Run unit tests
     test_success = runner.run_all_tests()

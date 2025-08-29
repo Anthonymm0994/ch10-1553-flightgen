@@ -2,7 +2,7 @@
 
 ## Overview
 
-The CH10 Generator includes a comprehensive test suite to ensure reliability and correctness of all components.
+The CH10 Generator includes a test suite to ensure reliability and correctness of all components.
 
 ## Test Structure
 

@@ -1,4 +1,4 @@
-"""Comprehensive CH10 round-trip integration tests."""
+"""CH10 round-trip integration tests."""
 
 import pytest
 import tempfile

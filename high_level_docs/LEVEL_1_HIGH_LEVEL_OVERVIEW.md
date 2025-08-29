@@ -410,7 +410,7 @@ Not everything was built from scratch. Instead, proven tools were utilized:
 
 **Wireshark/TShark**: The industry standard for protocol analysis. This tool serves as the primary validation method - if TShark can read the generated files, standards-compliant output is confirmed.
 
-**Click**: A professional CLI framework that provides the structure and help system found in industry-standard aerospace tools.
+**Click**: A CLI framework that provides the structure and help system found in aerospace tools.
 
 **Tauri**: A modern framework for building native desktop applications without the overhead of web technologies.
 

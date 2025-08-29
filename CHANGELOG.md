@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Scaling and offset support for bitfield values
   - 25+ tests covering all bitfield scenarios
   
-- **Comprehensive Documentation**
+- **Documentation**
   - `BUILD.md` - Complete build guide for CLI and GUI
   - `TROUBLESHOOTING.md` - Common issues and solutions
   - `INDEX.md` - Documentation overview and navigation
@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Build Scripts**
   - `build_releases.bat` - Windows batch script for releases
   - `build_installer.ps1` - PowerShell script for MSI installer
-  - `.gitignore` - Comprehensive ignore patterns
+  - `.gitignore` - Complete ignore patterns
 
 - **Example Scripts**
   - `examples/generate_basic.py` - Basic CH10 generation
@@ -47,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Test Improvements**
   - Fixed CLI test for Windows compatibility
-  - Added comprehensive bitfield tests
+  - Added bitfield tests
   - Improved TShark validation tests
   - Fixed import paths after reorganization
 
@@ -148,7 +148,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Major Changes |
 |---------|------|---------------|
-| 1.1.0 | 2024-01-20 | Bitfield packing, comprehensive docs, deployment scripts |
+| 1.1.0 | 2024-01-20 | Bitfield packing, docs, deployment scripts |
 | 1.0.0 | 2024-01-15 | First stable release with full feature set |
 | 0.9.0 | 2024-01-01 | Beta release with core functionality |
 | 0.1.0 | 2023-12-15 | Initial prototype |

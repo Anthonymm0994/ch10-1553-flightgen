@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Comprehensive TShark validation for CH10 files.
+TShark validation for CH10 files.
 This is our primary validation mechanism for ensuring CH10 correctness.
 """
 
@@ -56,7 +56,7 @@ class Message1553:
 
 @dataclass 
 class ValidationReport:
-    """Comprehensive validation results."""
+    """Validation results."""
     ch10_file: Path
     tshark_readable: bool = False
     total_messages: int = 0
@@ -117,8 +117,8 @@ class ValidationReport:
         print("="*60)
 
 
-class ComprehensiveTSharkValidator:
-    """Comprehensive CH10 validation using tshark."""
+class TSharkValidator:
+    """CH10 validation using tshark."""
     
     def __init__(self):
         self.tshark = TSHARK_PATH
@@ -147,7 +147,7 @@ class ComprehensiveTSharkValidator:
             pytest.skip(f"Cannot run tshark: {e}")
     
     def validate_ch10_file(self, ch10_file: Path) -> ValidationReport:
-        """Perform comprehensive validation of a CH10 file."""
+        """Perform validation of a CH10 file."""
         
         report = ValidationReport(ch10_file=ch10_file)
         
@@ -299,7 +299,7 @@ class ComprehensiveTSharkValidator:
 @pytest.fixture
 def validator():
     """Create validator instance."""
-    return ComprehensiveTSharkValidator()
+    return TSharkValidator()
 
 
 @pytest.fixture
@@ -318,8 +318,8 @@ def sample_ch10_file(tmp_path):
 
 
 # Main test class
-class TestTSharkComprehensive:
-    """Comprehensive CH10 validation tests using tshark."""
+class TestTSharkValidation:
+    """CH10 validation tests using tshark."""
     
     def test_tshark_available(self, validator):
         """Test that tshark is available and working."""

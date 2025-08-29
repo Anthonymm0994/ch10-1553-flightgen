@@ -23,7 +23,7 @@ def create_complex_icd(filename: Path):
     icd = {
         'name': 'Complex System ICD',
         'bus': 'A',
-        'description': 'Comprehensive test with many message types',
+        'description': 'Test with many message types',
         'messages': []
     }
     
@@ -394,7 +394,7 @@ if __name__ == "__main__":
         print("WARNING: TShark not found, validation will be limited")
     
     # Run tests
-    print("COMPREHENSIVE CH10 VALIDATION WITH TSHARK")
+    print("CH10 VALIDATION WITH TSHARK")
     print("="*60)
     
     # 1. Stress test bitfields

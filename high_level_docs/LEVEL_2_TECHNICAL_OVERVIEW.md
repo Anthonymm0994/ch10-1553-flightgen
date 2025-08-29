@@ -15,7 +15,7 @@ The CH10 Generator is engineered to solve a critical problem in aerospace testin
 - **Cost Savings**: Testing can be performed with simulated data instead of expensive flight hours
 - **Risk Reduction**: Systems can be validated on the ground before airborne testing
 - **Standards Compliance**: Data can be ensured to meet industry requirements
-- **Scalability**: Gigabytes of data can be generated for comprehensive testing
+- **Scalability**: Gigabytes of data can be generated for testing
 - **Reproducibility**: Identical test scenarios can be created for consistent validation
 
 ### Technical Architecture
@@ -277,7 +277,7 @@ The system validates all inputs before processing:
 - Invalid sensor readings marked but don't stop generation
 - Warnings for non-critical issues
 
-#### Comprehensive Error Messages
+#### Detailed Error Messages
 ```
 ERROR: Bitfield overlap in message NAV_DATA, word 0
   Field 'altitude' uses bits 0-9
@@ -356,9 +356,9 @@ Different configurations can be used for different environments:
 
 **Wireshark/TShark**: This tool is used as the primary validation method because it's the industry standard for protocol analysis. Having TShark successfully decode the generated files provides confidence that standards-compliant output is being produced. It's like having a second opinion from a trusted expert.
 
-**Click (CLI Framework)**: A professional command-line interface was needed that aerospace engineers would feel comfortable using. Click provides the structure and help system that makes the tool feel like other industry-standard tools.
+**Click (CLI Framework)**: A command-line interface was needed that aerospace engineers would feel comfortable using. Click provides the structure and help system that makes the tool feel like other aerospace tools.
 
-**Tauri (GUI Framework)**: For the graphical interface, something was needed that could create native desktop applications without the overhead of Electron. Tauri provides the performance and native feel that professionals expect.
+**Tauri (GUI Framework)**: For the graphical interface, something was needed that could create native desktop applications without the overhead of Electron. Tauri provides the performance and native feel that users expect.
 
 #### Development Journey
 
@@ -368,7 +368,7 @@ The system started with a simple Python script that could generate basic 1553 me
 2. **Phase 2**: YAML configuration for flexibility
 3. **Phase 3**: Flight simulation for realistic data
 4. **Phase 4**: Bitfield packing for efficient word usage
-5. **Phase 5**: Comprehensive validation with external tools
+5. **Phase 5**: Validation with external tools
 
 Each phase was driven by real user feedback and discoveries about what aerospace engineers actually need. Everything was not built at once - the system was built to solve immediate problems, then refined based on usage.
 
@@ -396,7 +396,7 @@ If TShark can't read the generated files, a serious problem is indicated. If PyC
 - **Reliable Output**: The tool follows standards exactly, so analysis tools will work
 - **Realistic Data**: Simulated data includes real-world imperfections and timing variations
 - **Trusted Validation**: Multiple validation layers ensure generated files are correct
-- **Production Ready**: Data volumes needed for comprehensive testing can be handled
+- **Scalable**: Data volumes needed for testing can be handled
 
 ### Security Considerations
 

@@ -6,7 +6,7 @@
 
 #### Architecture Decisions
 - **Tauri over Electron**: Smaller binary size, better Windows performance
-- **Monaco Editor**: Professional YAML editing experience with syntax highlighting
+- **Monaco Editor**: YAML editing experience with syntax highlighting
 - **Sidecar Pattern**: ch10gen runs as separate process for stability and modularity
 - **Plugin-based Shell**: Uses Tauri v2 shell plugin for secure process spawning
 
@@ -22,7 +22,7 @@
   - Visual cards for navigation
   - Welcome screen with feature overview
 
-- **Runner Panel**: Comprehensive build configuration
+- **Runner Panel**: Build configuration
   - Writer backend selection (irig106/pyc10)
   - Duration override
   - Advanced settings (collapsible)

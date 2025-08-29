@@ -1,4 +1,4 @@
-"""Comprehensive schedule tests."""
+"""Schedule tests."""
 
 import pytest
 from datetime import datetime, timedelta

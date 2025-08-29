@@ -1,4 +1,4 @@
-"""Comprehensive error injection tests."""
+"""Error injection tests."""
 
 import pytest
 from ch10gen.utils.errors import (

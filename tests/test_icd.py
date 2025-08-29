@@ -1,4 +1,4 @@
-"""Comprehensive tests for ICD parser and validators."""
+"""Tests for ICD parser and validators."""
 
 import pytest
 import yaml

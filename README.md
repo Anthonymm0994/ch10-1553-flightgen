@@ -1,6 +1,6 @@
 # CH10Gen - IRIG-106 Chapter 10 Generator
 
-**Professional tool for generating realistic IRIG-106 Chapter 10 files with MIL-STD-1553 flight test data**
+**Tool for generating IRIG-106 Chapter 10 files with MIL-STD-1553 flight test data**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Windows](https://img.shields.io/badge/platform-Windows-blue.svg)](https://www.microsoft.com/windows)
@@ -37,7 +37,7 @@ ch10gen validate demo.c10
 
 ## Architecture
 
-The system follows a clean, modular architecture with clear separation between the core library and user interfaces:
+The system follows a modular architecture with separation between the core library and user interfaces:
 
 ```mermaid
 graph TB
@@ -78,7 +78,7 @@ graph TB
 
 ## Key Features
 
-### Realistic Flight Profiles
+### Flight Profile Simulation
 - **Parametric flight segments**: climb, cruise, turn, descent, touch-and-go
 - **Physics-based kinematics** with ISA atmosphere modeling
 - **Waypoint navigation** with speed/altitude constraints
@@ -97,7 +97,7 @@ graph TB
   - Late responses
   - No response conditions
   - Timing jitter (±ms)
-- **Realistic bus utilization** tracking and statistics
+- **Bus utilization** tracking and statistics
 
 ### ICD-Driven Configuration
 - **YAML-based** message and word definitions
@@ -324,7 +324,7 @@ messages:
 
 ## Testing
 
-Run the comprehensive test suite to ensure everything works correctly:
+Run the test suite to verify functionality:
 
 ```bash
 # Run all tests
@@ -344,7 +344,7 @@ python scripts/run_all_tests.py
 ```
 
 ### Test Coverage
-- **Unit Tests**: All core modules (ICD, encoding, scheduling)
+- **Unit Tests**: Core modules (ICD, encoding, scheduling)
 - **Integration Tests**: End-to-end CH10 generation
 - **Validation Tests**: Spec compliance verification
 - **Performance Tests**: Large file generation
@@ -362,7 +362,7 @@ python scripts/run_all_tests.py
 
 ## Documentation
 
-For comprehensive documentation, see the following guides:
+For documentation, see the following guides:
 
 | Document | Description |
 |----------|-------------|
@@ -399,4 +399,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-**CH10Gen** - Professional IRIG-106 Chapter 10 generation for the aerospace testing community
+**CH10Gen** - IRIG-106 Chapter 10 generation for aerospace testing

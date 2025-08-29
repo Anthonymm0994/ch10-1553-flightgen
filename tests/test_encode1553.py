@@ -1,4 +1,4 @@
-"""Comprehensive tests for 1553 word encoders."""
+"""Tests for 1553 word encoders."""
 
 import pytest
 import struct
@@ -10,7 +10,7 @@ from ch10gen.core.encode1553 import (
 
 
 class TestBNR16:
-    """Test BNR16 encoding with comprehensive edge cases."""
+    """Test BNR16 encoding with edge cases."""
     
     def test_sign_handling(self):
         """Test sign handling for positive and negative values."""

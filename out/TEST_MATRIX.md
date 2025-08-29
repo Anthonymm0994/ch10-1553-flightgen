@@ -1,7 +1,7 @@
 # Test Coverage Matrix
 
 ## Test Suite Overview
-Comprehensive test coverage for ch10-1553-flightgen project.
+Test coverage for ch10-1553-flightgen project.
 
 ## Coverage by Module
 
@@ -35,7 +35,7 @@ Comprehensive test coverage for ch10-1553-flightgen project.
 - [x] Packet structure - 6 tests
 - [x] Wire invariants - 7 tests
 - [x] Float encoding - multiple tests
-- [x] Status word flags - comprehensive
+- [x] Status word flags - complete
 
 ### ⚠️ Integration Tests (Medium)
 - [x] 15s scenario generation
@@ -67,7 +67,7 @@ Comprehensive test coverage for ch10-1553-flightgen project.
 3. **PyChapter10 compatibility** - 7 failing tests
 
 ### 🟡 Important (Should Fix)
-1. **Error injection** - More comprehensive error scenarios
+1. **Error injection** - More error scenarios
 2. **Schedule edge cases** - Frame overflow, timing conflicts
 3. **Flight profile** - Extreme maneuvers, edge conditions
 

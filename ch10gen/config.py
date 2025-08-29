@@ -1,6 +1,6 @@
 """Central configuration for CH10 generation.
 
-This module provides a comprehensive configuration system that merges settings from
+This module provides a configuration system that merges settings from
 multiple sources with clear precedence rules. Configuration can be specified via:
 
 1. CLI arguments (highest precedence)

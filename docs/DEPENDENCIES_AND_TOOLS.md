@@ -158,7 +158,7 @@ PyChapter10 provides the foundation that lets us focus on:
 - Realistic data generation
 - User-friendly configuration
 - Advanced features like bitfield packing
-- Professional tooling and validation
+- Tooling and validation
 
 ## Installation Requirements
 
@@ -189,4 +189,4 @@ CH10Gen strategically leverages:
 3. **PCAP format** for analysis tool compatibility
 4. **Fallback parsers** for robustness
 
-This allows us to focus on value-added features like realistic flight simulation, intuitive configuration, and professional tooling while ensuring spec compliance and industry compatibility.
+This allows us to focus on value-added features like realistic flight simulation, intuitive configuration, and tooling while ensuring spec compliance and industry compatibility.

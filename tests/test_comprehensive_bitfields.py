@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-COMPREHENSIVE bitfield validation using actual CH10 generation and tshark.
-This tests EVERYTHING - all mask/shift combinations, edge cases, real data.
+Bitfield validation using actual CH10 generation and tshark.
+This tests mask/shift combinations, edge cases, real data.
 """
 
 import os

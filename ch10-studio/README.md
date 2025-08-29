@@ -32,7 +32,7 @@ update-portable.bat
 - **Build Tab**: Generate Chapter 10 files
 
 - **Tools Tab**: Header patcher and validator
-- **Dark Mode UI**: Professional interface
+- **Dark Mode UI**: Modern interface
 
 ## Tech Stack
 - Frontend: React + TypeScript + Tailwind CSS

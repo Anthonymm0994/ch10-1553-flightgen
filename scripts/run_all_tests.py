@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Comprehensive test runner for ch10-1553-flightgen project."""
+"""Test runner for ch10-1553-flightgen project."""
 
 import sys
 import subprocess

@@ -15,7 +15,7 @@ Download from: https://www.wireshark.org/
 # Simple validation
 python tests/run_tshark_validation.py out/test.ch10
 
-# Run comprehensive tests
+# Run tests
 export WITH_TSHARK=1
 pytest tests/test_tshark_comprehensive.py -v
 
@@ -26,7 +26,7 @@ python tests/test_tshark_comprehensive.py --check
 ## Test Files
 
 - `test_tshark_validation.py` - Basic tshark integration tests
-- `test_tshark_comprehensive.py` - Comprehensive validation suite
+- `test_tshark_comprehensive.py` - Validation suite
 - `run_tshark_validation.py` - Standalone validation script
 
 ## What We Validate
@@ -169,7 +169,7 @@ sudo usermod -a -G wireshark $USER
 TShark validation provides:
 - **Independent verification** - Not relying on our own code
 - **Industry standard** - Wireshark is the de facto packet analyzer
-- **Comprehensive checks** - Packet structure, timing, data integrity
+- **Complete checks** - Packet structure, timing, data integrity
 - **Easy integration** - Simple commands, clear output
 - **Cross-platform** - Works on Windows, Linux, macOS
 

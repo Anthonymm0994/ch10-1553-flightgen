@@ -1,4 +1,4 @@
-"""Comprehensive flight profile tests."""
+"""Flight profile tests."""
 
 import pytest
 import math
