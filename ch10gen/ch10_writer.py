@@ -95,9 +95,10 @@ class Ch10Writer:
         self.message_count = 0
         self.packet_count = 0
         
-        # Initialize scenario manager if scenario provided
+        # Initialize scenario manager if scenario provided with data generation config
         self.scenario_manager = None
-        if scenario_config:
+        if scenario_config and scenario_config.get('defaults', {}).get('data_mode') != 'flight':
+            # Only use scenario manager for non-flight data modes
             from .scenario_manager import ScenarioManager
             self.scenario_manager = ScenarioManager(scenario_config, icd)
         

@@ -65,6 +65,10 @@ class TestCh10RoundTrip:
             'start_time_utc': '2025-01-01T12:00:00Z',
             'duration_s': 15,  # Short duration for fast tests
             'seed': 42,
+            'defaults': {
+                'data_mode': 'flight',  # Use flight profile data
+                'default_config': {}
+            },
             'profile': {
                 'base_altitude_ft': 5000,
                 'segments': [
@@ -86,6 +90,10 @@ class TestCh10RoundTrip:
             'start_time_utc': '2025-01-01T12:00:00Z',
             'duration_s': 60,
             'seed': 42,
+            'defaults': {
+                'data_mode': 'flight',  # Use flight profile data
+                'default_config': {}
+            },
             'profile': {
                 'base_altitude_ft': 10000,
                 'segments': [
@@ -136,7 +144,7 @@ class TestCh10RoundTrip:
         
         # Check presence of packet types
         # Note: PyChapter10 recognizes TMATS (0x01) as ComputerF1, not MessageF0
-        assert packet_types.get('ComputerF1', 0) >= 1 or packet_types.get('MessageF0', 0) >= 1, \
+        assert packet_types.get('ComputerF0', 0) >= 1 or packet_types.get('ComputerF1', 0) >= 1, \
                f"No TMATS packet found. Found types: {packet_types}"
         assert packet_types.get('TimeF1', 0) >= 1, f"No time packets. Found types: {packet_types}"
         assert packet_types.get('MS1553F1', 0) > 0, f"No 1553 packets. Found types: {packet_types}"

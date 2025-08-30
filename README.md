@@ -28,8 +28,11 @@ git clone https://github.com/yourusername/ch10-1553-flightgen.git
 cd ch10-1553-flightgen
 pip install -e .
 
-# Generate your first CH10 file
+# Generate your first CH10 file with flight data
 ch10gen build --scenario scenarios/example.yaml --icd icd/nav_icd.yaml --out demo.c10
+
+# Generate with random test data
+ch10gen build --scenario scenarios/test_large.yaml --icd icd/test/test_large.yaml --out test.c10
 
 # Validate the output
 ch10gen validate demo.c10
@@ -77,6 +80,14 @@ graph TB
 ```
 
 ## Key Features
+
+### Scenario-Driven Data Generation (NEW!)
+- **13+ Data Generator Types**: constant, increment, pattern, random distributions, waveforms, expressions
+- **Mathematical Expressions**: Reference and calculate values from other fields
+- **Waveform Generation**: sine, cosine, square, sawtooth, ramp waves
+- **Random Distributions**: uniform, normal, multimodal with configurable parameters
+- **Field References**: Same word, same message, or cross-message references
+- **High Performance**: Tested with 1000+ messages/second and 70k+ line ICDs
 
 ### Flight Profile Simulation
 - **Parametric flight segments**: climb, cruise, turn, descent, touch-and-go

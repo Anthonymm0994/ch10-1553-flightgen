@@ -2,6 +2,36 @@
 
 All notable changes to the CH10 Generator project are documented here.
 
+## [2.0.0] - 2024-12-29
+
+### Added
+- Scenario-driven data generation system with 13+ generator types
+- Mathematical expression evaluation with field references
+- Waveform generators (sine, cosine, square, sawtooth, ramp)
+- Multiple random distributions (uniform, normal, multimodal)
+- Cross-message field references in expressions
+- Performance improvements supporting 1000+ messages/second
+- Support for 70k+ line ICDs
+- Comprehensive test suite for all generators
+- XML to YAML converter improvements
+- Breaking changes documentation
+
+### Changed
+- **BREAKING**: Scenario format now uses `defaults` section instead of root-level `data_mode`
+- **BREAKING**: ICDs no longer support `src: random` field
+- Default bus changed from 'A' to 'B' in XML converter
+- XML converter now uses filename as ICD name
+- Improved error messages in GUI
+
+### Removed
+- Old `RandomDataGenerator` class (replaced by modular system)
+- `src: random` field support in ICDs
+
+### Fixed
+- GUI error display now shows actual error messages
+- Test suite compatibility with new system
+- Performance issues with large ICDs
+
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
