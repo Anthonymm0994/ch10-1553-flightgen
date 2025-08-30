@@ -36,8 +36,14 @@ export function Build() {
       }
     });
 
+    let lastError = '';
+    
     runner.onStderr((line: string) => {
       setProgress(prev => [...prev, `ERROR: ${line}`]);
+      // Capture the actual error message
+      if (line.includes('ERROR') || line.includes('Error')) {
+        lastError = line;
+      }
     });
 
     try {
@@ -52,7 +58,11 @@ export function Build() {
             const report = await loadJsonReport(jsonPath);
             setReport(report);
           } else {
-            setError('Build failed. Check the logs for details.');
+            // Show the actual error message if we have one
+            const errorMsg = lastError || 
+              progress.find(line => line.includes('ERROR'))?.replace('ERROR: ', '') ||
+              'Build failed. Check the logs for details.';
+            setError(`Build failed: ${errorMsg}`);
           }
           setIsRunning(false);
         }
@@ -170,10 +180,30 @@ export function Build() {
             </div>
 
             {error && (
-              <div className="p-2.5 bg-red-500/10 border border-red-500/20 rounded-lg">
-                <div className="flex items-center gap-2 text-red-400">
-                  <XCircleIcon className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">{error}</span>
+              <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg animate-pulse">
+                <div className="flex items-start gap-2">
+                  <XCircleIcon className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <div className="text-red-400 font-semibold text-sm mb-1">Error</div>
+                    <div className="text-red-300 text-sm whitespace-pre-wrap break-words">
+                      {error}
+                    </div>
+                    {error.includes('validation') && (
+                      <div className="text-red-300/70 text-xs mt-2">
+                        Tip: Check that your ICD and scenario files are valid YAML and contain all required fields.
+                      </div>
+                    )}
+                    {error.includes('word count') && (
+                      <div className="text-red-300/70 text-xs mt-2">
+                        Tip: Ensure that bitfields with word_index are properly grouped and the word count matches.
+                      </div>
+                    )}
+                    {error.includes('mask') && (
+                      <div className="text-red-300/70 text-xs mt-2">
+                        Tip: Check that bitfield masks and shifts don't exceed 16 bits when combined.
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             )}

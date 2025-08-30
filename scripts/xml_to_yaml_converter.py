@@ -200,21 +200,24 @@ class XMLToYAMLConverter:
             
             words[word_num]['fields'].append(field_def)
         
-        # Convert to list format
+        # Convert to list format with word number at top
         word_list = []
         for word_num in sorted(words.keys()):
             word_data = words[word_num]
-            word_data['word'] = word_num
-            word_list.append(word_data)
+            # Put word number at the top of the dict
+            ordered_word = {'word': word_num}
+            ordered_word.update(word_data)
+            word_list.append(ordered_word)
         
         return word_list
     
-    def generate_yaml(self, output_file: str = None) -> bool:
+    def generate_yaml(self, output_file: str = None, input_filename: str = None) -> bool:
         """
         Generate YAML output file.
         
         Args:
             output_file: Output file path (optional)
+            input_filename: Input XML filename for naming (optional)
             
         Returns:
             True if successful, False otherwise
@@ -224,11 +227,18 @@ class XMLToYAMLConverter:
                 logger.error("No messages to convert")
                 return False
             
+            # Use input filename (without extension) as ICD name
+            if input_filename:
+                from pathlib import Path
+                icd_name = Path(input_filename).stem
+            else:
+                icd_name = 'converted_icd'
+            
             # Create YAML structure
             yaml_data = {
-                'name': 'Converted from XML',
-                'bus': 'A',  # Default bus
-                'description': f'Converted from XML with {len(self.messages)} messages',
+                'name': icd_name,
+                'bus': 'B',  # Default to bus B
+                'description': f'Converted from {input_filename or "XML"} with {len(self.messages)} messages',
                 'messages': self.messages
             }
             
@@ -280,7 +290,8 @@ def main():
     converter = XMLToYAMLConverter()
     
     if converter.parse_xml(input_file):
-        if converter.generate_yaml(output_file):
+        # Pass input filename for naming the ICD
+        if converter.generate_yaml(output_file, input_file):
             converter.print_summary()
             print(f"\nConversion completed successfully!")
         else:

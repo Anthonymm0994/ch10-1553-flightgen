@@ -1,0 +1,21 @@
+name: Large ICD Test
+description: Test scenario for large ICD with default random data
+
+# Global defaults - all fields get random data unless overridden
+defaults:
+  data_mode: random
+  default_config:
+    distribution: uniform
+
+# Duration and timing
+duration_s: 5
+start_time_utc: 2024-01-01T00:00:00Z
+
+# Bus configuration
+bus:
+  utilization_percent: 50
+  packet_bytes_target: 65536
+  jitter_percent: 10
+
+# No specific message overrides - all use random data
+messages: {}

@@ -1,0 +1,40 @@
+# Simple test ICD for random data generation
+bus: A
+
+messages:
+  - name: TEST_MSG_1
+    rate_hz: 10
+    rt: 10
+    tr: BC2RT
+    sa: 1
+    wc: 4
+    words:
+      - name: field1
+        encode: u16
+        src: random
+      - name: field2
+        encode: i16
+        src: random
+      - name: field3
+        encode: u16
+        src: random
+      - name: field4
+        encode: u16
+        src: random
+
+  - name: TEST_MSG_2
+    rate_hz: 5
+    rt: 11
+    tr: BC2RT
+    sa: 2
+    wc: 3
+    words:
+      - name: value1
+        encode: u16
+        src: random
+      - name: value2
+        encode: u16
+        src: random
+      - name: value3
+        encode: u16
+        src: random

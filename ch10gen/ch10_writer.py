@@ -71,7 +71,8 @@ class Ch10Writer:
                   icd: ICDDefinition,
                   error_injector: Optional[MessageErrorInjector] = None,
                   start_time: datetime = None,
-                  scenario_name: str = "Demo Mission") -> Dict[str, Any]:
+                  scenario_name: str = "Demo Mission",
+                  scenario_config: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Write complete Chapter 10 file.
         
@@ -93,6 +94,12 @@ class Ch10Writer:
         self.start_time = start_time
         self.message_count = 0
         self.packet_count = 0
+        
+        # Initialize scenario manager if scenario provided
+        self.scenario_manager = None
+        if scenario_config:
+            from .scenario_manager import ScenarioManager
+            self.scenario_manager = ScenarioManager(scenario_config, icd)
         
         # Open file for binary writing
         filepath = Path(filepath)
@@ -259,7 +266,12 @@ class Ch10Writer:
             )
             
             # Encode data words
-            data_words = self._encode_data_words(msg_def, flight_state)
+            if self.scenario_manager:
+                # Use scenario manager for data generation
+                data_words = self.scenario_manager.generate_message_data(msg_def.name, msg_def)
+            else:
+                # Use traditional encoding
+                data_words = self._encode_data_words(msg_def, flight_state)
             
             # Apply error injection if configured
             if error_injector:
@@ -402,6 +414,8 @@ def write_ch10_file(output_path: Path,
     profile_config = scenario.get('profile', {})
     bus_config = scenario.get('bus', {})
     
+    # Pass scenario config to writer
+    
     # Create flight profile
     flight_gen = FlightProfile()
     
@@ -437,6 +451,7 @@ def write_ch10_file(output_path: Path,
     
     # Write file
     writer = Ch10Writer(writer_config, writer_backend=writer_backend)
+    
     stats = writer.write_file(
         filepath=output_path,
         schedule=schedule,
@@ -444,7 +459,8 @@ def write_ch10_file(output_path: Path,
         icd=icd,
         error_injector=error_injector,
         start_time=start_time,
-        scenario_name=scenario.get('name', 'Demo Mission')
+        scenario_name=scenario.get('name', 'Demo Mission'),
+        scenario_config=scenario
     )
     
     # Add error statistics if available

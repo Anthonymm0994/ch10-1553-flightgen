@@ -1,0 +1,85 @@
+# Test ICD for comprehensive scenario testing
+name: comprehensive_test_icd
+bus: B
+description: ICD for testing all data generation modes
+
+messages:
+  - name: "Navigation Data"
+    rate_hz: 20
+    rt: 10
+    tr: BC2RT
+    sa: 1
+    wc: 4
+    words:
+      - name: altitude
+        encode: u16
+        const: 0
+      - name: airspeed
+        encode: u16
+        const: 0
+      - name: altitude_meters
+        encode: u16
+        const: 0
+      - name: packet_counter
+        encode: u16
+        const: 0
+
+  - name: "Engine Data"
+    rate_hz: 10
+    rt: 11
+    tr: BC2RT
+    sa: 2
+    wc: 3
+    words:
+      - name: temperature
+        encode: u16
+        const: 0
+      - name: status
+        encode: u16
+        const: 0
+      - name: rpm
+        encode: u16
+        const: 0
+
+  - name: "Sensor Data"
+    rate_hz: 50
+    rt: 12
+    tr: BC2RT
+    sa: 3
+    wc: 3
+    words:
+      - name: sensor1
+        encode: u16
+        const: 0
+      - name: sensor2
+        encode: u16
+        const: 0
+      - name: sensor3
+        encode: u16
+        const: 0
+
+  - name: "System Status"
+    rate_hz: 1
+    rt: 13
+    tr: BC2RT
+    sa: 4
+    wc: 1
+    words:
+      - name: power_on
+        encode: u16
+        const: 0
+        mask: 0x0001
+        shift: 0
+        word_index: 0
+      - name: warning
+        encode: u16
+        const: 0
+        mask: 0x0002
+        shift: 1
+        word_index: 0
+      - name: error_count
+        encode: u16
+        const: 0
+        mask: 0x00F0
+        shift: 4
+        word_index: 0
