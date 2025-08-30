@@ -4,3904 +4,3823 @@ description: Test ICD with 10 messages for validation
 version: 1.0.0
 messages:
 - name: TEST_MSG_0000
-  sub_address: 30
-  description: Test message 0 with 8 words
-  rate: 20
-  words:
-  - name: word_0
-    type: u16
-    description: Test word 0 with 7 bitfields
-    fields:
-    - name: field_0_0
-      type: i16
-      mask: 21845
-      shift: 0
-      description: Field 0 in word 0
-      scale: 0.01
-      units: rad
-    - name: field_0_1
-      type: u16
-      mask: 2048
-      shift: 11
-      description: Field 1 in word 0
-    - name: field_0_2
-      type: i16
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 0
-    - name: field_0_3
-      type: i16
-      mask: 2
-      shift: 1
-      description: Field 3 in word 0
-    - name: field_0_4
-      type: bnr16
-      mask: 128
-      shift: 7
-      description: Field 4 in word 0
-      units: V
-    - name: field_0_5
-      type: i16
-      mask: 512
-      shift: 9
-      description: Field 5 in word 0
-      scale: 0.1
-      units: rad
-    - name: field_0_6
-      type: status
-      mask: 32
-      shift: 5
-      description: Field 6 in word 0
-      scale: 0.001
-  - name: word_1
-    type: u16
-    description: Test word 1 with 8 bitfields
-    fields:
-    - name: field_1_0
-      type: status
-      mask: 21845
-      shift: 0
-      description: Field 0 in word 1
-    - name: field_1_1
-      type: i16
-      mask: 32
-      shift: 5
-      description: Field 1 in word 1
-    - name: field_1_2
-      type: status
-      mask: 2048
-      shift: 11
-      description: Field 2 in word 1
-    - name: field_1_3
-      type: status
-      mask: 2
-      shift: 1
-      description: Field 3 in word 1
-      scale: 0.1
-      offset: -50
-    - name: field_1_4
-      type: status
-      mask: 8
-      shift: 3
-      description: Field 4 in word 1
-      scale: 0.1
-      units: Hz
-    - name: field_1_5
-      type: bcd
-      mask: 128
-      shift: 7
-      description: Field 5 in word 1
-      units: ft
-    - name: field_1_6
-      type: discrete
-      mask: 512
-      shift: 9
-      description: Field 6 in word 1
-      scale: 10
-    - name: field_1_7
-      type: discrete
-      mask: 32768
-      shift: 15
-      description: Field 7 in word 1
-  - name: word_2
-    type: i16
-    description: Simple word 2
-    scale: 0.1
-    offset: -100
-    units: m
-  - name: word_3
-    type: u16
-    description: Test word 3 with 5 bitfields
-    fields:
-    - name: field_3_0
-      type: bnr16
-      mask: 8192
-      shift: 13
-      description: Field 0 in word 3
-    - name: field_3_1
-      type: u16
-      mask: 256
-      shift: 8
-      description: Field 1 in word 3
-      scale: 10
-    - name: field_3_2
-      type: bcd
-      mask: 32
-      shift: 5
-      description: Field 2 in word 3
-      units: rad
-    - name: field_3_3
-      type: bcd
-      mask: 4
-      shift: 2
-      description: Field 3 in word 3
-      units: Hz
-    - name: field_3_4
-      type: u16
-      mask: 1
-      shift: 0
-      description: Field 4 in word 3
-  - name: word_4
-    type: status
-    description: Simple word 4
-    scale: 0.001
-    units: A
-  - name: word_5
-    type: status
-    description: Simple word 5
-    scale: 10
-    offset: -100
-    units: g
-  - name: word_6
-    type: u16
-    description: Test word 6 with 3 bitfields
-    fields:
-    - name: field_6_0
-      type: discrete
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 6
-      units: m
-    - name: field_6_1
-      type: u16
-      mask: 52428
-      shift: 0
-      description: Field 1 in word 6
-  - name: word_7
-    type: u16
-    description: Test word 7 with 2 bitfields
-    fields:
-    - name: field_7_0
-      type: status
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 7
-      units: A
-    - name: field_7_1
-      type: bnr16
-      mask: 52428
-      shift: 0
-      description: Field 1 in word 7
-      offset: -10
-- name: TEST_MSG_0001
-  sub_address: 27
-  description: Test message 1 with 18 words
-  rate: 20
-  words:
-  - name: word_0
-    type: u16
-    description: Test word 0 with 2 bitfields
-    fields:
-    - name: field_0_0
-      type: i16
-      mask: 512
-      shift: 9
-      description: Field 0 in word 0
-      units: A
-    - name: field_0_1
-      type: bnr16
-      mask: 1024
-      shift: 10
-      description: Field 1 in word 0
-      units: kts
-  - name: word_1
-    type: u16
-    description: Test word 1 with 8 bitfields
-    fields:
-    - name: field_1_0
-      type: discrete
-      mask: 15
-      shift: 0
-      description: Field 0 in word 1
-      units: A
-    - name: field_1_1
-      type: discrete
-      mask: 1024
-      shift: 10
-      description: Field 1 in word 1
-      offset: 10
-    - name: field_1_2
-      type: bnr16
-      mask: 2048
-      shift: 11
-      description: Field 2 in word 1
-      units: Hz
-    - name: field_1_3
-      type: status
-      mask: 8192
-      shift: 13
-      description: Field 3 in word 1
-    - name: field_1_4
-      type: i16
-      mask: 256
-      shift: 8
-      description: Field 4 in word 1
-      units: deg
-    - name: field_1_5
-      type: status
-      mask: 16384
-      shift: 14
-      description: Field 5 in word 1
-      scale: 100
-      offset: 10
-    - name: field_1_6
-      type: i16
-      mask: 32
-      shift: 5
-      description: Field 6 in word 1
-      scale: 0.01
-      units: kts
-    - name: field_1_7
-      type: status
-      mask: 16
-      shift: 4
-      description: Field 7 in word 1
-  - name: word_2
-    type: u16
-    description: Test word 2 with 8 bitfields
-    fields:
-    - name: field_2_0
-      type: u16
-      mask: 64
-      shift: 6
-      description: Field 0 in word 2
-    - name: field_2_1
-      type: discrete
-      mask: 4
-      shift: 2
-      description: Field 1 in word 2
-      scale: 0.01
-      units: kts
-    - name: field_2_2
-      type: status
-      mask: 13107
-      shift: 0
-      description: Field 2 in word 2
-      scale: 0.1
-      offset: 100
-      units: g
-    - name: field_2_3
-      type: discrete
-      mask: 128
-      shift: 7
-      description: Field 3 in word 2
-    - name: field_2_4
-      type: u16
-      mask: 1024
-      shift: 10
-      description: Field 4 in word 2
-      units: rad
-    - name: field_2_5
-      type: i16
-      mask: 16384
-      shift: 14
-      description: Field 5 in word 2
-      offset: -10
-    - name: field_2_6
-      type: bnr16
-      mask: 32768
-      shift: 15
-      description: Field 6 in word 2
-    - name: field_2_7
-      type: discrete
-      mask: 8
-      shift: 3
-      description: Field 7 in word 2
-      units: g
-  - name: word_3
-    type: u16
-    description: Test word 3 with 5 bitfields
-    fields:
-    - name: field_3_0
-      type: discrete
-      mask: 8192
-      shift: 13
-      description: Field 0 in word 3
-    - name: field_3_1
-      type: bnr16
-      mask: 64
-      shift: 6
-      description: Field 1 in word 3
-      offset: 50
-      units: kts
-    - name: field_3_2
-      type: i16
-      mask: 1
-      shift: 0
-      description: Field 2 in word 3
-      units: g
-    - name: field_3_3
-      type: status
-      mask: 1024
-      shift: 10
-      description: Field 3 in word 3
-      scale: 10
-      offset: -50
-      units: Hz
-    - name: field_3_4
-      type: bnr16
-      mask: 8
-      shift: 3
-      description: Field 4 in word 3
-      scale: 10
-      offset: -100
-  - name: word_4
-    type: u16
-    description: Test word 4 with 8 bitfields
-    fields:
-    - name: field_4_0
-      type: status
-      mask: 32767
-      shift: 0
-      description: Field 0 in word 4
-    - name: field_4_1
-      type: bnr16
-      mask: 32768
-      shift: 15
-      description: Field 1 in word 4
-  - name: word_5
-    type: u16
-    description: Test word 5 with 2 bitfields
-    fields:
-    - name: field_5_0
-      type: status
-      mask: 3840
-      shift: 8
-      description: Field 0 in word 5
-      units: kts
-    - name: field_5_1
-      type: bcd
-      mask: 16
-      shift: 4
-      description: Field 1 in word 5
-      scale: 10
-  - name: word_6
-    type: u16
-    description: Test word 6 with 2 bitfields
-    fields:
-    - name: field_6_0
-      type: bcd
-      mask: 2
-      shift: 1
-      description: Field 0 in word 6
-    - name: field_6_1
-      type: bcd
-      mask: 2048
-      shift: 11
-      description: Field 1 in word 6
-      scale: 100
-      offset: 50
-  - name: word_7
-    type: u16
-    description: Test word 7 with 5 bitfields
-    fields:
-    - name: field_7_0
-      type: bnr16
-      mask: 8192
-      shift: 13
-      description: Field 0 in word 7
-    - name: field_7_1
-      type: i16
-      mask: 52428
-      shift: 0
-      description: Field 1 in word 7
-      units: rad
-    - name: field_7_2
-      type: i16
-      mask: 32
-      shift: 5
-      description: Field 2 in word 7
-      scale: 10
-    - name: field_7_3
-      type: status
-      mask: 512
-      shift: 9
-      description: Field 3 in word 7
-      scale: 0.001
-      offset: 50
-      units: Hz
-    - name: field_7_4
-      type: bcd
-      mask: 16
-      shift: 4
-      description: Field 4 in word 7
-      units: ft
-  - name: word_8
-    type: u16
-    description: Test word 8 with 8 bitfields
-    fields:
-    - name: field_8_0
-      type: bnr16
-      mask: 15
-      shift: 0
-      description: Field 0 in word 8
-      offset: -100
-      units: ft
-    - name: field_8_1
-      type: bnr16
-      mask: 8192
-      shift: 13
-      description: Field 1 in word 8
-      scale: 0.001
-    - name: field_8_2
-      type: i16
-      mask: 32
-      shift: 5
-      description: Field 2 in word 8
-      offset: 10
-    - name: field_8_3
-      type: status
-      mask: 2048
-      shift: 11
-      description: Field 3 in word 8
-    - name: field_8_4
-      type: u16
-      mask: 512
-      shift: 9
-      description: Field 4 in word 8
-      offset: 10
-    - name: field_8_5
-      type: discrete
-      mask: 4096
-      shift: 12
-      description: Field 5 in word 8
-      scale: 100
-    - name: field_8_6
-      type: i16
-      mask: 64
-      shift: 6
-      description: Field 6 in word 8
-      scale: 10
-    - name: field_8_7
-      type: bcd
-      mask: 32768
-      shift: 15
-      description: Field 7 in word 8
-      scale: 0.001
-  - name: word_9
-    type: u16
-    description: Test word 9 with 4 bitfields
-    fields:
-    - name: field_9_0
-      type: bcd
-      mask: 31744
-      shift: 10
-      description: Field 0 in word 9
-      scale: 10
-      units: deg
-    - name: field_9_1
-      type: i16
-      mask: 1
-      shift: 0
-      description: Field 1 in word 9
-    - name: field_9_2
-      type: discrete
-      mask: 64
-      shift: 6
-      description: Field 2 in word 9
-      units: deg
-    - name: field_9_3
-      type: bnr16
-      mask: 8
-      shift: 3
-      description: Field 3 in word 9
-      units: kts
-  - name: word_10
-    type: status
-    description: Simple word 10
-    scale: 10
-    units: m
-  - name: word_11
-    type: u16
-    description: Test word 11 with 7 bitfields
-    fields:
-    - name: field_11_0
-      type: u16
-      mask: 32768
-      shift: 15
-      description: Field 0 in word 11
-      units: ft
-    - name: field_11_1
-      type: bnr16
-      mask: 960
-      shift: 6
-      description: Field 1 in word 11
-    - name: field_11_2
-      type: bcd
-      mask: 8
-      shift: 3
-      description: Field 2 in word 11
-      scale: 0.001
-    - name: field_11_3
-      type: bnr16
-      mask: 31744
-      shift: 10
-      description: Field 3 in word 11
-    - name: field_11_4
-      type: bnr16
-      mask: 1
-      shift: 0
-      description: Field 4 in word 11
-      offset: -100
-      units: V
-    - name: field_11_5
-      type: status
-      mask: 16
-      shift: 4
-      description: Field 5 in word 11
-      scale: 0.1
-    - name: field_11_6
-      type: bnr16
-      mask: 4
-      shift: 2
-      description: Field 6 in word 11
-      scale: 10
-  - name: word_12
-    type: discrete
-    description: Simple word 12
-    units: A
-  - name: word_13
-    type: u16
-    description: Test word 13 with 2 bitfields
-    fields:
-    - name: field_13_0
-      type: status
-      mask: 32768
-      shift: 15
-      description: Field 0 in word 13
-      scale: 100
-      offset: 10
-      units: Hz
-    - name: field_13_1
-      type: bnr16
-      mask: 4095
-      shift: 0
-      description: Field 1 in word 13
-  - name: word_14
-    type: u16
-    description: Test word 14 with 4 bitfields
-    fields:
-    - name: field_14_0
-      type: bcd
-      mask: 15
-      shift: 0
-      description: Field 0 in word 14
-      offset: -100
-      units: ft
-    - name: field_14_1
-      type: bcd
-      mask: 960
-      shift: 6
-      description: Field 1 in word 14
-      scale: 0.1
-    - name: field_14_2
-      type: i16
-      mask: 61440
-      shift: 12
-      description: Field 2 in word 14
-      offset: 10
-    - name: field_14_3
-      type: i16
-      mask: 16
-      shift: 4
-      description: Field 3 in word 14
-      scale: 0.001
-  - name: word_15
-    type: u16
-    description: Test word 15 with 3 bitfields
-    fields:
-    - name: field_15_0
-      type: bnr16
-      mask: 1023
-      shift: 0
-      description: Field 0 in word 15
-    - name: field_15_1
-      type: bcd
-      mask: 61440
-      shift: 12
-      description: Field 1 in word 15
-    - name: field_15_2
-      type: bnr16
-      mask: 1024
-      shift: 10
-      description: Field 2 in word 15
-      units: V
-  - name: word_16
-    type: discrete
-    description: Simple word 16
-    units: rad
-  - name: word_17
-    type: status
-    description: Simple word 17
-    units: rad
-- name: TEST_MSG_0002
-  sub_address: 8
-  description: Test message 2 with 20 words
+  sub_address: 17
+  description: Test message 0 with 13 words
   rate: 1
   words:
   - name: word_0
-    type: u16
-    description: Test word 0 with 1 bitfields
-    fields:
-    - name: field_0_0
-      type: discrete
-      mask: 960
-      shift: 6
-      description: Field 0 in word 0
-      scale: 0.1
-      units: deg
-  - name: word_1
-    type: u16
-    description: Test word 1 with 4 bitfields
-    fields:
-    - name: field_1_0
-      type: status
-      mask: 43690
-      shift: 0
-      description: Field 0 in word 1
-      units: rad
-    - name: field_1_1
-      type: bnr16
-      mask: 64
-      shift: 6
-      description: Field 1 in word 1
-      scale: 0.1
-      units: ft
-    - name: field_1_2
-      type: status
-      mask: 16
-      shift: 4
-      description: Field 2 in word 1
-    - name: field_1_3
-      type: bcd
-      mask: 16384
-      shift: 14
-      description: Field 3 in word 1
-      units: A
+    encode: u16
+    const: 0
+  - name: field_1_0
+    encode: u16
+    mask: 52428
+    shift: 0
+    word_index: 1
+    const: 0
+  - name: field_1_1
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 1
+    const: 0
+  - name: field_1_2
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 1
+    const: 0
+    scale: 0.01
+    units: V
+  - name: field_1_3
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 1
+    const: 0
   - name: word_2
-    type: bcd
-    description: Simple word 2
+    encode: discrete
+    const: 0
+    scale: 100
+    offset: -10
+  - name: word_3
+    encode: discrete
+    const: 0
+  - name: field_4_0
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 4
+    const: 0
+    offset: -100
+  - name: field_4_1
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 4
+    const: 0
+    units: g
+  - name: field_4_2
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 4
+    const: 0
+    offset: 10
+    units: deg
+  - name: field_4_3
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 4
+    const: 0
+    units: g
+  - name: field_5_0
+    encode: u16
+    mask: 960
+    shift: 6
+    word_index: 5
+    const: 0
+  - name: field_5_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 5
+    const: 0
+    scale: 0.001
+  - name: field_6_0
+    encode: u16
+    mask: 32767
+    shift: 0
+    word_index: 6
+    const: 0
+  - name: field_6_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 6
+    const: 0
+    units: V
+  - name: field_7_0
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 7
+    const: 0
+  - name: field_7_1
+    encode: u16
+    mask: 4095
+    shift: 0
+    word_index: 7
+    const: 0
+    units: m
+  - name: field_7_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 7
+    const: 0
+    offset: 50
+    units: Hz
+  - name: field_7_3
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 7
+    const: 0
+    scale: 0.001
+    units: m
+  - name: field_8_0
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 8
+    const: 0
+    offset: 50
+  - name: field_8_1
+    encode: u16
+    mask: 960
+    shift: 6
+    word_index: 8
+    const: 0
+    offset: 10
+  - name: field_8_2
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 8
+    const: 0
+    scale: 100
+  - name: field_8_3
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 8
+    const: 0
+  - name: field_8_4
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 8
+    const: 0
+  - name: word_9
+    encode: bnr16
+    const: 0
+    scale: 10
+  - name: word_10
+    encode: bnr16
+    const: 0
+    offset: -10
+  - name: field_11_0
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 11
+    const: 0
+  - name: field_11_1
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 11
+    const: 0
+  - name: field_11_2
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 11
+    const: 0
+  - name: field_11_3
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 11
+    const: 0
+    scale: 0.01
+  - name: field_11_4
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 11
+    const: 0
+  - name: field_12_0
+    encode: u16
+    mask: 16383
+    shift: 0
+    word_index: 12
+    const: 0
+  - name: field_12_1
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 12
+    const: 0
+  - name: field_12_2
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 12
+    const: 0
+    offset: 10
+- name: TEST_MSG_0001
+  sub_address: 15
+  description: Test message 1 with 31 words
+  rate: 10
+  words:
+  - name: field_0_0
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 0
+    const: 0
+    units: A
+  - name: field_0_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 0
+    const: 0
+    scale: 0.1
+    units: V
+  - name: field_0_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 0
+    const: 0
+  - name: field_0_3
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 0
+    const: 0
+  - name: field_0_4
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 0
+    const: 0
+  - name: field_0_5
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 0
+    const: 0
+    scale: 10
+  - name: word_1
+    encode: u16
+    const: 0
+    scale: 0.1
+  - name: field_2_0
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 2
+    const: 0
+    units: rad
+  - name: field_3_0
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 3
+    const: 0
+  - name: field_3_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 3
+    const: 0
+    scale: 100
+    offset: 100
+  - name: field_4_0
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 4
+    const: 0
+    scale: 0.1
+    units: g
+  - name: field_4_1
+    encode: u16
+    mask: 52428
+    shift: 0
+    word_index: 4
+    const: 0
+  - name: field_4_2
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 4
+    const: 0
+    offset: 10
+  - name: field_4_3
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 4
+    const: 0
+  - name: field_4_4
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 4
+    const: 0
+  - name: word_5
+    encode: i16
+    const: 0
+  - name: field_6_0
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 6
+    const: 0
+    scale: 10
+  - name: field_6_1
+    encode: u16
+    mask: 52428
+    shift: 0
+    word_index: 6
+    const: 0
+  - name: field_6_2
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 6
+    const: 0
+    units: V
+  - name: field_6_3
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 6
+    const: 0
+    scale: 0.01
+  - name: field_6_4
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 6
+    const: 0
+    units: g
+  - name: field_6_5
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 6
+    const: 0
+    units: ft
+  - name: field_6_6
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 6
+    const: 0
+    units: g
+  - name: field_6_7
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 6
+    const: 0
+    scale: 10
+  - name: field_7_0
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 7
+    const: 0
     scale: 0.1
     offset: 10
-  - name: word_3
-    type: u16
-    description: Test word 3 with 6 bitfields
-    fields:
-    - name: field_3_0
-      type: u16
-      mask: 15
-      shift: 0
-      description: Field 0 in word 3
-    - name: field_3_1
-      type: bcd
-      mask: 128
-      shift: 7
-      description: Field 1 in word 3
-      units: ft
-    - name: field_3_2
-      type: discrete
-      mask: 64
-      shift: 6
-      description: Field 2 in word 3
-      offset: 100
-      units: ft
-    - name: field_3_3
-      type: bcd
-      mask: 1024
-      shift: 10
-      description: Field 3 in word 3
-    - name: field_3_4
-      type: bnr16
-      mask: 8192
-      shift: 13
-      description: Field 4 in word 3
-      offset: 100
-    - name: field_3_5
-      type: status
-      mask: 512
-      shift: 9
-      description: Field 5 in word 3
-      scale: 0.01
-      units: A
-  - name: word_4
-    type: u16
-    description: Test word 4 with 2 bitfields
-    fields:
-    - name: field_4_0
-      type: status
-      mask: 16383
-      shift: 0
-      description: Field 0 in word 4
-    - name: field_4_1
-      type: i16
-      mask: 32768
-      shift: 15
-      description: Field 1 in word 4
-  - name: word_5
-    type: i16
-    description: Simple word 5
-  - name: word_6
-    type: u16
-    description: Test word 6 with 2 bitfields
-    fields:
-    - name: field_6_0
-      type: u16
-      mask: 61440
-      shift: 12
-      description: Field 0 in word 6
-    - name: field_6_1
-      type: bcd
-      mask: 2048
-      shift: 11
-      description: Field 1 in word 6
-      offset: -50
-      units: rad
-  - name: word_7
-    type: u16
-    description: Test word 7 with 8 bitfields
-    fields:
-    - name: field_7_0
-      type: u16
-      mask: 2
-      shift: 1
-      description: Field 0 in word 7
-      units: Hz
-    - name: field_7_1
-      type: bcd
-      mask: 31744
-      shift: 10
-      description: Field 1 in word 7
-    - name: field_7_2
-      type: discrete
-      mask: 8
-      shift: 3
-      description: Field 2 in word 7
-      scale: 10
-    - name: field_7_3
-      type: bcd
-      mask: 256
-      shift: 8
-      description: Field 3 in word 7
-      offset: -100
-      units: m
-    - name: field_7_4
-      type: i16
-      mask: 240
-      shift: 4
-      description: Field 4 in word 7
-    - name: field_7_5
-      type: u16
-      mask: 4
-      shift: 2
-      description: Field 5 in word 7
-    - name: field_7_6
-      type: bcd
-      mask: 512
-      shift: 9
-      description: Field 6 in word 7
-      units: deg
-    - name: field_7_7
-      type: status
-      mask: 32768
-      shift: 15
-      description: Field 7 in word 7
-  - name: word_8
-    type: u16
-    description: Test word 8 with 7 bitfields
-    fields:
-    - name: field_8_0
-      type: discrete
-      mask: 1023
-      shift: 0
-      description: Field 0 in word 8
-    - name: field_8_1
-      type: status
-      mask: 4096
-      shift: 12
-      description: Field 1 in word 8
-    - name: field_8_2
-      type: i16
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 8
-      scale: 0.01
-      offset: -50
-    - name: field_8_3
-      type: i16
-      mask: 8192
-      shift: 13
-      description: Field 3 in word 8
-      scale: 0.1
-    - name: field_8_4
-      type: bnr16
-      mask: 2048
-      shift: 11
-      description: Field 4 in word 8
-      scale: 0.001
-      units: ft
-    - name: field_8_5
-      type: i16
-      mask: 1024
-      shift: 10
-      description: Field 5 in word 8
-      scale: 10
-      units: Hz
-    - name: field_8_6
-      type: u16
-      mask: 16384
-      shift: 14
-      description: Field 6 in word 8
-  - name: word_9
-    type: u16
-    description: Test word 9 with 3 bitfields
-    fields:
-    - name: field_9_0
-      type: status
-      mask: 52428
-      shift: 0
-      description: Field 0 in word 9
-    - name: field_9_1
-      type: status
-      mask: 3
-      shift: 0
-      description: Field 1 in word 9
-      scale: 0.1
-      units: ft
-    - name: field_9_2
-      type: u16
-      mask: 512
-      shift: 9
-      description: Field 2 in word 9
-      offset: 10
-  - name: word_10
-    type: status
-    description: Simple word 10
-    offset: -100
-    units: V
-  - name: word_11
-    type: u16
-    description: Test word 11 with 3 bitfields
-    fields:
-    - name: field_11_0
-      type: bcd
-      mask: 7936
-      shift: 8
-      description: Field 0 in word 11
-      scale: 10
-    - name: field_11_1
-      type: bnr16
-      mask: 1
-      shift: 0
-      description: Field 1 in word 11
-      scale: 100
-      units: kts
-    - name: field_11_2
-      type: status
-      mask: 8192
-      shift: 13
-      description: Field 2 in word 11
-  - name: word_12
-    type: u16
-    description: Test word 12 with 2 bitfields
-    fields:
-    - name: field_12_0
-      type: u16
-      mask: 43690
-      shift: 0
-      description: Field 0 in word 12
-    - name: field_12_1
-      type: bnr16
-      mask: 16
-      shift: 4
-      description: Field 1 in word 12
-      scale: 0.01
-      offset: -50
-      units: A
-  - name: word_13
-    type: bcd
-    description: Simple word 13
-    scale: 0.01
-    units: Hz
-  - name: word_14
-    type: status
-    description: Simple word 14
-    offset: 10
-    units: g
-  - name: word_15
-    type: u16
-    description: Test word 15 with 7 bitfields
-    fields:
-    - name: field_15_0
-      type: status
-      mask: 2048
-      shift: 11
-      description: Field 0 in word 15
-    - name: field_15_1
-      type: bnr16
-      mask: 13107
-      shift: 0
-      description: Field 1 in word 15
-      units: rad
-    - name: field_15_2
-      type: u16
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 15
-      scale: 0.01
-    - name: field_15_3
-      type: bnr16
-      mask: 128
-      shift: 7
-      description: Field 3 in word 15
-    - name: field_15_4
-      type: status
-      mask: 16384
-      shift: 14
-      description: Field 4 in word 15
-      units: g
-    - name: field_15_5
-      type: discrete
-      mask: 1024
-      shift: 10
-      description: Field 5 in word 15
-      scale: 0.1
-      offset: -100
-      units: g
-    - name: field_15_6
-      type: u16
-      mask: 64
-      shift: 6
-      description: Field 6 in word 15
-      units: kts
-  - name: word_16
-    type: u16
-    description: Test word 16 with 7 bitfields
-    fields:
-    - name: field_16_0
-      type: bnr16
-      mask: 1023
-      shift: 0
-      description: Field 0 in word 16
-      units: A
-    - name: field_16_1
-      type: status
-      mask: 1024
-      shift: 10
-      description: Field 1 in word 16
-      scale: 0.01
-      offset: -50
-    - name: field_16_2
-      type: discrete
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 16
-      scale: 0.1
-      offset: -50
-      units: rad
-    - name: field_16_3
-      type: bnr16
-      mask: 16384
-      shift: 14
-      description: Field 3 in word 16
-      offset: -50
-    - name: field_16_4
-      type: i16
-      mask: 8192
-      shift: 13
-      description: Field 4 in word 16
-      offset: -100
-      units: deg
-    - name: field_16_5
-      type: discrete
-      mask: 2048
-      shift: 11
-      description: Field 5 in word 16
-      units: A
-    - name: field_16_6
-      type: u16
-      mask: 4096
-      shift: 12
-      description: Field 6 in word 16
-  - name: word_17
-    type: bnr16
-    description: Simple word 17
-    scale: 10
-    units: kts
-  - name: word_18
-    type: i16
-    description: Simple word 18
-    offset: 50
-    units: g
-  - name: word_19
-    type: discrete
-    description: Simple word 19
+  - name: field_8_0
+    encode: u16
+    mask: 4095
+    shift: 0
+    word_index: 8
+    const: 0
+    scale: 0.001
+  - name: field_8_1
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 8
+    const: 0
     scale: 100
+  - name: field_8_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 8
+    const: 0
+    offset: -100
+    units: ft
+  - name: field_9_0
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 9
+    const: 0
+  - name: field_10_0
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 10
+    const: 0
+    units: g
+  - name: field_10_1
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 10
+    const: 0
+  - name: field_10_2
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 10
+    const: 0
+  - name: field_10_3
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 10
+    const: 0
     units: m
+  - name: field_10_4
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 10
+    const: 0
+  - name: field_10_5
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 10
+    const: 0
+  - name: field_10_6
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 10
+    const: 0
+  - name: field_11_0
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 11
+    const: 0
+    scale: 0.1
+    offset: -10
+  - name: field_11_1
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 11
+    const: 0
+    offset: 50
+  - name: field_11_2
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 11
+    const: 0
+    scale: 0.1
+  - name: word_12
+    encode: status
+    const: 0
+  - name: word_13
+    encode: bcd
+    const: 0
+  - name: field_14_0
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 14
+    const: 0
+    units: A
+  - name: field_14_1
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 14
+    const: 0
+  - name: word_15
+    encode: discrete
+    const: 0
+  - name: field_16_0
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 16
+    const: 0
+    units: Hz
+  - name: field_16_1
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 16
+    const: 0
+    scale: 10
+  - name: field_16_2
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 16
+    const: 0
+  - name: field_16_3
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 16
+    const: 0
+  - name: field_16_4
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 16
+    const: 0
+    units: ft
+  - name: word_17
+    encode: u16
+    const: 0
+    scale: 10
+  - name: word_18
+    encode: status
+    const: 0
+  - name: word_19
+    encode: bcd
+    const: 0
+    scale: 0.001
+  - name: field_20_0
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 20
+    const: 0
+  - name: field_20_1
+    encode: u16
+    mask: 255
+    shift: 0
+    word_index: 20
+    const: 0
+    units: rad
+  - name: field_20_2
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 20
+    const: 0
+  - name: field_20_3
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 20
+    const: 0
+    scale: 0.001
+    offset: -50
+  - name: field_20_4
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 20
+    const: 0
+  - name: field_20_5
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 20
+    const: 0
+  - name: field_21_0
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 21
+    const: 0
+  - name: field_21_1
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 21
+    const: 0
+    scale: 10
+  - name: field_21_2
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 21
+    const: 0
+    units: m
+  - name: field_21_3
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 21
+    const: 0
+    scale: 10
+    offset: 10
+    units: ft
+  - name: field_21_4
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 21
+    const: 0
+  - name: field_21_5
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 21
+    const: 0
+    scale: 10
+  - name: field_21_6
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 21
+    const: 0
+    units: g
+  - name: field_21_7
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 21
+    const: 0
+    units: rad
+  - name: field_22_0
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 22
+    const: 0
+  - name: field_22_1
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 22
+    const: 0
+    units: Hz
+  - name: field_22_2
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 22
+    const: 0
+    scale: 100
+  - name: field_22_3
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 22
+    const: 0
+    units: rad
+  - name: field_22_4
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 22
+    const: 0
+    offset: 50
+  - name: field_22_5
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 22
+    const: 0
+  - name: field_23_0
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 23
+    const: 0
+    offset: -10
+    units: V
+  - name: field_23_1
+    encode: u16
+    mask: 61440
+    shift: 12
+    word_index: 23
+    const: 0
+  - name: field_23_2
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 23
+    const: 0
+  - name: field_23_3
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 23
+    const: 0
+  - name: word_24
+    encode: bnr16
+    const: 0
+    offset: -10
+  - name: field_25_0
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 25
+    const: 0
+    scale: 0.001
+    offset: 100
+  - name: field_26_0
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 26
+    const: 0
+    offset: 50
+  - name: field_26_1
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 26
+    const: 0
+    offset: 10
+    units: A
+  - name: field_27_0
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 27
+    const: 0
+    scale: 0.001
+    units: g
+  - name: field_27_1
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 27
+    const: 0
+    offset: -50
+  - name: field_27_2
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 27
+    const: 0
+    scale: 0.001
+    units: V
+  - name: field_27_3
+    encode: u16
+    mask: 960
+    shift: 6
+    word_index: 27
+    const: 0
+  - name: field_27_4
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 27
+    const: 0
+  - name: field_27_5
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 27
+    const: 0
+    scale: 10
+  - name: field_28_0
+    encode: u16
+    mask: 21845
+    shift: 0
+    word_index: 28
+    const: 0
+    scale: 0.01
+  - name: field_28_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 28
+    const: 0
+    units: deg
+  - name: field_28_2
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 28
+    const: 0
+    units: kts
+  - name: field_28_3
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 28
+    const: 0
+    scale: 0.1
+  - name: field_28_4
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 28
+    const: 0
+    units: m
+  - name: field_28_5
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 28
+    const: 0
+    units: deg
+  - name: field_28_6
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 28
+    const: 0
+    scale: 0.001
+  - name: field_28_7
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 28
+    const: 0
+    scale: 0.001
+    offset: -50
+  - name: word_29
+    encode: status
+    const: 0
+    scale: 0.01
+  - name: field_30_0
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 30
+    const: 0
+    offset: -50
+- name: TEST_MSG_0002
+  sub_address: 4
+  description: Test message 2 with 3 words
+  rate: 1
+  words:
+  - name: field_0_0
+    encode: u16
+    mask: 960
+    shift: 6
+    word_index: 0
+    const: 0
+  - name: field_0_1
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 0
+    const: 0
+  - name: field_0_2
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 0
+    const: 0
+    scale: 100
+  - name: field_0_3
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 0
+    const: 0
+    offset: -10
+    units: kts
+  - name: field_0_4
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 0
+    const: 0
+    scale: 10
+    units: deg
+  - name: word_1
+    encode: discrete
+    const: 0
+    offset: -50
+  - name: word_2
+    encode: bnr16
+    const: 0
+    offset: 100
 - name: TEST_MSG_0003
-  sub_address: 5
-  description: Test message 3 with 16 words
+  sub_address: 26
+  description: Test message 3 with 9 words
+  rate: 10
+  words:
+  - name: field_0_0
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 0
+    const: 0
+    scale: 100
+  - name: field_1_0
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 1
+    const: 0
+    units: m
+  - name: field_1_1
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 1
+    const: 0
+  - name: field_1_2
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 1
+    const: 0
+  - name: field_2_0
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 2
+    const: 0
+  - name: field_2_1
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 2
+    const: 0
+    offset: 50
+    units: ft
+  - name: field_2_2
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 2
+    const: 0
+  - name: field_2_3
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 2
+    const: 0
+    scale: 100
+  - name: field_3_0
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 3
+    const: 0
+    units: m
+  - name: field_3_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 3
+    const: 0
+  - name: field_3_2
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 3
+    const: 0
+    units: rad
+  - name: field_3_3
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 3
+    const: 0
+    units: ft
+  - name: word_4
+    encode: bcd
+    const: 0
+  - name: word_5
+    encode: i16
+    const: 0
+    offset: 10
+  - name: field_6_0
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 6
+    const: 0
+    units: rad
+  - name: field_6_1
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 6
+    const: 0
+    offset: 100
+  - name: field_6_2
+    encode: u16
+    mask: 61440
+    shift: 12
+    word_index: 6
+    const: 0
+    scale: 0.01
+  - name: field_6_3
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 6
+    const: 0
+    units: A
+  - name: field_6_4
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 6
+    const: 0
+  - name: field_6_5
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 6
+    const: 0
+    offset: 10
+    units: A
+  - name: field_6_6
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 6
+    const: 0
+  - name: field_7_0
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 7
+    const: 0
+    offset: 10
+  - name: field_7_1
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 7
+    const: 0
+    units: g
+  - name: field_7_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 7
+    const: 0
+  - name: field_7_3
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 7
+    const: 0
+  - name: field_7_4
+    encode: u16
+    mask: 52428
+    shift: 0
+    word_index: 7
+    const: 0
+    units: ft
+  - name: field_7_5
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 7
+    const: 0
+    scale: 10
+  - name: field_8_0
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 8
+    const: 0
+    units: deg
+  - name: field_8_1
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 8
+    const: 0
+    offset: -100
+    units: m
+  - name: field_8_2
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 8
+    const: 0
+    scale: 100
+  - name: field_8_3
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 8
+    const: 0
+    scale: 0.01
+- name: TEST_MSG_0004
+  sub_address: 12
+  description: Test message 4 with 3 words
   rate: 5
   words:
-  - name: word_0
-    type: u16
-    description: Test word 0 with 6 bitfields
-    fields:
-    - name: field_0_0
-      type: i16
-      mask: 64
-      shift: 6
-      description: Field 0 in word 0
-      scale: 100
-      offset: 50
-    - name: field_0_1
-      type: status
-      mask: 16
-      shift: 4
-      description: Field 1 in word 0
-    - name: field_0_2
-      type: discrete
-      mask: 16384
-      shift: 14
-      description: Field 2 in word 0
-    - name: field_0_3
-      type: bcd
-      mask: 7936
-      shift: 8
-      description: Field 3 in word 0
-      offset: 100
-      units: deg
-    - name: field_0_4
-      type: discrete
-      mask: 2
-      shift: 1
-      description: Field 4 in word 0
-    - name: field_0_5
-      type: u16
-      mask: 4
-      shift: 2
-      description: Field 5 in word 0
-      units: Hz
-  - name: word_1
-    type: u16
-    description: Test word 1 with 2 bitfields
-    fields:
-    - name: field_1_0
-      type: bcd
-      mask: 256
-      shift: 8
-      description: Field 0 in word 1
-      units: ft
-    - name: field_1_1
-      type: i16
-      mask: 52428
-      shift: 0
-      description: Field 1 in word 1
-      units: g
-  - name: word_2
-    type: u16
-    description: Test word 2 with 4 bitfields
-    fields:
-    - name: field_2_0
-      type: bnr16
-      mask: 32768
-      shift: 15
-      description: Field 0 in word 2
-      offset: 50
-      units: deg
-    - name: field_2_1
-      type: status
-      mask: 4095
-      shift: 0
-      description: Field 1 in word 2
-    - name: field_2_2
-      type: bcd
-      mask: 4096
-      shift: 12
-      description: Field 2 in word 2
-      units: deg
-    - name: field_2_3
-      type: discrete
-      mask: 8192
-      shift: 13
-      description: Field 3 in word 2
-      scale: 100
-      offset: 10
-  - name: word_3
-    type: u16
-    description: Test word 3 with 2 bitfields
-    fields:
-    - name: field_3_0
-      type: bcd
-      mask: 3
-      shift: 0
-      description: Field 0 in word 3
-    - name: field_3_1
-      type: u16
-      mask: 3840
-      shift: 8
-      description: Field 1 in word 3
-      units: ft
-  - name: word_4
-    type: u16
-    description: Test word 4 with 5 bitfields
-    fields:
-    - name: field_4_0
-      type: bcd
-      mask: 32768
-      shift: 15
-      description: Field 0 in word 4
-    - name: field_4_1
-      type: bnr16
-      mask: 13107
-      shift: 0
-      description: Field 1 in word 4
-      scale: 100
-    - name: field_4_2
-      type: status
-      mask: 4
-      shift: 2
-      description: Field 2 in word 4
-      scale: 0.01
-    - name: field_4_3
-      type: u16
-      mask: 1024
-      shift: 10
-      description: Field 3 in word 4
-    - name: field_4_4
-      type: u16
-      mask: 64
-      shift: 6
-      description: Field 4 in word 4
-      units: m
-  - name: word_5
-    type: bcd
-    description: Simple word 5
+  - name: field_0_0
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 0
+    const: 0
+  - name: field_0_1
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 0
+    const: 0
+  - name: field_0_2
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 0
+    const: 0
+    scale: 0.01
+  - name: field_0_3
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 0
+    const: 0
+    units: g
+  - name: field_0_4
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 0
+    const: 0
+    units: m
+  - name: field_0_5
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 0
+    const: 0
+    offset: 50
+  - name: field_0_6
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 0
+    const: 0
+    offset: -10
+  - name: field_1_0
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 1
+    const: 0
     scale: 100
+    offset: 50
+    units: m
+  - name: field_1_1
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 1
+    const: 0
+  - name: field_1_2
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 1
+    const: 0
+  - name: field_1_3
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 1
+    const: 0
+    scale: 0.001
+    units: m
+  - name: field_1_4
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 1
+    const: 0
+    scale: 0.001
+    units: m
+  - name: field_1_5
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 1
+    const: 0
+    units: m
+  - name: field_1_6
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 1
+    const: 0
     units: Hz
-  - name: word_6
-    type: u16
-    description: Test word 6 with 7 bitfields
-    fields:
-    - name: field_6_0
-      type: status
-      mask: 240
-      shift: 4
-      description: Field 0 in word 6
-      offset: -10
-    - name: field_6_1
-      type: discrete
-      mask: 61440
-      shift: 12
-      description: Field 1 in word 6
-      scale: 10
-      units: V
-    - name: field_6_2
-      type: bcd
-      mask: 512
-      shift: 9
-      description: Field 2 in word 6
-      units: A
-    - name: field_6_3
-      type: status
-      mask: 1
-      shift: 0
-      description: Field 3 in word 6
-      scale: 10
-    - name: field_6_4
-      type: status
-      mask: 1024
-      shift: 10
-      description: Field 4 in word 6
-      scale: 100
-      units: ft
-    - name: field_6_5
-      type: u16
-      mask: 2048
-      shift: 11
-      description: Field 5 in word 6
-      scale: 100
-      units: m
-    - name: field_6_6
-      type: u16
-      mask: 2
-      shift: 1
-      description: Field 6 in word 6
-      offset: -10
-      units: g
-  - name: word_7
-    type: u16
-    description: Test word 7 with 4 bitfields
-    fields:
-    - name: field_7_0
-      type: u16
-      mask: 1024
-      shift: 10
-      description: Field 0 in word 7
-    - name: field_7_1
-      type: i16
-      mask: 32
-      shift: 5
-      description: Field 1 in word 7
-    - name: field_7_2
-      type: u16
-      mask: 8192
-      shift: 13
-      description: Field 2 in word 7
-    - name: field_7_3
-      type: u16
-      mask: 32768
-      shift: 15
-      description: Field 3 in word 7
-  - name: word_8
-    type: u16
-    description: Test word 8 with 4 bitfields
-    fields:
-    - name: field_8_0
-      type: i16
-      mask: 4096
-      shift: 12
-      description: Field 0 in word 8
-      offset: -100
-    - name: field_8_1
-      type: bnr16
-      mask: 960
-      shift: 6
-      description: Field 1 in word 8
-    - name: field_8_2
-      type: u16
-      mask: 16384
-      shift: 14
-      description: Field 2 in word 8
-    - name: field_8_3
-      type: u16
-      mask: 3
-      shift: 0
-      description: Field 3 in word 8
-  - name: word_9
-    type: i16
-    description: Simple word 9
-    scale: 0.001
-    units: ft
-  - name: word_10
-    type: u16
-    description: Test word 10 with 5 bitfields
-    fields:
-    - name: field_10_0
-      type: bnr16
-      mask: 43690
-      shift: 0
-      description: Field 0 in word 10
-    - name: field_10_1
-      type: bnr16
-      mask: 4096
-      shift: 12
-      description: Field 1 in word 10
-      scale: 10
-    - name: field_10_2
-      type: bcd
-      mask: 256
-      shift: 8
-      description: Field 2 in word 10
-      scale: 0.001
-      units: kts
-    - name: field_10_3
-      type: bcd
-      mask: 1024
-      shift: 10
-      description: Field 3 in word 10
-    - name: field_10_4
-      type: bnr16
-      mask: 4
-      shift: 2
-      description: Field 4 in word 10
-      offset: -10
-      units: V
-  - name: word_11
-    type: u16
-    description: Test word 11 with 4 bitfields
-    fields:
-    - name: field_11_0
-      type: status
-      mask: 8192
-      shift: 13
-      description: Field 0 in word 11
-      scale: 100
-      units: g
-    - name: field_11_1
-      type: bnr16
-      mask: 52428
-      shift: 0
-      description: Field 1 in word 11
-      units: deg
-    - name: field_11_2
-      type: discrete
-      mask: 16
-      shift: 4
-      description: Field 2 in word 11
-      units: V
-    - name: field_11_3
-      type: i16
-      mask: 32
-      shift: 5
-      description: Field 3 in word 11
-      offset: 10
-  - name: word_12
-    type: u16
-    description: Simple word 12
-    scale: 10
-    units: rad
-  - name: word_13
-    type: u16
-    description: Test word 13 with 7 bitfields
-    fields:
-    - name: field_13_0
-      type: bcd
-      mask: 4
-      shift: 2
-      description: Field 0 in word 13
-      scale: 0.01
-    - name: field_13_1
-      type: u16
-      mask: 2
-      shift: 1
-      description: Field 1 in word 13
-      units: deg
-    - name: field_13_2
-      type: bnr16
-      mask: 3840
-      shift: 8
-      description: Field 2 in word 13
-      units: V
-    - name: field_13_3
-      type: status
-      mask: 64
-      shift: 6
-      description: Field 3 in word 13
-    - name: field_13_4
-      type: i16
-      mask: 61440
-      shift: 12
-      description: Field 4 in word 13
-      units: V
-    - name: field_13_5
-      type: i16
-      mask: 16
-      shift: 4
-      description: Field 5 in word 13
-    - name: field_13_6
-      type: status
-      mask: 1
-      shift: 0
-      description: Field 6 in word 13
-      offset: -50
-  - name: word_14
-    type: u16
-    description: Test word 14 with 1 bitfields
-    fields:
-    - name: field_14_0
-      type: bnr16
-      mask: 21845
-      shift: 0
-      description: Field 0 in word 14
-  - name: word_15
-    type: u16
-    description: Test word 15 with 4 bitfields
-    fields:
-    - name: field_15_0
-      type: bnr16
-      mask: 52428
-      shift: 0
-      description: Field 0 in word 15
-    - name: field_15_1
-      type: u16
-      mask: 32
-      shift: 5
-      description: Field 1 in word 15
-    - name: field_15_2
-      type: bcd
-      mask: 3
-      shift: 0
-      description: Field 2 in word 15
-      scale: 10
-      units: rad
-    - name: field_15_3
-      type: bcd
-      mask: 256
-      shift: 8
-      description: Field 3 in word 15
-- name: TEST_MSG_0004
-  sub_address: 14
-  description: Test message 4 with 26 words
-  rate: 100
-  words:
-  - name: word_0
-    type: u16
-    description: Test word 0 with 7 bitfields
-    fields:
-    - name: field_0_0
-      type: bcd
-      mask: 32767
-      shift: 0
-      description: Field 0 in word 0
-      units: kts
-    - name: field_0_1
-      type: status
-      mask: 32768
-      shift: 15
-      description: Field 1 in word 0
-      offset: 50
-  - name: word_1
-    type: u16
-    description: Test word 1 with 1 bitfields
-    fields:
-    - name: field_1_0
-      type: status
-      mask: 3840
-      shift: 8
-      description: Field 0 in word 1
-      offset: 50
-  - name: word_2
-    type: u16
-    description: Test word 2 with 1 bitfields
-    fields:
-    - name: field_2_0
-      type: bnr16
-      mask: 4096
-      shift: 12
-      description: Field 0 in word 2
-  - name: word_3
-    type: u16
-    description: Test word 3 with 6 bitfields
-    fields:
-    - name: field_3_0
-      type: status
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 3
-      units: ft
-    - name: field_3_1
-      type: discrete
-      mask: 128
-      shift: 7
-      description: Field 1 in word 3
-      offset: 10
-      units: V
-    - name: field_3_2
-      type: discrete
-      mask: 1024
-      shift: 10
-      description: Field 2 in word 3
-    - name: field_3_3
-      type: discrete
-      mask: 8
-      shift: 3
-      description: Field 3 in word 3
-      scale: 0.01
-      offset: -100
-    - name: field_3_4
-      type: status
-      mask: 64
-      shift: 6
-      description: Field 4 in word 3
-      scale: 0.01
-    - name: field_3_5
-      type: u16
-      mask: 32768
-      shift: 15
-      description: Field 5 in word 3
-  - name: word_4
-    type: discrete
-    description: Simple word 4
-  - name: word_5
-    type: u16
-    description: Test word 5 with 6 bitfields
-    fields:
-    - name: field_5_0
-      type: i16
-      mask: 16384
-      shift: 14
-      description: Field 0 in word 5
-      scale: 0.1
-    - name: field_5_1
-      type: i16
-      mask: 4095
-      shift: 0
-      description: Field 1 in word 5
-    - name: field_5_2
-      type: bcd
-      mask: 8192
-      shift: 13
-      description: Field 2 in word 5
-    - name: field_5_3
-      type: i16
-      mask: 4096
-      shift: 12
-      description: Field 3 in word 5
-      offset: 10
-    - name: field_5_4
-      type: i16
-      mask: 32768
-      shift: 15
-      description: Field 4 in word 5
-  - name: word_6
-    type: u16
-    description: Test word 6 with 4 bitfields
-    fields:
-    - name: field_6_0
-      type: u16
-      mask: 3
-      shift: 0
-      description: Field 0 in word 6
-      units: V
-    - name: field_6_1
-      type: bcd
-      mask: 4096
-      shift: 12
-      description: Field 1 in word 6
-    - name: field_6_2
-      type: i16
-      mask: 128
-      shift: 7
-      description: Field 2 in word 6
-      units: A
-    - name: field_6_3
-      type: bnr16
-      mask: 64
-      shift: 6
-      description: Field 3 in word 6
-      units: Hz
-  - name: word_7
-    type: u16
-    description: Test word 7 with 3 bitfields
-    fields:
-    - name: field_7_0
-      type: discrete
-      mask: 960
-      shift: 6
-      description: Field 0 in word 7
-      offset: 50
-    - name: field_7_1
-      type: bnr16
-      mask: 2048
-      shift: 11
-      description: Field 1 in word 7
-      offset: -50
-    - name: field_7_2
-      type: u16
-      mask: 4
-      shift: 2
-      description: Field 2 in word 7
-      units: V
-  - name: word_8
-    type: u16
-    description: Test word 8 with 4 bitfields
-    fields:
-    - name: field_8_0
-      type: u16
-      mask: 43690
-      shift: 0
-      description: Field 0 in word 8
-      scale: 100
-      units: g
-    - name: field_8_1
-      type: i16
-      mask: 16
-      shift: 4
-      description: Field 1 in word 8
-      units: ft
-    - name: field_8_2
-      type: bnr16
-      mask: 256
-      shift: 8
-      description: Field 2 in word 8
-      units: deg
-    - name: field_8_3
-      type: i16
-      mask: 64
-      shift: 6
-      description: Field 3 in word 8
-  - name: word_9
-    type: u16
-    description: Test word 9 with 6 bitfields
-    fields:
-    - name: field_9_0
-      type: bcd
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 9
-      scale: 100
-      units: A
-    - name: field_9_1
-      type: u16
-      mask: 2048
-      shift: 11
-      description: Field 1 in word 9
-      offset: 10
-      units: kts
-    - name: field_9_2
-      type: bcd
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 9
-    - name: field_9_3
-      type: discrete
-      mask: 128
-      shift: 7
-      description: Field 3 in word 9
-      offset: -100
-      units: m
-    - name: field_9_4
-      type: discrete
-      mask: 16384
-      shift: 14
-      description: Field 4 in word 9
-    - name: field_9_5
-      type: bcd
-      mask: 8
-      shift: 3
-      description: Field 5 in word 9
-      units: A
-  - name: word_10
-    type: u16
-    description: Test word 10 with 6 bitfields
-    fields:
-    - name: field_10_0
-      type: status
-      mask: 61440
-      shift: 12
-      description: Field 0 in word 10
-      units: V
-    - name: field_10_1
-      type: i16
-      mask: 16
-      shift: 4
-      description: Field 1 in word 10
-      scale: 0.1
-    - name: field_10_2
-      type: bcd
-      mask: 15
-      shift: 0
-      description: Field 2 in word 10
-      units: ft
-    - name: field_10_3
-      type: bcd
-      mask: 2048
-      shift: 11
-      description: Field 3 in word 10
-    - name: field_10_4
-      type: u16
-      mask: 64
-      shift: 6
-      description: Field 4 in word 10
-    - name: field_10_5
-      type: i16
-      mask: 128
-      shift: 7
-      description: Field 5 in word 10
-      offset: 100
-      units: A
-  - name: word_11
-    type: u16
-    description: Test word 11 with 1 bitfields
-    fields:
-    - name: field_11_0
-      type: bcd
-      mask: 16384
-      shift: 14
-      description: Field 0 in word 11
-      scale: 0.001
-      units: Hz
-  - name: word_12
-    type: u16
-    description: Test word 12 with 7 bitfields
-    fields:
-    - name: field_12_0
-      type: bcd
-      mask: 61440
-      shift: 12
-      description: Field 0 in word 12
-    - name: field_12_1
-      type: status
-      mask: 32
-      shift: 5
-      description: Field 1 in word 12
-    - name: field_12_2
-      type: bnr16
-      mask: 16
-      shift: 4
-      description: Field 2 in word 12
-      units: m
-    - name: field_12_3
-      type: bcd
-      mask: 256
-      shift: 8
-      description: Field 3 in word 12
-      units: deg
-    - name: field_12_4
-      type: bcd
-      mask: 1
-      shift: 0
-      description: Field 4 in word 12
-      scale: 0.01
-      offset: -10
-    - name: field_12_5
-      type: i16
-      mask: 64
-      shift: 6
-      description: Field 5 in word 12
-      units: rad
-    - name: field_12_6
-      type: bnr16
-      mask: 4
-      shift: 2
-      description: Field 6 in word 12
-      units: m
-  - name: word_13
-    type: status
-    description: Simple word 13
-  - name: word_14
-    type: u16
-    description: Test word 14 with 3 bitfields
-    fields:
-    - name: field_14_0
-      type: u16
-      mask: 21845
-      shift: 0
-      description: Field 0 in word 14
-      units: rad
-    - name: field_14_1
-      type: discrete
-      mask: 32
-      shift: 5
-      description: Field 1 in word 14
-      scale: 0.001
-      offset: 50
-    - name: field_14_2
-      type: u16
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 14
-  - name: word_15
-    type: discrete
-    description: Simple word 15
-    scale: 0.001
-    units: deg
-  - name: word_16
-    type: u16
-    description: Test word 16 with 6 bitfields
-    fields:
-    - name: field_16_0
-      type: bcd
-      mask: 7936
-      shift: 8
-      description: Field 0 in word 16
-      scale: 100
-      units: deg
-    - name: field_16_1
-      type: u16
-      mask: 1
-      shift: 0
-      description: Field 1 in word 16
-      scale: 0.01
-      units: m
-    - name: field_16_2
-      type: u16
-      mask: 16
-      shift: 4
-      description: Field 2 in word 16
-      scale: 10
-      units: V
-    - name: field_16_3
-      type: bcd
-      mask: 16384
-      shift: 14
-      description: Field 3 in word 16
-    - name: field_16_4
-      type: bnr16
-      mask: 32
-      shift: 5
-      description: Field 4 in word 16
-      units: kts
-    - name: field_16_5
-      type: i16
-      mask: 8
-      shift: 3
-      description: Field 5 in word 16
-  - name: word_17
-    type: u16
-    description: Test word 17 with 1 bitfields
-    fields:
-    - name: field_17_0
-      type: discrete
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 17
-  - name: word_18
-    type: status
-    description: Simple word 18
-  - name: word_19
-    type: u16
-    description: Test word 19 with 3 bitfields
-    fields:
-    - name: field_19_0
-      type: discrete
-      mask: 4095
-      shift: 0
-      description: Field 0 in word 19
-      scale: 0.1
-    - name: field_19_1
-      type: i16
-      mask: 8192
-      shift: 13
-      description: Field 1 in word 19
-      scale: 0.01
-    - name: field_19_2
-      type: discrete
-      mask: 4096
-      shift: 12
-      description: Field 2 in word 19
-  - name: word_20
-    type: u16
-    description: Test word 20 with 3 bitfields
-    fields:
-    - name: field_20_0
-      type: status
-      mask: 960
-      shift: 6
-      description: Field 0 in word 20
-      scale: 100
-      offset: -100
-      units: ft
-    - name: field_20_1
-      type: discrete
-      mask: 8192
-      shift: 13
-      description: Field 1 in word 20
-      units: g
-    - name: field_20_2
-      type: bnr16
-      mask: 8
-      shift: 3
-      description: Field 2 in word 20
-      offset: -100
-      units: rad
-  - name: word_21
-    type: bcd
-    description: Simple word 21
+  - name: field_2_0
+    encode: u16
+    mask: 255
+    shift: 0
+    word_index: 2
+    const: 0
     scale: 0.1
-    offset: -100
-    units: kts
-  - name: word_22
-    type: u16
-    description: Test word 22 with 3 bitfields
-    fields:
-    - name: field_22_0
-      type: status
-      mask: 4096
-      shift: 12
-      description: Field 0 in word 22
-      scale: 0.001
-      offset: -100
-      units: ft
-    - name: field_22_1
-      type: u16
-      mask: 64
-      shift: 6
-      description: Field 1 in word 22
-      offset: -10
-    - name: field_22_2
-      type: bcd
-      mask: 3
-      shift: 0
-      description: Field 2 in word 22
-      units: deg
-  - name: word_23
-    type: bcd
-    description: Simple word 23
-    scale: 10
-    offset: 10
-    units: g
-  - name: word_24
-    type: bnr16
-    description: Simple word 24
-    scale: 10
-    offset: 10
-  - name: word_25
-    type: discrete
-    description: Simple word 25
-    scale: 10
 - name: TEST_MSG_0005
-  sub_address: 4
-  description: Test message 5 with 21 words
-  rate: 20
+  sub_address: 9
+  description: Test message 5 with 20 words
+  rate: 1
   words:
-  - name: word_0
-    type: u16
-    description: Test word 0 with 4 bitfields
-    fields:
-    - name: field_0_0
-      type: status
-      mask: 512
-      shift: 9
-      description: Field 0 in word 0
-      scale: 0.01
-      offset: 10
-      units: Hz
-    - name: field_0_1
-      type: i16
-      mask: 8192
-      shift: 13
-      description: Field 1 in word 0
-    - name: field_0_2
-      type: bnr16
-      mask: 15
-      shift: 0
-      description: Field 2 in word 0
-      scale: 0.01
-    - name: field_0_3
-      type: bnr16
-      mask: 64
-      shift: 6
-      description: Field 3 in word 0
-      scale: 10
-  - name: word_1
-    type: u16
-    description: Test word 1 with 1 bitfields
-    fields:
-    - name: field_1_0
-      type: status
-      mask: 960
-      shift: 6
-      description: Field 0 in word 1
-      scale: 100
-      units: A
-  - name: word_2
-    type: u16
-    description: Test word 2 with 5 bitfields
-    fields:
-    - name: field_2_0
-      type: i16
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 2
-      offset: -100
-      units: g
-    - name: field_2_1
-      type: bcd
-      mask: 16384
-      shift: 14
-      description: Field 1 in word 2
-    - name: field_2_2
-      type: bcd
-      mask: 8
-      shift: 3
-      description: Field 2 in word 2
-    - name: field_2_3
-      type: bnr16
-      mask: 128
-      shift: 7
-      description: Field 3 in word 2
-      scale: 0.1
-      units: Hz
-    - name: field_2_4
-      type: i16
-      mask: 4
-      shift: 2
-      description: Field 4 in word 2
-      offset: 50
-  - name: word_3
-    type: u16
-    description: Test word 3 with 6 bitfields
-    fields:
-    - name: field_3_0
-      type: discrete
-      mask: 4096
-      shift: 12
-      description: Field 0 in word 3
-      offset: 50
-      units: g
-    - name: field_3_1
-      type: bcd
-      mask: 960
-      shift: 6
-      description: Field 1 in word 3
-      offset: 50
-      units: m
-    - name: field_3_2
-      type: bnr16
-      mask: 1024
-      shift: 10
-      description: Field 2 in word 3
-      units: V
-    - name: field_3_3
-      type: i16
-      mask: 1
-      shift: 0
-      description: Field 3 in word 3
-    - name: field_3_4
-      type: i16
-      mask: 2
-      shift: 1
-      description: Field 4 in word 3
-      scale: 100
-      units: m
-    - name: field_3_5
-      type: bcd
-      mask: 8192
-      shift: 13
-      description: Field 5 in word 3
-      units: g
-  - name: word_4
-    type: i16
-    description: Simple word 4
+  - name: field_0_0
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 0
+    const: 0
+  - name: field_0_1
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 0
+    const: 0
+    scale: 10
+  - name: field_0_2
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 0
+    const: 0
+    offset: 50
+  - name: field_0_3
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 0
+    const: 0
+  - name: field_0_4
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 0
+    const: 0
+    units: V
+  - name: field_0_5
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 0
+    const: 0
     scale: 100
-  - name: word_5
-    type: u16
-    description: Test word 5 with 2 bitfields
-    fields:
-    - name: field_5_0
-      type: discrete
-      mask: 2
-      shift: 1
-      description: Field 0 in word 5
-      scale: 0.1
-      units: kts
-    - name: field_5_1
-      type: status
-      mask: 16
-      shift: 4
-      description: Field 1 in word 5
-      offset: 10
-      units: A
-  - name: word_6
-    type: u16
-    description: Test word 6 with 7 bitfields
-    fields:
-    - name: field_6_0
-      type: discrete
-      mask: 7936
-      shift: 8
-      description: Field 0 in word 6
-      units: Hz
-    - name: field_6_1
-      type: i16
-      mask: 64
-      shift: 6
-      description: Field 1 in word 6
-      units: g
-    - name: field_6_2
-      type: u16
-      mask: 8192
-      shift: 13
-      description: Field 2 in word 6
-    - name: field_6_3
-      type: u16
-      mask: 16
-      shift: 4
-      description: Field 3 in word 6
-      units: deg
-    - name: field_6_4
-      type: discrete
-      mask: 128
-      shift: 7
-      description: Field 4 in word 6
-      scale: 100
-    - name: field_6_5
-      type: bnr16
-      mask: 2
-      shift: 1
-      description: Field 5 in word 6
-      units: V
-    - name: field_6_6
-      type: bnr16
-      mask: 8
-      shift: 3
-      description: Field 6 in word 6
-      offset: -10
-      units: m
-  - name: word_7
-    type: bcd
-    description: Simple word 7
+    units: ft
+  - name: field_0_6
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 0
+    const: 0
+  - name: field_0_7
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 0
+    const: 0
+    scale: 0.01
+  - name: word_1
+    encode: bnr16
+    const: 0
+  - name: field_2_0
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 2
+    const: 0
+    offset: 10
     units: g
-  - name: word_8
-    type: u16
-    description: Test word 8 with 7 bitfields
-    fields:
-    - name: field_8_0
-      type: bnr16
-      mask: 52428
-      shift: 0
-      description: Field 0 in word 8
-    - name: field_8_1
-      type: u16
-      mask: 32
-      shift: 5
-      description: Field 1 in word 8
-    - name: field_8_2
-      type: bnr16
-      mask: 3
-      shift: 0
-      description: Field 2 in word 8
-      units: g
-    - name: field_8_3
-      type: bnr16
-      mask: 16
-      shift: 4
-      description: Field 3 in word 8
-      scale: 0.001
-    - name: field_8_4
-      type: discrete
-      mask: 8192
-      shift: 13
-      description: Field 4 in word 8
-      units: rad
-    - name: field_8_5
-      type: bnr16
-      mask: 4096
-      shift: 12
-      description: Field 5 in word 8
-      units: A
-    - name: field_8_6
-      type: bcd
-      mask: 512
-      shift: 9
-      description: Field 6 in word 8
-  - name: word_9
-    type: u16
-    description: Test word 9 with 8 bitfields
-    fields:
-    - name: field_9_0
-      type: discrete
-      mask: 3840
-      shift: 8
-      description: Field 0 in word 9
-    - name: field_9_1
-      type: i16
-      mask: 2
-      shift: 1
-      description: Field 1 in word 9
-      units: V
-    - name: field_9_2
-      type: u16
-      mask: 8192
-      shift: 13
-      description: Field 2 in word 9
-      units: A
-    - name: field_9_3
-      type: bcd
-      mask: 16
-      shift: 4
-      description: Field 3 in word 9
-      scale: 100
-    - name: field_9_4
-      type: u16
-      mask: 8
-      shift: 3
-      description: Field 4 in word 9
-      scale: 10
-      units: g
-    - name: field_9_5
-      type: bnr16
-      mask: 64
-      shift: 6
-      description: Field 5 in word 9
-      units: g
-    - name: field_9_6
-      type: discrete
-      mask: 4096
-      shift: 12
-      description: Field 6 in word 9
-    - name: field_9_7
-      type: discrete
-      mask: 32768
-      shift: 15
-      description: Field 7 in word 9
-  - name: word_10
-    type: u16
-    description: Test word 10 with 7 bitfields
-    fields:
-    - name: field_10_0
-      type: i16
-      mask: 4095
-      shift: 0
-      description: Field 0 in word 10
-    - name: field_10_1
-      type: discrete
-      mask: 32768
-      shift: 15
-      description: Field 1 in word 10
-      scale: 0.1
-    - name: field_10_2
-      type: status
-      mask: 8192
-      shift: 13
-      description: Field 2 in word 10
-      units: kts
-    - name: field_10_3
-      type: status
-      mask: 16384
-      shift: 14
-      description: Field 3 in word 10
-    - name: field_10_4
-      type: bnr16
-      mask: 4096
-      shift: 12
-      description: Field 4 in word 10
-      units: ft
-  - name: word_11
-    type: u16
-    description: Test word 11 with 5 bitfields
-    fields:
-    - name: field_11_0
-      type: bcd
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 11
-      units: V
-    - name: field_11_1
-      type: discrete
-      mask: 4
-      shift: 2
-      description: Field 1 in word 11
-      scale: 0.01
-      offset: 50
-    - name: field_11_2
-      type: i16
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 11
-    - name: field_11_3
-      type: bcd
-      mask: 128
-      shift: 7
-      description: Field 3 in word 11
-      scale: 0.001
-      units: ft
-    - name: field_11_4
-      type: bnr16
-      mask: 1024
-      shift: 10
-      description: Field 4 in word 11
-  - name: word_12
-    type: u16
-    description: Test word 12 with 1 bitfields
-    fields:
-    - name: field_12_0
-      type: u16
-      mask: 1024
-      shift: 10
-      description: Field 0 in word 12
-      scale: 100
-  - name: word_13
-    type: u16
-    description: Test word 13 with 7 bitfields
-    fields:
-    - name: field_13_0
-      type: bnr16
-      mask: 52428
-      shift: 0
-      description: Field 0 in word 13
-    - name: field_13_1
-      type: u16
-      mask: 8192
-      shift: 13
-      description: Field 1 in word 13
-    - name: field_13_2
-      type: bnr16
-      mask: 1
-      shift: 0
-      description: Field 2 in word 13
-    - name: field_13_3
-      type: status
-      mask: 256
-      shift: 8
-      description: Field 3 in word 13
-      scale: 0.01
-      units: deg
-    - name: field_13_4
-      type: bnr16
-      mask: 4096
-      shift: 12
-      description: Field 4 in word 13
-      scale: 0.1
-      offset: 50
-      units: m
-    - name: field_13_5
-      type: bnr16
-      mask: 2
-      shift: 1
-      description: Field 5 in word 13
-    - name: field_13_6
-      type: status
-      mask: 32
-      shift: 5
-      description: Field 6 in word 13
-  - name: word_14
-    type: bcd
-    description: Simple word 14
+  - name: field_2_1
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 2
+    const: 0
+    scale: 0.1
+    units: rad
+  - name: field_2_2
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 2
+    const: 0
+  - name: field_2_3
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 2
+    const: 0
+  - name: field_2_4
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 2
+    const: 0
+    units: kts
+  - name: field_3_0
+    encode: u16
+    mask: 1023
+    shift: 0
+    word_index: 3
+    const: 0
+    scale: 0.001
+  - name: field_3_1
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 3
+    const: 0
+    units: rad
+  - name: field_3_2
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 3
+    const: 0
+    units: g
+  - name: field_4_0
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 4
+    const: 0
+    units: Hz
+  - name: field_4_1
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 4
+    const: 0
+    units: kts
+  - name: field_4_2
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 4
+    const: 0
+  - name: field_4_3
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 4
+    const: 0
     scale: 10
     offset: -50
-    units: rad
-  - name: word_15
-    type: i16
-    description: Simple word 15
+  - name: field_4_4
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 4
+    const: 0
     scale: 0.01
-    units: Hz
-  - name: word_16
-    type: u16
-    description: Test word 16 with 1 bitfields
-    fields:
-    - name: field_16_0
-      type: discrete
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 16
-      units: kts
-  - name: word_17
-    type: u16
-    description: Test word 17 with 7 bitfields
-    fields:
-    - name: field_17_0
-      type: status
-      mask: 4096
-      shift: 12
-      description: Field 0 in word 17
-    - name: field_17_1
-      type: status
-      mask: 2048
-      shift: 11
-      description: Field 1 in word 17
-      units: V
-    - name: field_17_2
-      type: discrete
-      mask: 4
-      shift: 2
-      description: Field 2 in word 17
-      scale: 0.1
-    - name: field_17_3
-      type: u16
-      mask: 128
-      shift: 7
-      description: Field 3 in word 17
-      units: rad
-    - name: field_17_4
-      type: bcd
-      mask: 1
-      shift: 0
-      description: Field 4 in word 17
-      units: kts
-    - name: field_17_5
-      type: u16
-      mask: 2
-      shift: 1
-      description: Field 5 in word 17
-      units: m
-    - name: field_17_6
-      type: u16
-      mask: 32768
-      shift: 15
-      description: Field 6 in word 17
-      offset: -50
-  - name: word_18
-    type: u16
-    description: Test word 18 with 4 bitfields
-    fields:
-    - name: field_18_0
-      type: i16
-      mask: 16383
-      shift: 0
-      description: Field 0 in word 18
-    - name: field_18_1
-      type: bcd
-      mask: 16384
-      shift: 14
-      description: Field 1 in word 18
-      units: kts
-    - name: field_18_2
-      type: i16
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 18
-  - name: word_19
-    type: u16
-    description: Test word 19 with 6 bitfields
-    fields:
-    - name: field_19_0
-      type: i16
-      mask: 64
-      shift: 6
-      description: Field 0 in word 19
-      units: ft
-    - name: field_19_1
-      type: discrete
-      mask: 32
-      shift: 5
-      description: Field 1 in word 19
-      scale: 100
-    - name: field_19_2
-      type: discrete
-      mask: 512
-      shift: 9
-      description: Field 2 in word 19
-      scale: 0.1
-      units: m
-    - name: field_19_3
-      type: bcd
-      mask: 31744
-      shift: 10
-      description: Field 3 in word 19
-    - name: field_19_4
-      type: u16
-      mask: 128
-      shift: 7
-      description: Field 4 in word 19
-    - name: field_19_5
-      type: status
-      mask: 15
-      shift: 0
-      description: Field 5 in word 19
-      units: rad
-  - name: word_20
-    type: discrete
-    description: Simple word 20
-    scale: 10
-- name: TEST_MSG_0006
-  sub_address: 13
-  description: Test message 6 with 16 words
-  rate: 50
-  words:
-  - name: word_0
-    type: status
-    description: Simple word 0
-  - name: word_1
-    type: u16
-    description: Test word 1 with 4 bitfields
-    fields:
-    - name: field_1_0
-      type: bcd
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 1
-    - name: field_1_1
-      type: bnr16
-      mask: 1024
-      shift: 10
-      description: Field 1 in word 1
-      scale: 100
-      offset: 100
-      units: A
-    - name: field_1_2
-      type: status
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 1
-      units: V
-    - name: field_1_3
-      type: u16
-      mask: 4
-      shift: 2
-      description: Field 3 in word 1
-      offset: -10
-  - name: word_2
-    type: u16
-    description: Test word 2 with 7 bitfields
-    fields:
-    - name: field_2_0
-      type: u16
-      mask: 32768
-      shift: 15
-      description: Field 0 in word 2
-      units: ft
-    - name: field_2_1
-      type: bnr16
-      mask: 16384
-      shift: 14
-      description: Field 1 in word 2
-      offset: -10
-    - name: field_2_2
-      type: bcd
-      mask: 7936
-      shift: 8
-      description: Field 2 in word 2
-    - name: field_2_3
-      type: discrete
-      mask: 2
-      shift: 1
-      description: Field 3 in word 2
-      scale: 100
-      units: g
-    - name: field_2_4
-      type: discrete
-      mask: 64
-      shift: 6
-      description: Field 4 in word 2
-    - name: field_2_5
-      type: discrete
-      mask: 1
-      shift: 0
-      description: Field 5 in word 2
-      offset: -100
-    - name: field_2_6
-      type: i16
-      mask: 8
-      shift: 3
-      description: Field 6 in word 2
-      scale: 0.01
-  - name: word_3
-    type: bcd
-    description: Simple word 3
-  - name: word_4
-    type: u16
-    description: Test word 4 with 8 bitfields
-    fields:
-    - name: field_4_0
-      type: discrete
-      mask: 2
-      shift: 1
-      description: Field 0 in word 4
-      offset: 100
-    - name: field_4_1
-      type: u16
-      mask: 21845
-      shift: 0
-      description: Field 1 in word 4
-      scale: 100
-      units: m
-    - name: field_4_2
-      type: bnr16
-      mask: 8192
-      shift: 13
-      description: Field 2 in word 4
-      scale: 10
-      units: Hz
-    - name: field_4_3
-      type: discrete
-      mask: 32768
-      shift: 15
-      description: Field 3 in word 4
-      offset: -100
-    - name: field_4_4
-      type: status
-      mask: 8
-      shift: 3
-      description: Field 4 in word 4
-      scale: 0.1
-    - name: field_4_5
-      type: discrete
-      mask: 128
-      shift: 7
-      description: Field 5 in word 4
-    - name: field_4_6
-      type: bcd
-      mask: 2048
-      shift: 11
-      description: Field 6 in word 4
-      units: g
-    - name: field_4_7
-      type: u16
-      mask: 32
-      shift: 5
-      description: Field 7 in word 4
-      scale: 10
+  - name: field_4_5
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 4
+    const: 0
+  - name: field_4_6
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 4
+    const: 0
+    offset: -100
   - name: word_5
-    type: u16
-    description: Test word 5 with 7 bitfields
-    fields:
-    - name: field_5_0
-      type: discrete
-      mask: 256
-      shift: 8
-      description: Field 0 in word 5
-      units: V
-    - name: field_5_1
-      type: u16
-      mask: 4096
-      shift: 12
-      description: Field 1 in word 5
-      scale: 100
-      units: Hz
-    - name: field_5_2
-      type: discrete
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 5
-    - name: field_5_3
-      type: u16
-      mask: 16
-      shift: 4
-      description: Field 3 in word 5
-      scale: 100
-    - name: field_5_4
-      type: u16
-      mask: 4
-      shift: 2
-      description: Field 4 in word 5
-      scale: 0.01
-      units: kts
-    - name: field_5_5
-      type: i16
-      mask: 1
-      shift: 0
-      description: Field 5 in word 5
-    - name: field_5_6
-      type: discrete
-      mask: 1024
-      shift: 10
-      description: Field 6 in word 5
-      scale: 0.1
-      units: A
-  - name: word_6
-    type: u16
-    description: Test word 6 with 8 bitfields
-    fields:
-    - name: field_6_0
-      type: discrete
-      mask: 4096
-      shift: 12
-      description: Field 0 in word 6
-      units: m
-    - name: field_6_1
-      type: discrete
-      mask: 16384
-      shift: 14
-      description: Field 1 in word 6
-      units: A
-    - name: field_6_2
-      type: discrete
-      mask: 8
-      shift: 3
-      description: Field 2 in word 6
-      offset: 50
-      units: m
-    - name: field_6_3
-      type: bcd
-      mask: 3840
-      shift: 8
-      description: Field 3 in word 6
-    - name: field_6_4
-      type: status
-      mask: 4
-      shift: 2
-      description: Field 4 in word 6
-      scale: 10
-      offset: 50
-    - name: field_6_5
-      type: u16
-      mask: 128
-      shift: 7
-      description: Field 5 in word 6
-      units: g
-    - name: field_6_6
-      type: status
-      mask: 2
-      shift: 1
-      description: Field 6 in word 6
-      scale: 0.01
-      offset: 100
-    - name: field_6_7
-      type: status
-      mask: 1
-      shift: 0
-      description: Field 7 in word 6
+    encode: i16
+    const: 0
+    scale: 100
+  - name: field_6_0
+    encode: u16
+    mask: 255
+    shift: 0
+    word_index: 6
+    const: 0
+  - name: field_6_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 6
+    const: 0
   - name: word_7
-    type: discrete
-    description: Simple word 7
+    encode: status
+    const: 0
     scale: 0.1
-  - name: word_8
-    type: u16
-    description: Test word 8 with 1 bitfields
-    fields:
-    - name: field_8_0
-      type: bcd
-      mask: 512
-      shift: 9
-      description: Field 0 in word 8
-      scale: 0.01
-      units: kts
-  - name: word_9
-    type: u16
-    description: Test word 9 with 4 bitfields
-    fields:
-    - name: field_9_0
-      type: status
-      mask: 32768
-      shift: 15
-      description: Field 0 in word 9
-      units: ft
-    - name: field_9_1
-      type: status
-      mask: 2048
-      shift: 11
-      description: Field 1 in word 9
-    - name: field_9_2
-      type: discrete
-      mask: 15
-      shift: 0
-      description: Field 2 in word 9
-    - name: field_9_3
-      type: discrete
-      mask: 256
-      shift: 8
-      description: Field 3 in word 9
-      units: A
-  - name: word_10
-    type: u16
-    description: Test word 10 with 8 bitfields
-    fields:
-    - name: field_10_0
-      type: bnr16
-      mask: 16384
-      shift: 14
-      description: Field 0 in word 10
-      scale: 100
-      units: rad
-    - name: field_10_1
-      type: bcd
-      mask: 1
-      shift: 0
-      description: Field 1 in word 10
-      offset: -50
-    - name: field_10_2
-      type: bcd
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 10
-      scale: 0.1
-      units: rad
-    - name: field_10_3
-      type: bcd
-      mask: 16
-      shift: 4
-      description: Field 3 in word 10
-      units: g
-    - name: field_10_4
-      type: u16
-      mask: 2
-      shift: 1
-      description: Field 4 in word 10
-    - name: field_10_5
-      type: bnr16
-      mask: 64
-      shift: 6
-      description: Field 5 in word 10
-      units: g
-    - name: field_10_6
-      type: status
-      mask: 1024
-      shift: 10
-      description: Field 6 in word 10
-    - name: field_10_7
-      type: bcd
-      mask: 8192
-      shift: 13
-      description: Field 7 in word 10
-      scale: 100
-      units: g
-  - name: word_11
-    type: i16
-    description: Simple word 11
-    scale: 0.1
+    offset: 50
+  - name: field_8_0
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 8
+    const: 0
+    offset: -100
+  - name: field_8_1
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 8
+    const: 0
+  - name: field_8_2
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 8
+    const: 0
+  - name: field_8_3
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 8
+    const: 0
+  - name: field_8_4
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 8
+    const: 0
+    scale: 100
+  - name: field_8_5
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 8
+    const: 0
+    units: A
+  - name: field_9_0
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 9
+    const: 0
+  - name: field_9_1
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 9
+    const: 0
     units: deg
-  - name: word_12
-    type: u16
-    description: Test word 12 with 2 bitfields
-    fields:
-    - name: field_12_0
-      type: bcd
-      mask: 1024
-      shift: 10
-      description: Field 0 in word 12
-    - name: field_12_1
-      type: u16
-      mask: 512
-      shift: 9
-      description: Field 1 in word 12
-      offset: 100
-  - name: word_13
-    type: bcd
-    description: Simple word 13
+  - name: field_9_2
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 9
+    const: 0
+    offset: -10
+  - name: field_9_3
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 9
+    const: 0
+    units: ft
+  - name: field_9_4
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 9
+    const: 0
+  - name: field_9_5
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 9
+    const: 0
+    units: rad
+  - name: field_10_0
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 10
+    const: 0
+    scale: 0.001
+  - name: field_10_1
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 10
+    const: 0
+    scale: 10
+  - name: field_11_0
+    encode: u16
+    mask: 43690
+    shift: 0
+    word_index: 11
+    const: 0
+    scale: 10
+    offset: -100
+  - name: field_11_1
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 11
+    const: 0
+    offset: -10
+    units: kts
+  - name: field_11_2
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 11
+    const: 0
+  - name: field_11_3
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 11
+    const: 0
+  - name: field_11_4
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 11
+    const: 0
+  - name: field_11_5
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 11
+    const: 0
+    units: kts
+  - name: field_11_6
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 11
+    const: 0
+    scale: 100
+    units: g
+  - name: field_12_0
+    encode: u16
+    mask: 4095
+    shift: 0
+    word_index: 12
+    const: 0
+    scale: 100
+  - name: field_12_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 12
+    const: 0
+    scale: 100
+  - name: field_12_2
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 12
+    const: 0
+  - name: field_12_3
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 12
+    const: 0
+    units: m
+  - name: field_12_4
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 12
+    const: 0
+    units: deg
+  - name: field_13_0
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 13
+    const: 0
+    scale: 100
+  - name: field_14_0
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 14
+    const: 0
+  - name: field_14_1
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 14
+    const: 0
+    scale: 10
+  - name: field_14_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 14
+    const: 0
+    scale: 10
+    offset: 50
+  - name: field_14_3
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 14
+    const: 0
+    units: m
+  - name: field_14_4
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 14
+    const: 0
+  - name: field_14_5
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 14
+    const: 0
+  - name: field_14_6
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 14
+    const: 0
+  - name: field_14_7
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 14
+    const: 0
+    scale: 100
+    units: m
+  - name: field_15_0
+    encode: u16
+    mask: 21845
+    shift: 0
+    word_index: 15
+    const: 0
+    scale: 0.1
+    offset: 100
+  - name: field_15_1
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 15
+    const: 0
+    units: m
+  - name: field_15_2
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 15
+    const: 0
+    units: g
+  - name: field_16_0
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 16
+    const: 0
+  - name: field_16_1
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 16
+    const: 0
+    scale: 0.001
+    units: g
+  - name: field_16_2
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 16
+    const: 0
+  - name: field_16_3
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 16
+    const: 0
     scale: 0.01
     units: m
-  - name: word_14
-    type: u16
-    description: Test word 14 with 2 bitfields
-    fields:
-    - name: field_14_0
-      type: bcd
-      mask: 1
-      shift: 0
-      description: Field 0 in word 14
-    - name: field_14_1
-      type: u16
-      mask: 4
-      shift: 2
-      description: Field 1 in word 14
-      scale: 10
-      offset: 50
-      units: rad
-  - name: word_15
-    type: u16
-    description: Simple word 15
-    scale: 0.01
-- name: TEST_MSG_0007
-  sub_address: 20
-  description: Test message 7 with 5 words
-  rate: 50
+  - name: field_16_4
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 16
+    const: 0
+    units: m
+  - name: field_17_0
+    encode: u16
+    mask: 1023
+    shift: 0
+    word_index: 17
+    const: 0
+    units: deg
+  - name: field_17_1
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 17
+    const: 0
+    offset: -50
+  - name: field_17_2
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 17
+    const: 0
+    units: kts
+  - name: field_18_0
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 18
+    const: 0
+    units: m
+  - name: field_18_1
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 18
+    const: 0
+    offset: -100
+    units: Hz
+  - name: field_18_2
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 18
+    const: 0
+    scale: 10
+    units: rad
+  - name: field_18_3
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 18
+    const: 0
+  - name: field_18_4
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 18
+    const: 0
+    units: rad
+  - name: field_18_5
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 18
+    const: 0
+  - name: field_18_6
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 18
+    const: 0
+    units: deg
+  - name: field_19_0
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 19
+    const: 0
+  - name: field_19_1
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 19
+    const: 0
+    units: kts
+- name: TEST_MSG_0006
+  sub_address: 6
+  description: Test message 6 with 30 words
+  rate: 1
   words:
-  - name: word_0
-    type: u16
-    description: Test word 0 with 7 bitfields
-    fields:
-    - name: field_0_0
-      type: i16
-      mask: 64
-      shift: 6
-      description: Field 0 in word 0
-      offset: -50
-    - name: field_0_1
-      type: bcd
-      mask: 61440
-      shift: 12
-      description: Field 1 in word 0
-      scale: 0.1
-    - name: field_0_2
-      type: bnr16
-      mask: 16
-      shift: 4
-      description: Field 2 in word 0
-      scale: 10
-      units: kts
-    - name: field_0_3
-      type: u16
-      mask: 15
-      shift: 0
-      description: Field 3 in word 0
-      scale: 0.1
-      units: rad
-    - name: field_0_4
-      type: bnr16
-      mask: 256
-      shift: 8
-      description: Field 4 in word 0
-      units: ft
-    - name: field_0_5
-      type: discrete
-      mask: 1024
-      shift: 10
-      description: Field 5 in word 0
-    - name: field_0_6
-      type: bcd
-      mask: 32
-      shift: 5
-      description: Field 6 in word 0
-      offset: 100
-  - name: word_1
-    type: u16
-    description: Test word 1 with 5 bitfields
-    fields:
-    - name: field_1_0
-      type: bnr16
-      mask: 64
-      shift: 6
-      description: Field 0 in word 1
-      offset: -100
-      units: kts
-    - name: field_1_1
-      type: status
-      mask: 3
-      shift: 0
-      description: Field 1 in word 1
-      scale: 0.01
-      units: rad
-    - name: field_1_2
-      type: u16
-      mask: 8
-      shift: 3
-      description: Field 2 in word 1
-    - name: field_1_3
-      type: i16
-      mask: 3840
-      shift: 8
-      description: Field 3 in word 1
-      offset: -10
-    - name: field_1_4
-      type: u16
-      mask: 16384
-      shift: 14
-      description: Field 4 in word 1
-      scale: 10
-      offset: 10
-      units: g
-  - name: word_2
-    type: u16
-    description: Test word 2 with 3 bitfields
-    fields:
-    - name: field_2_0
-      type: u16
-      mask: 61440
-      shift: 12
-      description: Field 0 in word 2
-      scale: 0.001
-    - name: field_2_1
-      type: u16
-      mask: 4095
-      shift: 0
-      description: Field 1 in word 2
-  - name: word_3
-    type: u16
-    description: Test word 3 with 1 bitfields
-    fields:
-    - name: field_3_0
-      type: discrete
-      mask: 240
-      shift: 4
-      description: Field 0 in word 3
-      offset: -100
-  - name: word_4
-    type: u16
-    description: Test word 4 with 3 bitfields
-    fields:
-    - name: field_4_0
-      type: i16
-      mask: 2048
-      shift: 11
-      description: Field 0 in word 4
-    - name: field_4_1
-      type: status
-      mask: 240
-      shift: 4
-      description: Field 1 in word 4
-    - name: field_4_2
-      type: i16
-      mask: 256
-      shift: 8
-      description: Field 2 in word 4
-      offset: 100
-- name: TEST_MSG_0008
-  sub_address: 1
-  description: Test message 8 with 20 words
+  - name: field_0_0
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 0
+    const: 0
+    scale: 0.1
+  - name: field_0_1
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 0
+    const: 0
+  - name: field_0_2
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 0
+    const: 0
+    units: g
+  - name: field_0_3
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 0
+    const: 0
+  - name: field_0_4
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 0
+    const: 0
+    scale: 100
+  - name: field_1_0
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 1
+    const: 0
+  - name: field_1_1
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 1
+    const: 0
+    units: rad
+  - name: field_2_0
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 2
+    const: 0
+  - name: field_2_1
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 2
+    const: 0
+    scale: 10
+    offset: 10
+  - name: field_2_2
+    encode: u16
+    mask: 960
+    shift: 6
+    word_index: 2
+    const: 0
+    scale: 0.1
+  - name: field_2_3
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 2
+    const: 0
+  - name: field_3_0
+    encode: u16
+    mask: 21845
+    shift: 0
+    word_index: 3
+    const: 0
+    scale: 10
+    offset: 100
+    units: ft
+  - name: field_4_0
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 4
+    const: 0
+    scale: 0.01
+  - name: field_4_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 4
+    const: 0
+    scale: 0.001
+    offset: -100
+    units: V
+  - name: field_4_2
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 4
+    const: 0
+    scale: 0.001
+    units: deg
+  - name: field_4_3
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 4
+    const: 0
+    units: ft
+  - name: field_4_4
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 4
+    const: 0
+    scale: 10
+    units: A
+  - name: field_5_0
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 5
+    const: 0
+    scale: 10
+  - name: field_5_1
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 5
+    const: 0
+    scale: 10
+  - name: field_5_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 5
+    const: 0
+  - name: field_5_3
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 5
+    const: 0
+    offset: -100
+    units: g
+  - name: field_6_0
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 6
+    const: 0
+    units: deg
+  - name: field_6_1
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 6
+    const: 0
+    units: V
+  - name: field_6_2
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 6
+    const: 0
+  - name: field_6_3
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 6
+    const: 0
+  - name: field_6_4
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 6
+    const: 0
+    scale: 0.001
+    offset: -50
+    units: kts
+  - name: field_6_5
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 6
+    const: 0
+  - name: field_6_6
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 6
+    const: 0
+    offset: -50
+    units: Hz
+  - name: word_7
+    encode: bcd
+    const: 0
+    offset: -10
+  - name: field_8_0
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 8
+    const: 0
+    offset: -50
+    units: deg
+  - name: field_8_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 8
+    const: 0
+    offset: 100
+  - name: field_8_2
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 8
+    const: 0
+  - name: field_8_3
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 8
+    const: 0
+  - name: field_8_4
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 8
+    const: 0
+  - name: field_8_5
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 8
+    const: 0
+  - name: field_9_0
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 9
+    const: 0
+  - name: field_9_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 9
+    const: 0
+  - name: field_9_2
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 9
+    const: 0
+  - name: field_9_3
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 9
+    const: 0
+  - name: field_9_4
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 9
+    const: 0
+  - name: field_9_5
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 9
+    const: 0
+    scale: 100
+  - name: field_9_6
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 9
+    const: 0
+    units: kts
+  - name: word_10
+    encode: bcd
+    const: 0
+  - name: field_11_0
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 11
+    const: 0
+    units: ft
+  - name: field_11_1
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 11
+    const: 0
+    units: Hz
+  - name: field_11_2
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 11
+    const: 0
+    scale: 0.001
+  - name: field_11_3
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 11
+    const: 0
+    scale: 0.01
+    units: rad
+  - name: field_11_4
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 11
+    const: 0
+  - name: field_12_0
+    encode: u16
+    mask: 21845
+    shift: 0
+    word_index: 12
+    const: 0
+    units: g
+  - name: field_12_1
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 12
+    const: 0
+  - name: field_12_2
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 12
+    const: 0
+    scale: 0.001
+    offset: 10
+    units: rad
+  - name: field_12_3
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 12
+    const: 0
+  - name: field_12_4
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 12
+    const: 0
+    offset: -100
+  - name: field_13_0
+    encode: u16
+    mask: 21845
+    shift: 0
+    word_index: 13
+    const: 0
+  - name: field_13_1
+    encode: u16
+    mask: 43690
+    shift: 0
+    word_index: 13
+    const: 0
+    units: deg
+  - name: word_14
+    encode: discrete
+    const: 0
+  - name: field_15_0
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 15
+    const: 0
+  - name: field_15_1
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 15
+    const: 0
+    offset: 10
+  - name: field_15_2
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 15
+    const: 0
+  - name: field_15_3
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 15
+    const: 0
+    scale: 0.001
+    units: ft
+  - name: field_15_4
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 15
+    const: 0
+    scale: 0.1
+  - name: field_15_5
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 15
+    const: 0
+    units: rad
+  - name: field_15_6
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 15
+    const: 0
+  - name: field_16_0
+    encode: u16
+    mask: 13107
+    shift: 0
+    word_index: 16
+    const: 0
+  - name: field_16_1
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 16
+    const: 0
+  - name: field_16_2
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 16
+    const: 0
+    scale: 100
+    offset: -100
+    units: m
+  - name: field_16_3
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 16
+    const: 0
+    scale: 10
+  - name: field_16_4
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 16
+    const: 0
+    units: Hz
+  - name: field_16_5
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 16
+    const: 0
+  - name: field_16_6
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 16
+    const: 0
+  - name: word_17
+    encode: bnr16
+    const: 0
+  - name: field_18_0
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 18
+    const: 0
+    scale: 10
+  - name: field_18_1
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 18
+    const: 0
+    scale: 10
+  - name: field_19_0
+    encode: u16
+    mask: 21845
+    shift: 0
+    word_index: 19
+    const: 0
+  - name: field_19_1
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 19
+    const: 0
+    offset: -10
+  - name: field_19_2
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 19
+    const: 0
+  - name: field_19_3
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 19
+    const: 0
+    units: Hz
+  - name: field_19_4
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 19
+    const: 0
+    offset: 100
+    units: kts
+  - name: field_19_5
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 19
+    const: 0
+    offset: -100
+    units: ft
+  - name: field_19_6
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 19
+    const: 0
+  - name: field_19_7
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 19
+    const: 0
+  - name: field_20_0
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 20
+    const: 0
+    offset: 100
+  - name: field_20_1
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 20
+    const: 0
+    units: deg
+  - name: field_20_2
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 20
+    const: 0
+    units: Hz
+  - name: field_20_3
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 20
+    const: 0
+  - name: field_20_4
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 20
+    const: 0
+    scale: 10
+    units: A
+  - name: field_20_5
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 20
+    const: 0
+    scale: 10
+    offset: -100
+  - name: field_20_6
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 20
+    const: 0
+    scale: 0.1
+  - name: field_20_7
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 20
+    const: 0
+    scale: 0.01
+  - name: field_21_0
+    encode: u16
+    mask: 1023
+    shift: 0
+    word_index: 21
+    const: 0
+    scale: 0.001
+  - name: field_21_1
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 21
+    const: 0
+    scale: 0.001
+  - name: field_21_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 21
+    const: 0
+    scale: 10
+  - name: field_21_3
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 21
+    const: 0
+  - name: field_22_0
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 22
+    const: 0
+    units: A
+  - name: field_22_1
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 22
+    const: 0
+    scale: 10
+    units: A
+  - name: field_22_2
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 22
+    const: 0
+  - name: field_23_0
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 23
+    const: 0
+    scale: 0.01
+    units: ft
+  - name: field_23_1
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 23
+    const: 0
+    scale: 0.01
+  - name: field_23_2
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 23
+    const: 0
+    scale: 0.1
+  - name: field_23_3
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 23
+    const: 0
+    scale: 100
+    offset: 50
+    units: Hz
+  - name: field_23_4
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 23
+    const: 0
+  - name: word_24
+    encode: status
+    const: 0
+  - name: field_25_0
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 25
+    const: 0
+    scale: 0.001
+    units: deg
+  - name: field_25_1
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 25
+    const: 0
+    offset: 50
+  - name: field_25_2
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 25
+    const: 0
+  - name: field_25_3
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 25
+    const: 0
+    offset: -50
+  - name: field_26_0
+    encode: u16
+    mask: 4095
+    shift: 0
+    word_index: 26
+    const: 0
+  - name: field_26_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 26
+    const: 0
+    scale: 0.01
+    units: V
+  - name: field_26_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 26
+    const: 0
+  - name: field_27_0
+    encode: u16
+    mask: 32767
+    shift: 0
+    word_index: 27
+    const: 0
+    scale: 0.001
+    offset: 50
+    units: kts
+  - name: field_27_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 27
+    const: 0
+    scale: 0.001
+  - name: field_28_0
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 28
+    const: 0
+    scale: 100
+    units: rad
+  - name: field_29_0
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 29
+    const: 0
+  - name: field_29_1
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 29
+    const: 0
+    units: ft
+  - name: field_29_2
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 29
+    const: 0
+    units: rad
+  - name: field_29_3
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 29
+    const: 0
+    scale: 0.1
+    units: ft
+- name: TEST_MSG_0007
+  sub_address: 27
+  description: Test message 7 with 29 words
   rate: 5
   words:
   - name: word_0
-    type: u16
-    description: Test word 0 with 6 bitfields
-    fields:
-    - name: field_0_0
-      type: discrete
-      mask: 1024
-      shift: 10
-      description: Field 0 in word 0
-      scale: 0.01
-    - name: field_0_1
-      type: bnr16
-      mask: 8
-      shift: 3
-      description: Field 1 in word 0
-      scale: 0.1
-    - name: field_0_2
-      type: bnr16
-      mask: 960
-      shift: 6
-      description: Field 2 in word 0
-      offset: -10
-      units: Hz
-    - name: field_0_3
-      type: bnr16
-      mask: 32
-      shift: 5
-      description: Field 3 in word 0
-    - name: field_0_4
-      type: bnr16
-      mask: 61440
-      shift: 12
-      description: Field 4 in word 0
-      scale: 0.01
-    - name: field_0_5
-      type: bcd
-      mask: 16
-      shift: 4
-      description: Field 5 in word 0
-      units: deg
-  - name: word_1
-    type: i16
-    description: Simple word 1
-    units: kts
-  - name: word_2
-    type: u16
-    description: Test word 2 with 1 bitfields
-    fields:
-    - name: field_2_0
-      type: status
-      mask: 4095
-      shift: 0
-      description: Field 0 in word 2
-      scale: 0.1
-  - name: word_3
-    type: u16
-    description: Test word 3 with 5 bitfields
-    fields:
-    - name: field_3_0
-      type: bcd
-      mask: 2048
-      shift: 11
-      description: Field 0 in word 3
-      scale: 100
-      offset: 10
-      units: V
-    - name: field_3_1
-      type: bnr16
-      mask: 255
-      shift: 0
-      description: Field 1 in word 3
-      scale: 0.001
-      offset: -100
-    - name: field_3_2
-      type: bcd
-      mask: 8192
-      shift: 13
-      description: Field 2 in word 3
-      scale: 100
-      offset: 100
-      units: ft
-    - name: field_3_3
-      type: bcd
-      mask: 32768
-      shift: 15
-      description: Field 3 in word 3
-      scale: 0.1
-    - name: field_3_4
-      type: status
-      mask: 512
-      shift: 9
-      description: Field 4 in word 3
-      units: V
-  - name: word_4
-    type: u16
-    description: Test word 4 with 8 bitfields
-    fields:
-    - name: field_4_0
-      type: bcd
-      mask: 64
-      shift: 6
-      description: Field 0 in word 4
-      scale: 0.001
-    - name: field_4_1
-      type: discrete
-      mask: 3
-      shift: 0
-      description: Field 1 in word 4
-      units: m
-    - name: field_4_2
-      type: i16
-      mask: 32768
-      shift: 15
-      description: Field 2 in word 4
-      units: kts
-    - name: field_4_3
-      type: u16
-      mask: 128
-      shift: 7
-      description: Field 3 in word 4
-    - name: field_4_4
-      type: status
-      mask: 16384
-      shift: 14
-      description: Field 4 in word 4
-      scale: 0.1
-    - name: field_4_5
-      type: i16
-      mask: 16
-      shift: 4
-      description: Field 5 in word 4
-      offset: -100
-    - name: field_4_6
-      type: u16
-      mask: 7936
-      shift: 8
-      description: Field 6 in word 4
-      offset: -10
-    - name: field_4_7
-      type: u16
-      mask: 8192
-      shift: 13
-      description: Field 7 in word 4
-  - name: word_5
-    type: u16
-    description: Test word 5 with 2 bitfields
-    fields:
-    - name: field_5_0
-      type: i16
-      mask: 512
-      shift: 9
-      description: Field 0 in word 5
-    - name: field_5_1
-      type: status
-      mask: 240
-      shift: 4
-      description: Field 1 in word 5
-  - name: word_6
-    type: i16
-    description: Simple word 6
+    encode: u16
+    const: 0
+    scale: 100
+  - name: field_1_0
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 1
+    const: 0
+  - name: field_1_1
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 1
+    const: 0
+    units: ft
+  - name: field_1_2
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 1
+    const: 0
+    offset: -50
+  - name: field_2_0
+    encode: u16
+    mask: 43690
+    shift: 0
+    word_index: 2
+    const: 0
+    scale: 0.001
+  - name: field_2_1
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 2
+    const: 0
     scale: 10
-  - name: word_7
-    type: u16
-    description: Test word 7 with 7 bitfields
-    fields:
-    - name: field_7_0
-      type: i16
-      mask: 128
-      shift: 7
-      description: Field 0 in word 7
-      scale: 0.01
-      units: rad
-    - name: field_7_1
-      type: u16
-      mask: 3840
-      shift: 8
-      description: Field 1 in word 7
-    - name: field_7_2
-      type: bnr16
-      mask: 16384
-      shift: 14
-      description: Field 2 in word 7
-    - name: field_7_3
-      type: bcd
-      mask: 32768
-      shift: 15
-      description: Field 3 in word 7
-      scale: 0.001
-    - name: field_7_4
-      type: status
-      mask: 8
-      shift: 3
-      description: Field 4 in word 7
-      units: A
-    - name: field_7_5
-      type: status
-      mask: 3
-      shift: 0
-      description: Field 5 in word 7
-      units: A
-    - name: field_7_6
-      type: discrete
-      mask: 16
-      shift: 4
-      description: Field 6 in word 7
+  - name: field_2_2
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 2
+    const: 0
+  - name: field_2_3
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 2
+    const: 0
+  - name: field_3_0
+    encode: u16
+    mask: 52428
+    shift: 0
+    word_index: 3
+    const: 0
+    offset: 10
+  - name: field_3_1
+    encode: u16
+    mask: 13107
+    shift: 0
+    word_index: 3
+    const: 0
+    units: A
+  - name: field_4_0
+    encode: u16
+    mask: 43690
+    shift: 0
+    word_index: 4
+    const: 0
+    units: kts
+  - name: field_4_1
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 4
+    const: 0
+  - name: field_4_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 4
+    const: 0
+    scale: 0.01
+  - name: field_4_3
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 4
+    const: 0
+    units: g
+  - name: field_4_4
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 4
+    const: 0
+    scale: 100
+  - name: field_4_5
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 4
+    const: 0
+    offset: -10
+  - name: field_4_6
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 4
+    const: 0
+    units: A
+  - name: field_4_7
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 4
+    const: 0
+    scale: 0.001
+  - name: word_5
+    encode: status
+    const: 0
+    offset: 50
+  - name: field_6_0
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 6
+    const: 0
+    scale: 100
+    offset: 100
+  - name: field_6_1
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 6
+    const: 0
+  - name: field_6_2
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 6
+    const: 0
+    units: g
+  - name: field_6_3
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 6
+    const: 0
+    units: rad
+  - name: field_6_4
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 6
+    const: 0
+    scale: 10
+  - name: field_6_5
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 6
+    const: 0
+  - name: field_7_0
+    encode: u16
+    mask: 1023
+    shift: 0
+    word_index: 7
+    const: 0
+    scale: 10
   - name: word_8
-    type: u16
-    description: Test word 8 with 1 bitfields
-    fields:
-    - name: field_8_0
-      type: u16
-      mask: 32
-      shift: 5
-      description: Field 0 in word 8
-      offset: 10
-      units: deg
+    encode: i16
+    const: 0
+    scale: 0.001
   - name: word_9
-    type: u16
-    description: Test word 9 with 7 bitfields
-    fields:
-    - name: field_9_0
-      type: i16
-      mask: 3840
-      shift: 8
-      description: Field 0 in word 9
-    - name: field_9_1
-      type: status
-      mask: 32
-      shift: 5
-      description: Field 1 in word 9
-      offset: 10
-    - name: field_9_2
-      type: i16
-      mask: 15
-      shift: 0
-      description: Field 2 in word 9
-    - name: field_9_3
-      type: discrete
-      mask: 16
-      shift: 4
-      description: Field 3 in word 9
-      units: g
-    - name: field_9_4
-      type: bcd
-      mask: 128
-      shift: 7
-      description: Field 4 in word 9
-      scale: 0.1
-      offset: -100
-    - name: field_9_5
-      type: i16
-      mask: 61440
-      shift: 12
-      description: Field 5 in word 9
-      units: ft
-    - name: field_9_6
-      type: status
-      mask: 64
-      shift: 6
-      description: Field 6 in word 9
-      units: m
-  - name: word_10
-    type: u16
-    description: Test word 10 with 2 bitfields
-    fields:
-    - name: field_10_0
-      type: discrete
-      mask: 256
-      shift: 8
-      description: Field 0 in word 10
-      units: kts
-    - name: field_10_1
-      type: u16
-      mask: 16
-      shift: 4
-      description: Field 1 in word 10
-      units: g
-  - name: word_11
-    type: u16
-    description: Test word 11 with 2 bitfields
-    fields:
-    - name: field_11_0
-      type: bcd
-      mask: 16383
-      shift: 0
-      description: Field 0 in word 11
-      units: ft
-    - name: field_11_1
-      type: bnr16
-      mask: 16384
-      shift: 14
-      description: Field 1 in word 11
-      units: m
+    encode: bnr16
+    const: 0
+    offset: 10
+  - name: field_10_0
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 10
+    const: 0
+  - name: field_10_1
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 10
+    const: 0
+    scale: 0.001
+    units: V
+  - name: field_10_2
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 10
+    const: 0
+  - name: field_10_3
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 10
+    const: 0
+    offset: 50
+    units: m
+  - name: field_11_0
+    encode: u16
+    mask: 13107
+    shift: 0
+    word_index: 11
+    const: 0
+  - name: field_11_1
+    encode: u16
+    mask: 52428
+    shift: 0
+    word_index: 11
+    const: 0
+    units: g
   - name: word_12
-    type: u16
-    description: Test word 12 with 5 bitfields
-    fields:
-    - name: field_12_0
-      type: bnr16
-      mask: 1
-      shift: 0
-      description: Field 0 in word 12
-      units: kts
-    - name: field_12_1
-      type: bcd
-      mask: 128
-      shift: 7
-      description: Field 1 in word 12
-    - name: field_12_2
-      type: discrete
-      mask: 2
-      shift: 1
-      description: Field 2 in word 12
-      offset: -100
-    - name: field_12_3
-      type: bcd
-      mask: 8192
-      shift: 13
-      description: Field 3 in word 12
-    - name: field_12_4
-      type: u16
-      mask: 1024
-      shift: 10
-      description: Field 4 in word 12
-      scale: 0.1
-  - name: word_13
-    type: bcd
-    description: Simple word 13
+    encode: bcd
+    const: 0
+  - name: field_13_0
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 13
+    const: 0
+  - name: field_14_0
+    encode: u16
+    mask: 61440
+    shift: 12
+    word_index: 14
+    const: 0
+  - name: field_14_1
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 14
+    const: 0
+    scale: 0.001
+  - name: field_14_2
+    encode: u16
+    mask: 960
+    shift: 6
+    word_index: 14
+    const: 0
+    scale: 100
+  - name: field_14_3
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 14
+    const: 0
     units: Hz
-  - name: word_14
-    type: status
-    description: Simple word 14
+  - name: field_14_4
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 14
+    const: 0
+    offset: -100
+  - name: field_14_5
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 14
+    const: 0
+    scale: 0.1
+  - name: field_15_0
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 15
+    const: 0
+  - name: field_15_1
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 15
+    const: 0
+  - name: field_15_2
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 15
+    const: 0
+    scale: 0.001
+  - name: field_16_0
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 16
+    const: 0
+    offset: -100
+    units: A
+  - name: field_16_1
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 16
+    const: 0
+    units: ft
+  - name: field_16_2
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 16
+    const: 0
+    scale: 10
+    units: m
+  - name: field_16_3
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 16
+    const: 0
+    units: rad
+  - name: field_16_4
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 16
+    const: 0
+  - name: field_16_5
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 16
+    const: 0
+  - name: field_16_6
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 16
+    const: 0
+    units: ft
+  - name: field_16_7
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 16
+    const: 0
+    units: kts
+  - name: field_17_0
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 17
+    const: 0
+    scale: 0.001
+  - name: field_17_1
+    encode: u16
+    mask: 43690
+    shift: 0
+    word_index: 17
+    const: 0
+  - name: field_17_2
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 17
+    const: 0
+  - name: field_17_3
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 17
+    const: 0
+    offset: 10
+    units: m
+  - name: field_17_4
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 17
+    const: 0
+    units: kts
+  - name: word_18
+    encode: u16
+    const: 0
+    scale: 0.01
+    offset: -50
+  - name: word_19
+    encode: bnr16
+    const: 0
+  - name: word_20
+    encode: bcd
+    const: 0
+    scale: 10
+  - name: field_21_0
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 21
+    const: 0
+    scale: 100
+  - name: field_21_1
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 21
+    const: 0
+    units: rad
+  - name: field_22_0
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 22
+    const: 0
+    scale: 10
+  - name: field_22_1
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 22
+    const: 0
+    offset: -50
+    units: kts
+  - name: field_22_2
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 22
+    const: 0
+    units: A
+  - name: field_22_3
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 22
+    const: 0
+  - name: field_22_4
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 22
+    const: 0
+    offset: -50
+    units: ft
+  - name: field_22_5
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 22
+    const: 0
+    offset: -50
+    units: m
+  - name: field_22_6
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 22
+    const: 0
+    scale: 100
+  - name: field_22_7
+    encode: u16
+    mask: 61440
+    shift: 12
+    word_index: 22
+    const: 0
+    units: m
+  - name: field_23_0
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 23
+    const: 0
+    offset: -10
+  - name: field_23_1
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 23
+    const: 0
+  - name: field_23_2
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 23
+    const: 0
+    units: Hz
+  - name: field_24_0
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 24
+    const: 0
+    offset: -10
+  - name: field_24_1
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 24
+    const: 0
+    scale: 0.001
+    units: g
+  - name: field_24_2
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 24
+    const: 0
+    scale: 10
+    units: ft
+  - name: word_25
+    encode: discrete
+    const: 0
+    scale: 10
+    offset: -50
+  - name: field_26_0
+    encode: u16
+    mask: 43690
+    shift: 0
+    word_index: 26
+    const: 0
+  - name: field_26_1
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 26
+    const: 0
+    scale: 0.01
+    units: kts
+  - name: field_26_2
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 26
+    const: 0
+    offset: 100
+  - name: field_26_3
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 26
+    const: 0
+    units: kts
+  - name: field_26_4
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 26
+    const: 0
+  - name: field_26_5
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 26
+    const: 0
+    scale: 0.01
+    offset: 10
+  - name: field_26_6
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 26
+    const: 0
+    scale: 0.01
+    offset: -50
+  - name: word_27
+    encode: u16
+    const: 0
+    scale: 0.001
+  - name: word_28
+    encode: bnr16
+    const: 0
+    scale: 0.01
+- name: TEST_MSG_0008
+  sub_address: 8
+  description: Test message 8 with 4 words
+  rate: 20
+  words:
+  - name: field_0_0
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 0
+    const: 0
+  - name: field_0_1
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 0
+    const: 0
+  - name: field_1_0
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 1
+    const: 0
+    scale: 0.001
+    units: m
+  - name: field_1_1
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 1
+    const: 0
+    scale: 0.001
+  - name: field_1_2
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 1
+    const: 0
+    offset: -10
+  - name: field_1_3
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 1
+    const: 0
+    scale: 0.001
+  - name: field_1_4
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 1
+    const: 0
+    scale: 0.001
+  - name: field_1_5
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 1
+    const: 0
+    scale: 10
+  - name: field_1_6
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 1
+    const: 0
+    scale: 0.001
+  - name: field_2_0
+    encode: u16
+    mask: 7936
+    shift: 8
+    word_index: 2
+    const: 0
+    scale: 0.01
+  - name: field_2_1
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 2
+    const: 0
+    scale: 100
+  - name: field_3_0
+    encode: u16
+    mask: 43690
+    shift: 0
+    word_index: 3
+    const: 0
+    offset: -100
+    units: Hz
+  - name: field_3_1
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 3
+    const: 0
+    scale: 100
+  - name: field_3_2
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 3
+    const: 0
+    offset: 10
+  - name: field_3_3
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 3
+    const: 0
+  - name: field_3_4
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 3
+    const: 0
+  - name: field_3_5
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 3
+    const: 0
+    units: kts
+  - name: field_3_6
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 3
+    const: 0
+    units: deg
+- name: TEST_MSG_0009
+  sub_address: 18
+  description: Test message 9 with 22 words
+  rate: 50
+  words:
+  - name: field_0_0
+    encode: u16
+    mask: 32767
+    shift: 0
+    word_index: 0
+    const: 0
+    scale: 10
+  - name: field_0_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 0
+    const: 0
+    units: rad
+  - name: field_1_0
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 1
+    const: 0
+  - name: field_1_1
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 1
+    const: 0
+    scale: 10
+  - name: field_1_2
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 1
+    const: 0
+    scale: 100
+  - name: field_1_3
+    encode: u16
+    mask: 3
+    shift: 0
+    word_index: 1
+    const: 0
+  - name: field_1_4
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 1
+    const: 0
+    scale: 0.001
+  - name: field_1_5
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 1
+    const: 0
+    scale: 100
+  - name: field_1_6
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 1
+    const: 0
+  - name: field_1_7
+    encode: u16
+    mask: 32
+    shift: 5
+    word_index: 1
+    const: 0
+  - name: field_2_0
+    encode: u16
+    mask: 32767
+    shift: 0
+    word_index: 2
+    const: 0
+    offset: 100
+    units: Hz
+  - name: field_2_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 2
+    const: 0
+    scale: 0.1
+  - name: field_3_0
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 3
+    const: 0
+    offset: 100
+  - name: field_3_1
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 3
+    const: 0
+    offset: -10
+  - name: field_3_2
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 3
+    const: 0
+    scale: 0.1
+    units: kts
+  - name: field_3_3
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 3
+    const: 0
+    scale: 0.001
+    units: A
+  - name: field_3_4
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 3
+    const: 0
+    scale: 0.001
+    units: Hz
+  - name: field_3_5
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 3
+    const: 0
+    scale: 10
+  - name: field_3_6
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 3
+    const: 0
+    offset: 50
+  - name: field_3_7
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 3
+    const: 0
+    scale: 0.01
+    units: g
+  - name: field_4_0
+    encode: u16
+    mask: 21845
+    shift: 0
+    word_index: 4
+    const: 0
+  - name: field_4_1
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 4
+    const: 0
+    scale: 100
+    offset: -50
+  - name: field_4_2
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 4
+    const: 0
+  - name: word_5
+    encode: i16
+    const: 0
+    offset: -100
+  - name: word_6
+    encode: u16
+    const: 0
+    scale: 0.1
+  - name: field_7_0
+    encode: u16
+    mask: 1023
+    shift: 0
+    word_index: 7
+    const: 0
+  - name: field_7_1
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 7
+    const: 0
+    offset: -100
+  - name: field_7_2
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 7
+    const: 0
+  - name: field_7_3
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 7
+    const: 0
+    offset: -50
+  - name: field_7_4
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 7
+    const: 0
+    units: g
+  - name: field_8_0
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 8
+    const: 0
+    scale: 10
+  - name: field_8_1
+    encode: u16
+    mask: 960
+    shift: 6
+    word_index: 8
+    const: 0
+    scale: 0.1
+    offset: -10
+    units: V
+  - name: field_8_2
+    encode: u16
+    mask: 61440
+    shift: 12
+    word_index: 8
+    const: 0
+    units: rad
+  - name: word_9
+    encode: status
+    const: 0
+  - name: field_10_0
+    encode: u16
+    mask: 61440
+    shift: 12
+    word_index: 10
+    const: 0
+    offset: 100
+  - name: field_10_1
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 10
+    const: 0
+    units: kts
+  - name: field_10_2
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 10
+    const: 0
+  - name: field_10_3
+    encode: u16
+    mask: 3840
+    shift: 8
+    word_index: 10
+    const: 0
+  - name: field_10_4
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 10
+    const: 0
+    scale: 10
+  - name: field_10_5
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 10
+    const: 0
+  - name: field_10_6
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 10
+    const: 0
+    units: kts
+  - name: word_11
+    encode: bnr16
+    const: 0
+  - name: field_12_0
+    encode: u16
+    mask: 16384
+    shift: 14
+    word_index: 12
+    const: 0
+    units: m
+  - name: field_12_1
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 12
+    const: 0
+  - name: field_12_2
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 12
+    const: 0
+    units: Hz
+  - name: field_12_3
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 12
+    const: 0
+    units: Hz
+  - name: field_12_4
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 12
+    const: 0
+    scale: 100
+  - name: field_12_5
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 12
+    const: 0
+    units: A
+  - name: field_13_0
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 13
+    const: 0
+  - name: field_13_1
+    encode: u16
+    mask: 16
+    shift: 4
+    word_index: 13
+    const: 0
+  - name: field_13_2
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 13
+    const: 0
+    units: m
+  - name: field_13_3
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 13
+    const: 0
+  - name: field_13_4
+    encode: u16
+    mask: 61440
+    shift: 12
+    word_index: 13
+    const: 0
+  - name: field_14_0
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 14
+    const: 0
+    scale: 0.001
+    units: V
+  - name: field_14_1
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 14
+    const: 0
+    scale: 0.001
+    units: kts
+  - name: field_14_2
+    encode: u16
+    mask: 240
+    shift: 4
+    word_index: 14
+    const: 0
+    offset: -50
+    units: V
+  - name: field_14_3
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 14
+    const: 0
     scale: 0.001
     units: rad
-  - name: word_15
-    type: discrete
-    description: Simple word 15
-    scale: 10
-  - name: word_16
-    type: u16
-    description: Test word 16 with 1 bitfields
-    fields:
-    - name: field_16_0
-      type: u16
-      mask: 52428
-      shift: 0
-      description: Field 0 in word 16
-      scale: 100
-      offset: -50
-      units: V
-  - name: word_17
-    type: bcd
-    description: Simple word 17
+  - name: field_14_4
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 14
+    const: 0
+    units: m
+  - name: field_15_0
+    encode: u16
+    mask: 4096
+    shift: 12
+    word_index: 15
+    const: 0
+    units: kts
+  - name: field_15_1
+    encode: u16
+    mask: 255
+    shift: 0
+    word_index: 15
+    const: 0
+    offset: -10
+    units: ft
+  - name: field_15_2
+    encode: u16
+    mask: 512
+    shift: 9
+    word_index: 15
+    const: 0
+    scale: 0.1
+  - name: field_15_3
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 15
+    const: 0
+  - name: field_15_4
+    encode: u16
+    mask: 8192
+    shift: 13
+    word_index: 15
+    const: 0
+  - name: field_16_0
+    encode: u16
+    mask: 1
+    shift: 0
+    word_index: 16
+    const: 0
     scale: 100
-    offset: 50
-  - name: word_18
-    type: u16
-    description: Test word 18 with 4 bitfields
-    fields:
-    - name: field_18_0
-      type: discrete
-      mask: 2048
-      shift: 11
-      description: Field 0 in word 18
-      units: ft
-    - name: field_18_1
-      type: discrete
-      mask: 61440
-      shift: 12
-      description: Field 1 in word 18
-      units: m
-    - name: field_18_2
-      type: u16
-      mask: 240
-      shift: 4
-      description: Field 2 in word 18
-      scale: 100
-    - name: field_18_3
-      type: i16
-      mask: 3
-      shift: 0
-      description: Field 3 in word 18
-      scale: 0.1
-      units: Hz
-  - name: word_19
-    type: status
-    description: Simple word 19
-    units: kts
-- name: TEST_MSG_0009
-  sub_address: 29
-  description: Test message 9 with 23 words
-  rate: 100
-  words:
-  - name: word_0
-    type: u16
-    description: Test word 0 with 3 bitfields
-    fields:
-    - name: field_0_0
-      type: i16
-      mask: 32767
-      shift: 0
-      description: Field 0 in word 0
-    - name: field_0_1
-      type: u16
-      mask: 32768
-      shift: 15
-      description: Field 1 in word 0
-  - name: word_1
-    type: i16
-    description: Simple word 1
-    offset: 50
-    units: kts
-  - name: word_2
-    type: i16
-    description: Simple word 2
-  - name: word_3
-    type: u16
-    description: Test word 3 with 5 bitfields
-    fields:
-    - name: field_3_0
-      type: bcd
-      mask: 128
-      shift: 7
-      description: Field 0 in word 3
-      scale: 10
-      offset: -50
-    - name: field_3_1
-      type: i16
-      mask: 4
-      shift: 2
-      description: Field 1 in word 3
-      scale: 100
-    - name: field_3_2
-      type: bnr16
-      mask: 2048
-      shift: 11
-      description: Field 2 in word 3
-      scale: 10
-      units: V
-    - name: field_3_3
-      type: i16
-      mask: 1
-      shift: 0
-      description: Field 3 in word 3
-      scale: 0.1
-      units: rad
-    - name: field_3_4
-      type: u16
-      mask: 16384
-      shift: 14
-      description: Field 4 in word 3
-  - name: word_4
-    type: u16
-    description: Test word 4 with 7 bitfields
-    fields:
-    - name: field_4_0
-      type: bcd
-      mask: 4095
-      shift: 0
-      description: Field 0 in word 4
-      offset: -50
-    - name: field_4_1
-      type: bcd
-      mask: 4096
-      shift: 12
-      description: Field 1 in word 4
-      scale: 10
-    - name: field_4_2
-      type: bcd
-      mask: 16384
-      shift: 14
-      description: Field 2 in word 4
-      scale: 100
-    - name: field_4_3
-      type: bcd
-      mask: 32768
-      shift: 15
-      description: Field 3 in word 4
-      scale: 100
-      offset: 10
-      units: ft
-    - name: field_4_4
-      type: bnr16
-      mask: 8192
-      shift: 13
-      description: Field 4 in word 4
-      scale: 0.1
-  - name: word_5
-    type: u16
-    description: Test word 5 with 4 bitfields
-    fields:
-    - name: field_5_0
-      type: bcd
-      mask: 240
-      shift: 4
-      description: Field 0 in word 5
-      units: A
-    - name: field_5_1
-      type: bcd
-      mask: 4
-      shift: 2
-      description: Field 1 in word 5
-    - name: field_5_2
-      type: u16
-      mask: 512
-      shift: 9
-      description: Field 2 in word 5
-      offset: -50
-      units: Hz
-    - name: field_5_3
-      type: u16
-      mask: 4096
-      shift: 12
-      description: Field 3 in word 5
-      scale: 0.001
-      units: kts
-  - name: word_6
-    type: u16
-    description: Test word 6 with 3 bitfields
-    fields:
-    - name: field_6_0
-      type: discrete
-      mask: 3840
-      shift: 8
-      description: Field 0 in word 6
-    - name: field_6_1
-      type: discrete
-      mask: 1
-      shift: 0
-      description: Field 1 in word 6
-    - name: field_6_2
-      type: u16
-      mask: 32
-      shift: 5
-      description: Field 2 in word 6
-      units: kts
-  - name: word_7
-    type: u16
-    description: Simple word 7
+    units: g
+  - name: field_16_1
+    encode: u16
+    mask: 2048
+    shift: 11
+    word_index: 16
+    const: 0
+  - name: field_16_2
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 16
+    const: 0
+    units: m
+  - name: field_16_3
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 16
+    const: 0
+  - name: field_17_0
+    encode: u16
+    mask: 13107
+    shift: 0
+    word_index: 17
+    const: 0
+    offset: -50
+  - name: field_17_1
+    encode: u16
+    mask: 8
+    shift: 3
+    word_index: 17
+    const: 0
     scale: 10
-  - name: word_8
-    type: u16
-    description: Simple word 8
-    units: A
-  - name: word_9
-    type: u16
-    description: Simple word 9
-    scale: 10
-  - name: word_10
-    type: u16
-    description: Test word 10 with 2 bitfields
-    fields:
-    - name: field_10_0
-      type: status
-      mask: 16
-      shift: 4
-      description: Field 0 in word 10
-      scale: 10
-      units: g
-    - name: field_10_1
-      type: i16
-      mask: 32768
-      shift: 15
-      description: Field 1 in word 10
-      offset: 10
-  - name: word_11
-    type: u16
-    description: Test word 11 with 3 bitfields
-    fields:
-    - name: field_11_0
-      type: bnr16
-      mask: 4095
-      shift: 0
-      description: Field 0 in word 11
-      scale: 0.01
-      offset: 10
-    - name: field_11_1
-      type: bnr16
-      mask: 8192
-      shift: 13
-      description: Field 1 in word 11
-    - name: field_11_2
-      type: i16
-      mask: 4096
-      shift: 12
-      description: Field 2 in word 11
-  - name: word_12
-    type: u16
-    description: Simple word 12
-    units: deg
-  - name: word_13
-    type: u16
-    description: Test word 13 with 6 bitfields
-    fields:
-    - name: field_13_0
-      type: u16
-      mask: 52428
-      shift: 0
-      description: Field 0 in word 13
-      scale: 0.01
-      units: V
-    - name: field_13_1
-      type: bcd
-      mask: 256
-      shift: 8
-      description: Field 1 in word 13
-      units: kts
-    - name: field_13_2
-      type: bcd
-      mask: 1
-      shift: 0
-      description: Field 2 in word 13
-      units: ft
-    - name: field_13_3
-      type: i16
-      mask: 4096
-      shift: 12
-      description: Field 3 in word 13
-      offset: 100
-      units: deg
-    - name: field_13_4
-      type: bcd
-      mask: 8192
-      shift: 13
-      description: Field 4 in word 13
-    - name: field_13_5
-      type: i16
-      mask: 16
-      shift: 4
-      description: Field 5 in word 13
-  - name: word_14
-    type: u16
-    description: Test word 14 with 7 bitfields
-    fields:
-    - name: field_14_0
-      type: bcd
-      mask: 1024
-      shift: 10
-      description: Field 0 in word 14
-      scale: 0.1
-    - name: field_14_1
-      type: bnr16
-      mask: 128
-      shift: 7
-      description: Field 1 in word 14
-      scale: 100
-      offset: -100
-    - name: field_14_2
-      type: bcd
-      mask: 16
-      shift: 4
-      description: Field 2 in word 14
-      scale: 100
-      offset: -10
-    - name: field_14_3
-      type: status
-      mask: 2
-      shift: 1
-      description: Field 3 in word 14
-      offset: -10
-      units: deg
-    - name: field_14_4
-      type: bnr16
-      mask: 64
-      shift: 6
-      description: Field 4 in word 14
-      scale: 10
-    - name: field_14_5
-      type: i16
-      mask: 4
-      shift: 2
-      description: Field 5 in word 14
-      units: rad
-    - name: field_14_6
-      type: i16
-      mask: 61440
-      shift: 12
-      description: Field 6 in word 14
-      scale: 100
-      units: A
-  - name: word_15
-    type: u16
-    description: Test word 15 with 8 bitfields
-    fields:
-    - name: field_15_0
-      type: status
-      mask: 21845
-      shift: 0
-      description: Field 0 in word 15
-      offset: 100
-    - name: field_15_1
-      type: i16
-      mask: 2
-      shift: 1
-      description: Field 1 in word 15
-      units: kts
-    - name: field_15_2
-      type: u16
-      mask: 8
-      shift: 3
-      description: Field 2 in word 15
-      offset: -50
-      units: V
-    - name: field_15_3
-      type: status
-      mask: 32768
-      shift: 15
-      description: Field 3 in word 15
-      offset: -10
-    - name: field_15_4
-      type: i16
-      mask: 512
-      shift: 9
-      description: Field 4 in word 15
-      scale: 0.01
-    - name: field_15_5
-      type: u16
-      mask: 8192
-      shift: 13
-      description: Field 5 in word 15
-      units: kts
-    - name: field_15_6
-      type: i16
-      mask: 2048
-      shift: 11
-      description: Field 6 in word 15
-      scale: 0.001
-      units: deg
-    - name: field_15_7
-      type: u16
-      mask: 128
-      shift: 7
-      description: Field 7 in word 15
-      units: A
-  - name: word_16
-    type: u16
-    description: Test word 16 with 7 bitfields
-    fields:
-    - name: field_16_0
-      type: bcd
-      mask: 1
-      shift: 0
-      description: Field 0 in word 16
-      scale: 100
-      units: deg
-    - name: field_16_1
-      type: u16
-      mask: 32768
-      shift: 15
-      description: Field 1 in word 16
-    - name: field_16_2
-      type: discrete
-      mask: 2048
-      shift: 11
-      description: Field 2 in word 16
-      offset: 100
-    - name: field_16_3
-      type: u16
-      mask: 512
-      shift: 9
-      description: Field 3 in word 16
-      scale: 10
-    - name: field_16_4
-      type: status
-      mask: 16384
-      shift: 14
-      description: Field 4 in word 16
-    - name: field_16_5
-      type: i16
-      mask: 128
-      shift: 7
-      description: Field 5 in word 16
-      scale: 100
-      offset: -50
-      units: m
-    - name: field_16_6
-      type: bnr16
-      mask: 64
-      shift: 6
-      description: Field 6 in word 16
-      scale: 0.01
-      offset: -50
-      units: Hz
-  - name: word_17
-    type: u16
-    description: Test word 17 with 8 bitfields
-    fields:
-    - name: field_17_0
-      type: status
-      mask: 4
-      shift: 2
-      description: Field 0 in word 17
-      units: kts
-    - name: field_17_1
-      type: i16
-      mask: 32768
-      shift: 15
-      description: Field 1 in word 17
-      offset: 50
-    - name: field_17_2
-      type: status
-      mask: 16
-      shift: 4
-      description: Field 2 in word 17
-      offset: 50
-    - name: field_17_3
-      type: u16
-      mask: 16384
-      shift: 14
-      description: Field 3 in word 17
-    - name: field_17_4
-      type: i16
-      mask: 960
-      shift: 6
-      description: Field 4 in word 17
-      units: m
-    - name: field_17_5
-      type: u16
-      mask: 2048
-      shift: 11
-      description: Field 5 in word 17
-      units: A
-    - name: field_17_6
-      type: bnr16
-      mask: 8192
-      shift: 13
-      description: Field 6 in word 17
-      offset: 100
-      units: A
-    - name: field_17_7
-      type: bnr16
-      mask: 2
-      shift: 1
-      description: Field 7 in word 17
-      units: V
-  - name: word_18
-    type: u16
-    description: Test word 18 with 3 bitfields
-    fields:
-    - name: field_18_0
-      type: bnr16
-      mask: 16383
-      shift: 0
-      description: Field 0 in word 18
-    - name: field_18_1
-      type: bcd
-      mask: 32768
-      shift: 15
-      description: Field 1 in word 18
-      units: V
-    - name: field_18_2
-      type: discrete
-      mask: 16384
-      shift: 14
-      description: Field 2 in word 18
-      offset: 10
-      units: m
-  - name: word_19
-    type: u16
-    description: Test word 19 with 3 bitfields
-    fields:
-    - name: field_19_0
-      type: bnr16
-      mask: 128
-      shift: 7
-      description: Field 0 in word 19
-      offset: 10
-    - name: field_19_1
-      type: bnr16
-      mask: 13107
-      shift: 0
-      description: Field 1 in word 19
-    - name: field_19_2
-      type: discrete
-      mask: 16384
-      shift: 14
-      description: Field 2 in word 19
-      scale: 0.01
-      units: m
-  - name: word_20
-    type: u16
-    description: Test word 20 with 3 bitfields
-    fields:
-    - name: field_20_0
-      type: bnr16
-      mask: 2048
-      shift: 11
-      description: Field 0 in word 20
-    - name: field_20_1
-      type: u16
-      mask: 8
-      shift: 3
-      description: Field 1 in word 20
-    - name: field_20_2
-      type: bcd
-      mask: 128
-      shift: 7
-      description: Field 2 in word 20
-      units: m
-  - name: word_21
-    type: u16
-    description: Test word 21 with 2 bitfields
-    fields:
-    - name: field_21_0
-      type: bcd
-      mask: 13107
-      shift: 0
-      description: Field 0 in word 21
-    - name: field_21_1
-      type: status
-      mask: 4
-      shift: 2
-      description: Field 1 in word 21
-  - name: word_22
-    type: u16
-    description: Test word 22 with 1 bitfields
-    fields:
-    - name: field_22_0
-      type: i16
-      mask: 2048
-      shift: 11
-      description: Field 0 in word 22
-      units: deg
+  - name: field_17_2
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 17
+    const: 0
+    offset: -10
+  - name: field_17_3
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 17
+    const: 0
+  - name: field_17_4
+    encode: u16
+    mask: 128
+    shift: 7
+    word_index: 17
+    const: 0
+    scale: 0.001
+    units: kts
+  - name: field_18_0
+    encode: u16
+    mask: 15
+    shift: 0
+    word_index: 18
+    const: 0
+    scale: 0.001
+  - name: field_18_1
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 18
+    const: 0
+  - name: field_18_2
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 18
+    const: 0
+    offset: 50
+  - name: field_19_0
+    encode: u16
+    mask: 64
+    shift: 6
+    word_index: 19
+    const: 0
+  - name: field_19_1
+    encode: u16
+    mask: 4
+    shift: 2
+    word_index: 19
+    const: 0
+    scale: 0.001
+  - name: field_19_2
+    encode: u16
+    mask: 2
+    shift: 1
+    word_index: 19
+    const: 0
+  - name: field_20_0
+    encode: u16
+    mask: 1024
+    shift: 10
+    word_index: 20
+    const: 0
+    offset: 100
+  - name: field_20_1
+    encode: u16
+    mask: 32768
+    shift: 15
+    word_index: 20
+    const: 0
+  - name: field_21_0
+    encode: u16
+    mask: 31744
+    shift: 10
+    word_index: 21
+    const: 0
+    units: rad
+  - name: field_21_1
+    encode: u16
+    mask: 256
+    shift: 8
+    word_index: 21
+    const: 0
