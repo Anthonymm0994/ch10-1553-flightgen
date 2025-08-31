@@ -185,22 +185,17 @@ class ICDDefinition:
         if self.bus not in ['A', 'B']:
             errors.append(f"Bus must be 'A' or 'B', got '{self.bus}'")
         
-        # Check for duplicate messages (same RT/SA/TR combination)
-        seen_combinations = set()
-        duplicate_details = {}
+        # Check for duplicate message names
+        seen_names = set()
+        duplicate_names = []
         for msg in self.messages:
-            combo = (msg.rt, msg.sa, msg.tr)
-            if combo in seen_combinations:
-                # Track which messages have this combination
-                if combo not in duplicate_details:
-                    duplicate_details[combo] = []
-                duplicate_details[combo].append(msg.name)
-            seen_combinations.add(combo)
+            if msg.name in seen_names:
+                duplicate_names.append(msg.name)
+            seen_names.add(msg.name)
         
-        # Report detailed duplicate message errors
-        for combo, msg_names in duplicate_details.items():
-            rt, sa, tr = combo
-            errors.append(f"Duplicate message combination: RT={rt}, SA={sa}, TR='{tr}' appears in messages: {', '.join(msg_names)}")
+        # Report duplicate name errors
+        if duplicate_names:
+            errors.append(f"Duplicate message names: {', '.join(duplicate_names)}")
         
         # Validate messages
         for i, msg in enumerate(self.messages):
@@ -266,8 +261,10 @@ def load_icd(filepath: Path) -> ICDDefinition:
     # Validate and raise exceptions for critical errors
     errors = icd.validate()
     if errors:
-        # Raise ValueError for the first error
-        raise ValueError(errors[0])
+        # Show all validation errors for better debugging
+        error_message = f"ICD validation failed with {len(errors)} errors:\n"
+        error_message += "\n".join(f"  - {error}" for error in errors)
+        raise ValueError(error_message)
     
     return icd
 

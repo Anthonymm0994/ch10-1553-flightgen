@@ -221,7 +221,12 @@ def build(scenario, icd, out, writer, start, duration, rate_hz, packet_bytes, se
         click.echo(f"\nFile is ready for use at: {output_path.absolute()}")
         
     except Exception as e:
-        click.echo(f"ERROR Error: {e}", err=True)
+        click.echo(f"\n[ERROR] Build failed: {e}", err=True)
+        if hasattr(e, '__traceback__'):
+            import traceback
+            if verbose:
+                click.echo(f"\nDetailed error information:", err=True)
+                click.echo(f"{traceback.format_exc()}", err=True)
         sys.exit(1)
 
 
@@ -324,7 +329,7 @@ def check_icd(icd):
                 click.echo(f"  ... and {len(icd_def.messages) - 10} more")
     
     except Exception as e:
-        click.echo(f"ERROR Error: {e}", err=True)
+        click.echo(f"\n[ERROR] ICD check failed: {e}", err=True)
         sys.exit(1)
 
 

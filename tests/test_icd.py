@@ -284,7 +284,7 @@ class TestICDDefinition:
             assert word.encode in ['bnr16', 'u16', 'i16', 'bcd', 'float32_split']
     
     def test_duplicate_messages(self):
-        """Test detection of duplicate message definitions."""
+        """Test detection of duplicate message names."""
         icd = ICDDefinition(
             bus='A',
             messages=[
@@ -298,7 +298,7 @@ class TestICDDefinition:
                     words=[WordDefinition(name='w1', src='test.w1', encode='u16')]
                 ),
                 MessageDefinition(
-                    name='MSG2',  # Different name but same RT/SA/TR
+                    name='MSG1',  # Same name - should trigger duplicate error
                     rate_hz=20,
                     rt=5,
                     tr='BC2RT',
@@ -310,7 +310,7 @@ class TestICDDefinition:
         )
         
         errors = icd.validate()
-        assert any('Duplicate message' in e for e in errors)
+        assert any('Duplicate message names' in e for e in errors)
     
     def test_missing_rate_hz(self):
         """Test friendly error for missing rate_hz."""
