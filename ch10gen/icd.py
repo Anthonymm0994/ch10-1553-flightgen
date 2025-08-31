@@ -117,48 +117,51 @@ class MessageDefinition:
         
         # Validate words and check for bitfield overlaps
         word_allocations = {}  # Track bit allocations per word index
-        actual_word_count = 0
         
         for word in self.words:
             # Validate individual word
             errors.extend(word.validate())
             
-            if word.encode == 'float32_split':
-                actual_word_count += 2  # float32_split uses 2 words
+            # Handle bitfield packing for overlap detection
+            if word.mask is not None and word.shift is not None:
+                # Determine which word this field belongs to
+                word_idx = word.word_index if word.word_index is not None else 0
+                
+                # Initialize bit tracking for this word if needed
+                if word_idx not in word_allocations:
+                    word_allocations[word_idx] = 0
+                
+                # Calculate the actual bit positions used
+                shifted_mask = (word.mask << word.shift) & 0xFFFF
+                
+                # Check for overlap with existing allocations
+                if word_allocations[word_idx] & shifted_mask:
+                    errors.append(f"Bitfield '{word.name}' overlaps with another field in word {word_idx}")
+                
+                # Mark these bits as allocated
+                word_allocations[word_idx] |= shifted_mask
+        
+        # Simple word count validation based on word_index values
+        if self.words:
+            # Find the maximum word_index value
+            word_indices = [word.word_index for word in self.words if word.word_index is not None]
+            if word_indices:
+                max_word_idx = max(word_indices)
+                # Word count should be max_word_idx + 1 (since indices are 0-based)
+                # This means if you have indices 0-31, you need 32 words total
+                expected_word_count = max_word_idx + 1
+                
+                if expected_word_count != self.wc:
+                    errors.append(f"Word count mismatch: declared {self.wc}, calculated {expected_word_count}")
             else:
-                # Handle bitfield packing
-                if word.mask is not None and word.shift is not None:
-                    # Determine which word this field belongs to
-                    word_idx = word.word_index if word.word_index is not None else actual_word_count
-                    
-                    # Initialize bit tracking for this word if needed
-                    if word_idx not in word_allocations:
-                        word_allocations[word_idx] = 0
-                    
-                    # Calculate the actual bit positions used
-                    shifted_mask = (word.mask << word.shift) & 0xFFFF
-                    
-                    # Check for overlap with existing allocations
-                    if word_allocations[word_idx] & shifted_mask:
-                        errors.append(f"Bitfield '{word.name}' overlaps with another field in word {word_idx}")
-                    
-                    # Mark these bits as allocated
-                    word_allocations[word_idx] |= shifted_mask
-                    
-                    # Don't increment word count for packed fields
-                    if word.word_index is None:
-                        actual_word_count += 1
-                else:
-                    # Full word allocation
-                    actual_word_count += 1
-        
-        # Count unique words (considering packed fields)
-        if word_allocations:
-            max_word_idx = max(word_allocations.keys())
-            actual_word_count = max(actual_word_count, max_word_idx + 1)
-        
-        if actual_word_count != self.wc:
-            errors.append(f"Word count mismatch: declared {self.wc}, calculated {actual_word_count}")
+                # No word_index values defined, count total words
+                total_words = sum(word.get_word_count() for word in self.words)
+                if total_words != self.wc:
+                    errors.append(f"Word count mismatch: declared {self.wc}, calculated {total_words}")
+        else:
+            # No words defined
+            if self.wc != 0:
+                errors.append(f"Word count mismatch: declared {self.wc}, but no words defined")
         
         return errors
     
