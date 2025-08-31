@@ -1,0 +1,23 @@
+# CH10 Generator Configuration
+# This file preserves the correct channel IDs for TMATS and time packets
+
+writer:
+  backend: pyc10
+  packet_bytes_target: 65536
+  flush_ms: 1000
+  timeout_s: 300
+  progress_interval: 1000
+  
+  # Channel IDs for different data types
+  tmats_channel_id: 0x0200
+  time_channel_id: 0x0100
+  bus_a_channel_id: 0x0210
+  bus_b_channel_id: 0x0220
+
+timing:
+  rt_response_us: (4.0, 12.0)
+  pct_jitter: 20.0
+  zero_jitter: false
+
+seed: null
+verbose: true

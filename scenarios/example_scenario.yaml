@@ -1,0 +1,32 @@
+name: "Demo Mission"
+start_time_utc: "2025-08-08T18:00:00Z"
+duration_s: 600
+seed: 123
+profile:
+  base_altitude_ft: 2000
+  segments:
+    - type: climb
+      to_altitude_ft: 12000
+      ias_kt: 250
+      vs_fpm: 1500
+      turn_rate_deg_s: 0
+      duration_s: 240
+    - type: cruise
+      ias_kt: 320
+      hold_s: 120
+    - type: turn
+      heading_change_deg: 90
+      bank_deg: 25
+      ias_kt: 300
+      duration_s: 60
+    - type: descent
+      to_altitude_ft: 3000
+      vs_fpm: -1200
+      ias_kt: 250
+      duration_s: 180
+bus:
+  packet_bytes_target: 65536
+  jitter_ms: 2
+  errors:
+    parity_percent: 0.05
+    late_percent: 0.02

@@ -1,0 +1,166 @@
+name: Comprehensive Validation Test
+description: Tests all generator types, expressions, and field references
+
+duration_s: 10
+start_time_utc: 2024-01-01T00:00:00Z
+
+defaults:
+  data_mode: random
+  default_config:
+    distribution: uniform
+
+messages:
+  "Status Flags":
+    fields:
+      # Test pattern generation for flags
+      flag_0:
+        mode: pattern
+        values: [0, 1, 1, 0, 1, 0, 0, 1]
+      flag_1:
+        mode: constant
+        value: 1
+      flag_2:
+        mode: increment
+        start: 0
+        step: 1
+        max: 1
+      flag_3:
+        mode: expression
+        formula: "flag_0 ^ flag_1"  # XOR
+      flag_4:
+        mode: expression
+        formula: "flag_0 & flag_1"  # AND
+      flag_5:
+        mode: expression
+        formula: "flag_0 | flag_2"  # OR
+      # Remaining flags use various modes
+      flag_6:
+        mode: sine
+        amplitude: 0.5
+        frequency: 1.0
+        offset: 0.5
+      flag_7:
+        mode: square
+        amplitude: 0.5
+        frequency: 0.5
+        offset: 0.5
+      # Multi-bit fields
+      nibble_0:
+        mode: increment
+        start: 0
+        step: 1
+        max: 15
+      nibble_1:
+        mode: expression
+        formula: "15 - nibble_0"  # Inverse
+      byte_low:
+        mode: random
+        distribution: normal
+        mean: 128
+        std_dev: 20
+      three_bits:
+        mode: pattern
+        values: [0, 1, 2, 3, 4, 5, 6, 7]
+      five_bits:
+        mode: ramp
+        start: 0
+        end: 31
+        duration: 10
+      two_bits:
+        mode: expression
+        formula: "three_bits % 4"
+      six_bits:
+        mode: multimodal
+        distribution: multimodal
+        modes:
+          - mean: 10
+            std_dev: 2
+            weight: 0.3
+          - mean: 30
+            std_dev: 2
+            weight: 0.4
+          - mean: 50
+            std_dev: 2
+            weight: 0.3
+
+  "Sensor Data":
+    fields:
+      temperature:
+        mode: sine
+        amplitude: 512  # Half of 10-bit range
+        frequency: 0.2
+        offset: 512
+      temp_status:
+        mode: expression
+        formula: "min(63, max(0, temperature / 16))"  # Scale temperature to 6 bits
+      pressure:
+        mode: cosine
+        amplitude: 2048  # Half of 12-bit range
+        frequency: 0.15
+        offset: 2048
+      pressure_valid:
+        mode: expression
+        formula: "1 if pressure > 100 and pressure < 4000 else 0"
+      reserved_1:
+        mode: constant
+        value: 0
+      altitude:
+        mode: expression
+        formula: "min(65535, pressure * 8)"  # Pressure to altitude approximation
+      speed_low:
+        mode: ramp
+        start: 0
+        end: 255
+        duration: 10
+      speed_high:
+        mode: expression
+        formula: "speed_low / 64"  # Upper bits based on lower
+      direction:
+        mode: sawtooth
+        amplitude: 8
+        frequency: 0.1
+        offset: 8
+
+  "Navigation":
+    fields:
+      nav_mode:
+        mode: pattern
+        values: [0, 1, 2, 3, 2, 1]
+      nav_source:
+        mode: expression
+        formula: "min(3, nav_mode)"
+      nav_quality:
+        mode: expression
+        formula: "7 if nav_satellites > 8 else max(0, nav_satellites - 3)"
+      nav_satellites:
+        mode: random
+        distribution: normal
+        mean: 10
+        std_dev: 2
+        min: 0
+        max: 15
+      nav_hdop:
+        mode: expression
+        formula: "max(1, 32 - nav_satellites * 2)"
+      latitude:
+        mode: sine
+        amplitude: 10000
+        frequency: 0.05
+        offset: 0
+      longitude:
+        mode: cosine
+        amplitude: 10000
+        frequency: 0.05
+        offset: 0
+      heading:
+        mode: expression
+        formula: "(latitude + longitude) % 360"
+      groundspeed:
+        mode: expression
+        formula: "abs(latitude / 100) + abs(longitude / 100)"
+
+# Bus configuration for high data rate
+bus:
+  utilization_percent: 75
+  packet_bytes_target: 65536
+  jitter_percent: 5

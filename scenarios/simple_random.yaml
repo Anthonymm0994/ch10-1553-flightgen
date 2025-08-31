@@ -1,0 +1,8 @@
+name: "Simple Random Data"
+duration_s: 10
+seed: 42
+
+# Simple configuration that works with current system
+bus:
+  packet_bytes_target: 65536
+  jitter_ms: 5

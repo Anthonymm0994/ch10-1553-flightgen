@@ -1,0 +1,341 @@
+# Test ICD for random data generation
+# Contains various message types and field encodings
+
+bus: A
+
+messages:
+  # High-rate navigation data with bitfields
+  - name: NAV_DATA
+    rate_hz: 20
+    rt: 10
+    tr: BC2RT
+    sa: 1
+    wc: 8
+    words:
+      # Word 0: Altitude with status bits (bitfield example)
+      - name: altitude_low
+        encode: u16
+        src: random
+        mask: 0x3FFF  # 14 bits for altitude
+        shift: 0
+        word_index: 0
+      - name: altitude_valid
+        encode: u16
+        src: random
+        mask: 0x0001  # Bit 14 (but mask is just 1 bit)
+        shift: 14
+        word_index: 0
+      - name: altitude_source
+        encode: u16
+        src: random
+        mask: 0x0001  # Bit 15 (but mask is just 1 bit)
+        shift: 15
+        word_index: 0
+      
+      # Word 1: Airspeed
+      - name: airspeed
+        encode: u16
+        src: random
+        scale: 0.1
+      
+      # Word 2: Heading
+      - name: heading
+        encode: bnr16
+        src: random
+        scale: 1.0
+      
+      # Word 3: Pitch
+      - name: pitch
+        encode: i16
+        src: random
+        scale: 0.01
+      
+      # Word 4: Roll
+      - name: roll
+        encode: i16
+        src: random
+        scale: 0.01
+      
+      # Word 5: Status word with multiple bitfields
+      - name: system_ok
+        encode: u16
+        src: random
+        mask: 0x0001
+        shift: 0
+        word_index: 5
+      - name: gps_valid
+        encode: u16
+        src: random
+        mask: 0x0002
+        shift: 1
+        word_index: 5
+      - name: ins_valid
+        encode: u16
+        src: random
+        mask: 0x0004
+        shift: 2
+        word_index: 5
+      - name: radar_valid
+        encode: u16
+        src: random
+        mask: 0x0008
+        shift: 3
+        word_index: 5
+      - name: mode_bits
+        encode: u16
+        src: random
+        mask: 0x00F0
+        shift: 4
+        word_index: 5
+      
+      # Word 6-7: Temperature (BCD example)
+      - name: temp_celsius
+        encode: bcd
+        src: random
+      - name: temp_fraction
+        encode: bcd
+        src: random
+
+  # GPS data with float32 values
+  - name: GPS_DATA
+    rate_hz: 5
+    rt: 11
+    tr: BC2RT
+    sa: 2
+    wc: 6
+    words:
+      - name: latitude
+        encode: float32_split
+        src: random
+        word_order: lsw_msw
+      - name: longitude
+        encode: float32_split
+        src: random
+        word_order: lsw_msw
+      - name: altitude_msl
+        encode: u16
+        src: random
+      - name: satellites
+        encode: u16
+        src: random
+
+  # Engine data with various encodings
+  - name: ENGINE_DATA
+    rate_hz: 10
+    rt: 12
+    tr: BC2RT
+    sa: 3
+    wc: 10
+    words:
+      # Engine 1
+      - name: eng1_rpm
+        encode: u16
+        src: random
+        scale: 10
+      - name: eng1_temp
+        encode: i16
+        src: random
+        offset: -50
+      - name: eng1_pressure
+        encode: bnr16
+        src: random
+        scale: 0.1
+      - name: eng1_fuel_flow
+        encode: u16
+        src: random
+        scale: 0.01
+      - name: eng1_status
+        encode: u16
+        src: random
+      
+      # Engine 2
+      - name: eng2_rpm
+        encode: u16
+        src: random
+        scale: 10
+      - name: eng2_temp
+        encode: i16
+        src: random
+        offset: -50
+      - name: eng2_pressure
+        encode: bnr16
+        src: random
+        scale: 0.1
+      - name: eng2_fuel_flow
+        encode: u16
+        src: random
+        scale: 0.01
+      - name: eng2_status
+        encode: u16
+        src: random
+
+  # System status with many bitfields
+  - name: SYSTEM_STATUS
+    rate_hz: 1
+    rt: 13
+    tr: BC2RT
+    sa: 4
+    wc: 4
+    words:
+      # Word 0: Primary systems
+      - name: power_on
+        encode: u16
+        src: random
+        mask: 0x0001
+        shift: 0
+        word_index: 0
+      - name: hydraulics_ok
+        encode: u16
+        src: random
+        mask: 0x0002
+        shift: 1
+        word_index: 0
+      - name: electrical_ok
+        encode: u16
+        src: random
+        mask: 0x0004
+        shift: 2
+        word_index: 0
+      - name: pneumatics_ok
+        encode: u16
+        src: random
+        mask: 0x0008
+        shift: 3
+        word_index: 0
+      - name: fuel_ok
+        encode: u16
+        src: random
+        mask: 0x0010
+        shift: 4
+        word_index: 0
+      - name: avionics_ok
+        encode: u16
+        src: random
+        mask: 0x0020
+        shift: 5
+        word_index: 0
+      - name: comms_ok
+        encode: u16
+        src: random
+        mask: 0x0040
+        shift: 6
+        word_index: 0
+      - name: radar_ok
+        encode: u16
+        src: random
+        mask: 0x0080
+        shift: 7
+        word_index: 0
+      - name: warning_level
+        encode: u16
+        src: random
+        mask: 0x000F
+        shift: 8
+        word_index: 0
+      - name: error_code
+        encode: u16
+        src: random
+        mask: 0x000F
+        shift: 12
+        word_index: 0
+      
+      # Word 1: Subsystem states
+      - name: subsystem_states
+        encode: u16
+        src: random
+      
+      # Word 2: Error counter
+      - name: error_counter
+        encode: u16
+        src: random
+      
+      # Word 3: Time since boot
+      - name: boot_time
+        encode: u16
+        src: random
+
+  # Control surface positions
+  - name: CONTROL_SURFACES
+    rate_hz: 50
+    rt: 14
+    tr: BC2RT
+    sa: 5
+    wc: 6
+    words:
+      - name: aileron_left
+        encode: i16
+        src: random
+        scale: 0.01
+      - name: aileron_right
+        encode: i16
+        src: random
+        scale: 0.01
+      - name: elevator
+        encode: i16
+        src: random
+        scale: 0.01
+      - name: rudder
+        encode: i16
+        src: random
+        scale: 0.01
+      - name: flaps
+        encode: u16
+        src: random
+        scale: 0.1
+      - name: trim
+        encode: i16
+        src: random
+        scale: 0.001
+
+  # Sensor data with mixed encodings
+  - name: SENSOR_DATA
+    rate_hz: 100
+    rt: 15
+    tr: BC2RT
+    sa: 6
+    wc: 12
+    words:
+      - name: accel_x
+        encode: i16
+        src: random
+        scale: 0.001
+      - name: accel_y
+        encode: i16
+        src: random
+        scale: 0.001
+      - name: accel_z
+        encode: i16
+        src: random
+        scale: 0.001
+      - name: gyro_x
+        encode: bnr16
+        src: random
+        scale: 0.01
+      - name: gyro_y
+        encode: bnr16
+        src: random
+        scale: 0.01
+      - name: gyro_z
+        encode: bnr16
+        src: random
+        scale: 0.01
+      - name: mag_x
+        encode: i16
+        src: random
+      - name: mag_y
+        encode: i16
+        src: random
+      - name: mag_z
+        encode: i16
+        src: random
+      - name: pressure
+        encode: u16
+        src: random
+        scale: 0.1
+      - name: temperature
+        encode: i16
+        src: random
+        offset: -40
+      - name: sensor_status
+        encode: u16
+        src: random

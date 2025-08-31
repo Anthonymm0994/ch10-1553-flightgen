@@ -1,0 +1,72 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "opener:default",
+    "dialog:default",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "fs:default",
+    "fs:allow-read",
+    "fs:allow-write",
+    "fs:allow-read-file",
+    "fs:allow-write-file",
+    "fs:allow-read-text-file",
+    "fs:allow-write-text-file",
+    "fs:allow-exists",
+    "fs:allow-create",
+    "fs:allow-mkdir",
+    "fs:allow-remove",
+    "fs:allow-rename",
+    "fs:allow-copy-file",
+    "fs:scope-app-recursive",
+    "fs:scope-document-recursive",
+    "fs:scope-download-recursive",
+    "fs:scope-desktop-recursive",
+    "fs:scope-home-recursive",
+    "fs:scope-temp-recursive",
+    "core:path:default",
+    "shell:default",
+    "shell:allow-spawn",
+    "shell:allow-open",
+    "shell:allow-execute",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/ch10gen",
+          "cmd": "binaries/ch10gen",
+          "sidecar": true,
+          "args": [{ "validator": ".*" }]
+        },
+        {
+          "name": "ch10gen",
+          "cmd": "ch10gen",
+          "sidecar": false,
+          "args": [{ "validator": ".*" }]
+        },
+        {
+          "name": "ch10gen.exe",
+          "cmd": "ch10gen.exe",
+          "sidecar": false,
+          "args": [{ "validator": ".*" }]
+        },
+        {
+          "name": "./binaries/ch10gen.exe",
+          "cmd": "./binaries/ch10gen.exe",
+          "sidecar": false,
+          "args": [{ "validator": ".*" }]
+        },
+        {
+          "name": "binaries\\ch10gen.exe",
+          "cmd": "binaries\\ch10gen.exe",
+          "sidecar": false,
+          "args": [{ "validator": ".*" }]
+        }
+      ]
+    }
+  ]
+}

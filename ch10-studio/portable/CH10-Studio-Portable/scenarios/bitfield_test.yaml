@@ -1,0 +1,99 @@
+name: Bitfield Test Scenario
+description: Test all data generators with bitfield packing
+
+duration_s: 5
+start_time_utc: 2024-01-01T00:00:00Z
+
+# Default to random for all fields
+defaults:
+  data_mode: random
+  default_config:
+    distribution: uniform
+
+# Configure specific fields with different generators
+messages:
+  "Packed Status":
+    fields:
+      status_ok:
+        mode: pattern
+        values: [0, 1, 1, 0, 1]  # Alternating pattern
+      
+      warning_flag:
+        mode: constant
+        value: 0
+      
+      error_flag:
+        mode: expression
+        formula: "1 - status_ok"  # Inverse of status_ok
+      
+      mode:
+        mode: increment
+        start: 0
+        step: 1
+        max: 7  # 3-bit field max
+      
+      counter:
+        mode: increment
+        start: 0
+        step: 5
+        max: 255  # 8-bit field max
+      
+      reserved:
+        mode: constant
+        value: 0
+      
+      temperature:
+        mode: sine
+        amplitude: 512  # Half of 10-bit range
+        frequency: 0.5
+        offset: 512
+      
+      pressure:
+        mode: ramp
+        start: 0
+        end: 31  # 5-bit max
+        duration: 5.0
+      
+      valid:
+        mode: constant
+        value: 1
+  
+  "Multi-Word Bitfields":
+    fields:
+      field_a:
+        mode: random
+        distribution: normal
+        mean: 128
+        std_dev: 20
+      
+      field_b:
+        mode: sawtooth
+        amplitude: 127
+        frequency: 1.0
+        offset: 128
+      
+      field_c:
+        mode: square
+        amplitude: 2047  # Half of 12-bit range
+        frequency: 0.2
+        offset: 2048
+      
+      field_d:
+        mode: multimodal
+        distribution: multimodal
+        modes:
+          - mean: 5
+            std_dev: 1
+            weight: 0.3
+          - mean: 10
+            std_dev: 1
+            weight: 0.7
+      
+      field_e:
+        mode: expression
+        formula: "field_a * 256 + field_b"  # Combine two 8-bit fields
+
+# Bus configuration
+bus:
+  utilization_percent: 30
+  packet_bytes_target: 8192

@@ -1,0 +1,87 @@
+# Improved test scenario with TMATS and time packets
+name: improved_test
+description: Generate test data with proper TMATS and time packets
+duration: 10
+
+# Global configuration
+config:
+  random_seed: 42
+  default_mode: random
+  include_tmats: true
+  include_time: true
+  packet_size: 65536
+  jitter_ms: 20
+
+# TMATS configuration
+tmats:
+  enabled: true
+  system_name: "Test System"
+  system_version: "1.0.0"
+  recording_entity: "CH10 Studio"
+  mission_id: "TEST-001"
+  platform: "Test Platform"
+  data_source: "Simulated"
+
+# Time configuration
+time:
+  enabled: true
+  start_time: "2024-01-01T00:00:00Z"
+  time_format: "IRIG-B"
+  include_leap_seconds: false
+
+# Message-specific configurations that match ICD word counts
+messages:
+  "TEST_MSG_1":
+    fields:
+      field1:
+        mode: random
+        type: u16
+        min: 0
+        max: 65535
+      field2:
+        mode: random
+        type: i16
+        min: -32768
+        max: 32767
+      field3:
+        mode: random
+        type: u16
+        min: 0
+        max: 65535
+      field4:
+        mode: random
+        type: u16
+        min: 0
+        max: 65535
+
+  "TEST_MSG_2":
+    fields:
+      value1:
+        mode: random
+        type: u16
+        min: 0
+        max: 65535
+      value2:
+        mode: random
+        type: u16
+        min: 0
+        max: 65535
+      value3:
+        mode: random
+        type: u16
+        min: 0
+        max: 65535
+
+# Bus configuration
+bus_config:
+  utilization: 50
+  error_rate: 0.001
+  response_time_ms: 8
+
+# Output configuration
+output:
+  format: ch10
+  include_tmats: true
+  include_time: true
+  include_metadata: true
+  compression: none

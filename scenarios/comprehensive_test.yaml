@@ -1,0 +1,105 @@
+# Comprehensive test scenario demonstrating all features
+name: comprehensive_test
+description: Test all data generation modes
+duration: 10
+
+# Global configuration
+config:
+  random_seed: 42
+  default_mode: random
+
+# Message-specific configurations
+messages:
+  # Navigation data with mixed modes
+  "Navigation Data":
+    fields:
+      # Sine wave for altitude
+      altitude:
+        mode: sine
+        center: 10000
+        amplitude: 2000
+        frequency: 0.1
+      
+      # Normal distribution for airspeed
+      airspeed:
+        mode: random_normal
+        mean: 250
+        std_dev: 10
+        min: 200
+        max: 300
+      
+      # Expression for altitude in meters
+      altitude_meters:
+        mode: expression
+        formula: "altitude * 0.3048"
+      
+      # Incrementing packet counter
+      packet_counter:
+        mode: increment
+        start: 0
+        increment: 1
+        wrap: 255
+  
+  # Engine data with patterns
+  "Engine Data":
+    fields:
+      # Ramp for temperature
+      temperature:
+        mode: ramp
+        start: 20
+        end: 90
+        duration: 5
+        repeat: true
+      
+      # Pattern for status
+      status:
+        mode: pattern
+        values: [0, 0, 0, 1, 0, 0, 2, 0]
+      
+      # Constant RPM
+      rpm:
+        mode: constant
+        value: 3000
+  
+  # Sensor data with waveforms
+  "Sensor Data":
+    fields:
+      # Sawtooth for sensor1
+      sensor1:
+        mode: sawtooth
+        min: 0
+        max: 100
+        period: 2
+      
+      # Square wave for sensor2
+      sensor2:
+        mode: square
+        low: 0
+        high: 5
+        period: 1
+        duty_cycle: 0.7
+      
+      # Cosine for sensor3
+      sensor3:
+        mode: cosine
+        center: 50
+        amplitude: 25
+        frequency: 0.5
+  
+  # Status with bitfields
+  "System Status":
+    fields:
+      # Individual bits with different modes
+      power_on:
+        mode: constant
+        value: 1
+      
+      warning:
+        mode: pattern
+        values: [0, 0, 1, 0]
+      
+      error_count:
+        mode: increment
+        start: 0
+        increment: 1
+        wrap: 15  # 4-bit field

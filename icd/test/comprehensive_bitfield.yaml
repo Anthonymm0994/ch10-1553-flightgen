@@ -1,0 +1,279 @@
+name: comprehensive_bitfield_test
+bus: B
+description: Comprehensive test of bitfield packing with complex masks and shifts
+
+messages:
+  - name: "Status Flags"
+    rate_hz: 50
+    rt: 1
+    tr: BC2RT
+    sa: 1
+    wc: 3  # 3 actual words
+    words:
+      # Word 0: Single bit flags (16 individual bits)
+      - name: flag_0
+        encode: u16
+        mask: 0x0001
+        shift: 0
+        word_index: 0
+        const: 0
+      - name: flag_1
+        encode: u16
+        mask: 0x0001
+        shift: 1
+        word_index: 0
+        const: 0
+      - name: flag_2
+        encode: u16
+        mask: 0x0001
+        shift: 2
+        word_index: 0
+        const: 0
+      - name: flag_3
+        encode: u16
+        mask: 0x0001
+        shift: 3
+        word_index: 0
+        const: 0
+      - name: flag_4
+        encode: u16
+        mask: 0x0001
+        shift: 4
+        word_index: 0
+        const: 0
+      - name: flag_5
+        encode: u16
+        mask: 0x0001
+        shift: 5
+        word_index: 0
+        const: 0
+      - name: flag_6
+        encode: u16
+        mask: 0x0001
+        shift: 6
+        word_index: 0
+        const: 0
+      - name: flag_7
+        encode: u16
+        mask: 0x0001
+        shift: 7
+        word_index: 0
+        const: 0
+      - name: flag_8
+        encode: u16
+        mask: 0x0001
+        shift: 8
+        word_index: 0
+        const: 0
+      - name: flag_9
+        encode: u16
+        mask: 0x0001
+        shift: 9
+        word_index: 0
+        const: 0
+      - name: flag_10
+        encode: u16
+        mask: 0x0001
+        shift: 10
+        word_index: 0
+        const: 0
+      - name: flag_11
+        encode: u16
+        mask: 0x0001
+        shift: 11
+        word_index: 0
+        const: 0
+      - name: flag_12
+        encode: u16
+        mask: 0x0001
+        shift: 12
+        word_index: 0
+        const: 0
+      - name: flag_13
+        encode: u16
+        mask: 0x0001
+        shift: 13
+        word_index: 0
+        const: 0
+      - name: flag_14
+        encode: u16
+        mask: 0x0001
+        shift: 14
+        word_index: 0
+        const: 0
+      - name: flag_15
+        encode: u16
+        mask: 0x0001
+        shift: 15
+        word_index: 0
+        const: 0
+      
+      # Word 1: Multi-bit fields
+      - name: nibble_0
+        encode: u16
+        mask: 0x000F  # 4 bits
+        shift: 0
+        word_index: 1
+        const: 0
+      - name: nibble_1
+        encode: u16
+        mask: 0x000F  # 4 bits
+        shift: 4
+        word_index: 1
+        const: 0
+      - name: byte_low
+        encode: u16
+        mask: 0x00FF  # 8 bits
+        shift: 8
+        word_index: 1
+        const: 0
+      
+      # Word 2: Mixed sizes
+      - name: three_bits
+        encode: u16
+        mask: 0x0007  # 3 bits
+        shift: 0
+        word_index: 2
+        const: 0
+      - name: five_bits
+        encode: u16
+        mask: 0x001F  # 5 bits
+        shift: 3
+        word_index: 2
+        const: 0
+      - name: two_bits
+        encode: u16
+        mask: 0x0003  # 2 bits
+        shift: 8
+        word_index: 2
+        const: 0
+      - name: six_bits
+        encode: u16
+        mask: 0x003F  # 6 bits
+        shift: 10
+        word_index: 2
+        const: 0
+
+  - name: "Sensor Data"
+    rate_hz: 100
+    rt: 2
+    tr: BC2RT
+    sa: 2
+    wc: 4
+    words:
+      # Word 0: Temperature (10 bits) + Status (6 bits)
+      - name: temperature
+        encode: u16
+        mask: 0x03FF  # 10 bits
+        shift: 0
+        word_index: 0
+        const: 0
+      - name: temp_status
+        encode: u16
+        mask: 0x003F  # 6 bits
+        shift: 10
+        word_index: 0
+        const: 0
+      
+      # Word 1: Pressure (12 bits) + Valid (1 bit) + Reserved (3 bits)
+      - name: pressure
+        encode: u16
+        mask: 0x0FFF  # 12 bits
+        shift: 0
+        word_index: 1
+        const: 0
+      - name: pressure_valid
+        encode: u16
+        mask: 0x0001  # 1 bit
+        shift: 12
+        word_index: 1
+        const: 0
+      - name: reserved_1
+        encode: u16
+        mask: 0x0007  # 3 bits
+        shift: 13
+        word_index: 1
+        const: 0
+      
+      # Word 2: Full word field (no packing)
+      - name: altitude
+        encode: u16
+        word_index: 2
+        const: 0
+      
+      # Word 3: Complex packing
+      - name: speed_low
+        encode: u16
+        mask: 0x00FF  # Low 8 bits
+        shift: 0
+        word_index: 3
+        const: 0
+      - name: speed_high
+        encode: u16
+        mask: 0x000F  # High 4 bits
+        shift: 8
+        word_index: 3
+        const: 0
+      - name: direction
+        encode: u16
+        mask: 0x000F  # 4 bits for 16 directions
+        shift: 12
+        word_index: 3
+        const: 0
+
+  - name: "Navigation"
+    rate_hz: 20
+    rt: 3
+    tr: BC2RT
+    sa: 3
+    wc: 5
+    words:
+      # Test maximum packing density
+      - name: nav_mode
+        encode: u16
+        mask: 0x0003  # 2 bits
+        shift: 0
+        word_index: 0
+        const: 0
+      - name: nav_source
+        encode: u16
+        mask: 0x0003  # 2 bits
+        shift: 2
+        word_index: 0
+        const: 0
+      - name: nav_quality
+        encode: u16
+        mask: 0x0007  # 3 bits
+        shift: 4
+        word_index: 0
+        const: 0
+      - name: nav_satellites
+        encode: u16
+        mask: 0x000F  # 4 bits
+        shift: 7
+        word_index: 0
+        const: 0
+      - name: nav_hdop
+        encode: u16
+        mask: 0x001F  # 5 bits
+        shift: 11
+        word_index: 0
+        const: 0
+      
+      # Words 1-4: Regular fields
+      - name: latitude
+        encode: i16
+        word_index: 1
+        const: 0
+      - name: longitude
+        encode: i16
+        word_index: 2
+        const: 0
+      - name: heading
+        encode: u16
+        word_index: 3
+        const: 0
+      - name: groundspeed
+        encode: u16
+        word_index: 4
+        const: 0

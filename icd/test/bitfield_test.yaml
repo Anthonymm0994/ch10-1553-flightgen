@@ -1,0 +1,118 @@
+name: bitfield_test
+bus: B
+description: Test ICD for bitfield packing with scenario generators
+
+messages:
+  - name: "Packed Status"
+    rate_hz: 20
+    rt: 1
+    tr: BC2RT
+    sa: 1
+    wc: 2
+    words:
+      # Word 0: Multiple bitfields packed into one word
+      - name: status_ok
+        encode: u16
+        mask: 0x0001
+        shift: 0
+        word_index: 0
+        const: 0
+      
+      - name: warning_flag
+        encode: u16
+        mask: 0x0001
+        shift: 1
+        word_index: 0
+        const: 0
+      
+      - name: error_flag
+        encode: u16
+        mask: 0x0001
+        shift: 2
+        word_index: 0
+        const: 0
+      
+      - name: mode
+        encode: u16
+        mask: 0x0007  # 3 bits
+        shift: 3
+        word_index: 0
+        const: 0
+      
+      - name: counter
+        encode: u16
+        mask: 0x00FF  # 8 bits
+        shift: 6
+        word_index: 0
+        const: 0
+      
+      - name: reserved
+        encode: u16
+        mask: 0x0003  # 2 bits
+        shift: 14
+        word_index: 0
+        const: 0
+      
+      # Word 1: Another packed word
+      - name: temperature
+        encode: u16
+        mask: 0x03FF  # 10 bits
+        shift: 0
+        word_index: 1
+        const: 0
+      
+      - name: pressure
+        encode: u16
+        mask: 0x001F  # 5 bits
+        shift: 10
+        word_index: 1
+        const: 0
+      
+      - name: valid
+        encode: u16
+        mask: 0x0001  # 1 bit
+        shift: 15
+        word_index: 1
+        const: 0
+
+  - name: "Multi-Word Bitfields"
+    rate_hz: 10
+    rt: 2
+    tr: BC2RT
+    sa: 2
+    wc: 3
+    words:
+      # Word 0
+      - name: field_a
+        encode: u16
+        mask: 0x00FF
+        shift: 0
+        word_index: 0
+        const: 0
+      
+      - name: field_b
+        encode: u16
+        mask: 0x00FF
+        shift: 8
+        word_index: 0
+        const: 0
+      
+      # Word 1
+      - name: field_c
+        encode: u16
+        mask: 0x0FFF
+        shift: 0
+        word_index: 1
+        const: 0
+      
+      - name: field_d
+        encode: u16
+        mask: 0x000F
+        shift: 12
+        word_index: 1
+        const: 0
+      
+      # Word 2 - single field
+      - name: field_e
+        encode: u16
+        const: 0

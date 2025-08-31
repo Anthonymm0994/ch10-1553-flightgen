@@ -1,0 +1,72 @@
+# Random Test Data Scenario
+# Generates random values for all fields in the ICD
+# Used for testing and validation
+
+name: random_test
+description: Generate random test data for all ICD fields
+duration: 10  # seconds
+
+# Channel ID configuration for TMATS and time packets
+tmats_channel_id: 0x0200
+time_channel_id: 0x0100
+bus_a_channel_id: 0x0210
+bus_b_channel_id: 0x0220
+
+# Random data generation mode
+data_mode: random
+
+# Random data configuration
+random_config:
+  # Generate values for all fields
+  populate_all_fields: true
+
+  # Value ranges for different types
+  ranges:
+    u16:
+      min: 0
+      max: 65535
+    i16:
+      min: -32768
+      max: 32767
+    bnr16:
+      min: -180.0
+      max: 180.0
+    bcd:
+      min: 0
+      max: 9999
+    discrete:
+      values: [0, 1, 2, 3, 4, 5, 6, 7]
+    status:
+      values: [0, 1]
+
+  # Variation patterns
+  variation:
+    # How often values change (in Hz)
+    change_rate: 10
+
+    # Variation types per field
+    patterns:
+      - type: random      # Pure random
+        weight: 0.4
+      - type: increment   # Incrementing counter
+        weight: 0.2
+      - type: sine        # Sine wave pattern
+        weight: 0.2
+      - type: constant    # Constant value
+        weight: 0.1
+      - type: toggle      # Toggle between values
+        weight: 0.1
+
+# Bus configuration
+bus_config:
+  utilization: 50  # Target bus utilization %
+
+# Error injection (optional, disabled for testing)
+errors:
+  enabled: false
+
+# Output configuration
+output:
+  format: ch10
+  include_tmats: true
+  include_time: true

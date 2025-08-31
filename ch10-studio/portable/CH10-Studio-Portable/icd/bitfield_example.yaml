@@ -1,0 +1,181 @@
+# Example ICD demonstrating bitfield packing
+# This shows how to pack multiple fields into single 16-bit words
+
+name: "Bitfield Example"
+bus: "A"
+description: "Example of bitfield packing for status words and parameters"
+
+messages:
+  - name: "System Status"
+    rate_hz: 10.0
+    rt: 1
+    tr: "RT2BC"
+    sa: 1
+    wc: 2
+    words:
+      # Word 0: Packed status bits
+      - name: "system_ok"
+        encode: "u16"
+        src: "flight.system_ok"
+        mask: 0x01
+        shift: 0
+        word_index: 0
+        
+      - name: "warning"
+        encode: "u16"
+        src: "flight.warning"
+        mask: 0x01
+        shift: 1
+        word_index: 0
+        
+      - name: "error"
+        encode: "u16"
+        src: "flight.error"
+        mask: 0x01
+        shift: 2
+        word_index: 0
+        
+      - name: "temperature"
+        encode: "u16"
+        src: "flight.temperature"
+        scale: 0.5
+        offset: -40.0
+        mask: 0x7F
+        shift: 3
+        word_index: 0
+        
+      - name: "pressure"
+        encode: "u16"
+        src: "flight.pressure"
+        scale: 10.0
+        offset: 0.0
+        mask: 0x3F
+        shift: 10
+        word_index: 0
+        
+      # Word 1: Engine parameters
+      - name: "rpm"
+        encode: "u16"
+        src: "flight.engine_rpm"
+        scale: 10.0
+        offset: 0.0
+        mask: 0x7FF
+        shift: 0
+        word_index: 1
+        
+      - name: "oil_temp"
+        encode: "u16"
+        src: "flight.oil_temperature"
+        scale: 1.0
+        offset: 0.0
+        mask: 0x0F
+        shift: 11
+        word_index: 1
+        
+      - name: "oil_pressure_high"
+        encode: "u16"
+        src: "flight.oil_pressure_high"
+        mask: 0x01
+        shift: 15
+        word_index: 1
+
+  - name: "Navigation Data"
+    rate_hz: 20.0
+    rt: 2
+    tr: "RT2BC"
+    sa: 2
+    wc: 3
+    words:
+      # Word 0: Full word for altitude (BNR16 cannot use bitfields)
+      - name: "altitude"
+        encode: "bnr16"
+        src: "flight.altitude_ft"
+        scale: 1.0
+        offset: 0.0
+        
+      # Word 1: Packed heading and airspeed
+      - name: "heading"
+        encode: "u16"
+        src: "flight.heading_deg"
+        scale: 1.0
+        offset: 0.0
+        mask: 0x1FF
+        shift: 0
+        word_index: 1
+        
+      - name: "airspeed"
+        encode: "u16"
+        src: "flight.airspeed_kts"
+        scale: 1.0
+        offset: 0.0
+        mask: 0x7F
+        shift: 9
+        word_index: 1
+        
+      # Word 2: Packed flags and small values
+      - name: "gps_valid"
+        encode: "u16"
+        src: "flight.gps_valid"
+        mask: 0x01
+        shift: 0
+        word_index: 2
+        
+      - name: "ins_valid"
+        encode: "u16"
+        src: "flight.ins_valid"
+        mask: 0x01
+        shift: 1
+        word_index: 2
+        
+      - name: "magnetic_variation"
+        encode: "i16"
+        src: "flight.magnetic_variation"
+        scale: 0.1
+        offset: 0.0
+        mask: 0x3FF
+        shift: 2
+        word_index: 2
+        
+      - name: "wind_direction"
+        encode: "u16"
+        src: "flight.wind_direction"
+        scale: 1.0
+        offset: 0.0
+        mask: 0x0F
+        shift: 12
+        word_index: 2
+
+  - name: "Sensor Data"
+    rate_hz: 50.0
+    rt: 3
+    tr: "RT2BC"
+    sa: 3
+    wc: 1
+    words:
+      # Single word with multiple packed sensor readings
+      - name: "accel_x"
+        encode: "i16"
+        src: "flight.accel_x_g"
+        scale: 0.01
+        offset: 0.0
+        mask: 0x1FF
+        shift: 0
+        word_index: 0
+        
+      - name: "accel_y"
+        encode: "i16"
+        src: "flight.accel_y_g"
+        scale: 0.01
+        offset: 0.0
+        mask: 0x3F
+        shift: 9
+        word_index: 0
+        
+      - name: "accel_z"
+        encode: "i16"
+        src: "flight.accel_z_g"
+        scale: 0.01
+        offset: 0.0
+        mask: 0x01
+        shift: 15
+        word_index: 0
