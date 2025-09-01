@@ -57,16 +57,15 @@ def parse_1553_message_pyc10(data: bytes, offset: int, msg_index: int) -> Option
     """Parse a single 1553 message from PyChapter10 format.
     
     PyChapter10 MS1553F1 format (observed):
-    - Each message is 26 bytes fixed size
     - 14 bytes header (IPTS and other fields)
     - Command word (2 bytes)
     - Status word (2 bytes)
-    - Data words (8 bytes for WC=4)
+    - Data words (variable based on WC)
     """
-    # Fixed message size for PyChapter10
-    MSG_SIZE = 26
+    # Minimum message size (header + command + status)
+    MIN_MSG_SIZE = 18
     
-    if offset + MSG_SIZE > len(data):
+    if offset + MIN_MSG_SIZE > len(data):
         return None
     
     # Extract command word at offset + 14
@@ -87,6 +86,14 @@ def parse_1553_message_pyc10(data: bytes, offset: int, msg_index: int) -> Option
     if rt_address < 1 or rt_address > 31:
         return None
     
+    # Calculate actual message size based on word count
+    # 14 bytes header + 2 bytes command + 2 bytes status + (WC * 2) bytes data
+    actual_msg_size = 18 + (word_count * 2)
+    
+    # Check if we have enough data for the full message
+    if offset + actual_msg_size > len(data):
+        return None
+    
     # Status word
     status_word = 0
     if offset + 18 <= len(data):
@@ -104,7 +111,7 @@ def parse_1553_message_pyc10(data: bytes, offset: int, msg_index: int) -> Option
         'wc': word_count,
         'status': status_word,
         'errors': [],
-        'size': MSG_SIZE
+        'size': actual_msg_size
     }
 
 
@@ -187,8 +194,8 @@ def read_1553_wire(
                 
                 msg = parse_1553_message_pyc10(packet_data, offset, msg_count)
                 if not msg:
-                    # Skip this 26-byte block
-                    offset += 26
+                    # Skip this message block (use minimum size)
+                    offset += 18
                     continue
                 
                 # Apply filters

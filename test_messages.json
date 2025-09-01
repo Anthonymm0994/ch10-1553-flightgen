@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-31T22:10:48.574638",
+  "file_stats": {
+    "size_bytes": 828152,
+    "total_packets": 15004,
+    "total_messages": 15001,
+    "duration_seconds": 599.9999999999994
+  },
+  "packet_types": {},
+  "message_stats": {},
+  "backend": "irig106",
+  "spec_compliant": false,
+  "ch10_file": {
+    "path": "test_messages.ch10",
+    "name": "test_messages.ch10",
+    "created": "2025-08-31T18:10:47.692090"
+  }
+}

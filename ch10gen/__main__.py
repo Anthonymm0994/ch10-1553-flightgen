@@ -352,7 +352,10 @@ def check_icd(icd):
 def inspect(file, channel, reader, out, max_messages, rt, sa, errors_only):
     """Extract 1553 timeline from CH10 file."""
     try:
-        from ch10gen.inspector import write_timeline
+        try:
+            from .inspector import write_timeline
+        except ImportError:
+            from ch10gen.inspector import write_timeline
         
         filepath = Path(file)
         output_path = Path(out)
@@ -392,7 +395,10 @@ def inspect(file, channel, reader, out, max_messages, rt, sa, errors_only):
 def validate_external(file, timeout_s, out):
     """Run external validation tools if available."""
     try:
-        from ch10gen.validate import validate_external as run_validation
+        try:
+            from .validate import validate_external as run_validation
+        except ImportError:
+            from ch10gen.validate import validate_external as run_validation
         import json
         
         filepath = Path(file)
@@ -496,8 +502,12 @@ def selftest():
             test_file = Path(tmpdir) / "selftest.c10"
             
             # Build file
-            from ch10gen.ch10_writer import write_ch10_file
-            from ch10gen.icd import load_icd
+            try:
+                from .ch10_writer import write_ch10_file
+                from .icd import load_icd
+            except ImportError:
+                from ch10gen.ch10_writer import write_ch10_file
+                from ch10gen.icd import load_icd
             
             icd = load_icd(Path("icd/test_icd.yaml"))
             stats = write_ch10_file(
@@ -515,7 +525,10 @@ def selftest():
             
             # Test 2: Inspect the file with auto reader
             click.echo("SELFTEST: Inspecting file (auto reader)...")
-            from ch10gen.inspector import write_timeline
+            try:
+                from .inspector import write_timeline
+            except ImportError:
+                from ch10gen.inspector import write_timeline
             
             timeline_file = Path(tmpdir) / "timeline.jsonl"
             count = write_timeline(
@@ -537,7 +550,10 @@ def selftest():
             
             # Test 3: Export PCAP
             click.echo("SELFTEST: Exporting PCAP...")
-            from ch10gen.pcap_export import export_pcap
+            try:
+                from .pcap_export import export_pcap
+            except ImportError:
+                from ch10gen.pcap_export import export_pcap
             
             pcap_file = Path(tmpdir) / "test.pcap"
             pcap_count = export_pcap(

@@ -203,8 +203,9 @@ class Ch10Writer:
         packet_size = 0
         
         for sched_msg in schedule.messages:
-            # Estimate message size (command + status + data words + overhead)
-            msg_size = 4 + 4 + (sched_msg.message.wc * 2) + 8  # Approximate
+            # Estimate message size (CSDW + header + command + status + data words)
+            # CSDW: 4 bytes + PyChapter10 format: 14 bytes header + 2 bytes command + 2 bytes status + (WC * 2) bytes data
+            msg_size = 4 + 18 + (sched_msg.message.wc * 2)
             
             # Limit messages per packet for PyChapter10 compatibility
             # PyChapter10 has issues with too many messages in one packet

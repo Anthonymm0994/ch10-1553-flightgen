@@ -216,26 +216,15 @@ def inspect_1553_timeline(
             yield from read_1553_wire(filepath, channel, max_messages, rt_filter, sa_filter, errors_only)
             print("Reader: wire (fallback)")
         else:
+            print("WARNING: PyChapter10 has known parsing issues - messages show wc:0, rt:0, etc.")
+            print("Consider using 'wire' reader for accurate data")
             yield from inspect_1553_timeline_pyc10(filepath, channel, max_messages, rt_filter, sa_filter, errors_only)
             print("Reader: pyc10")
     else:  # auto mode
-        # Try PyChapter10 first
-        if PYCHAPTER10_AVAILABLE:
-            messages = list(inspect_1553_timeline_pyc10(filepath, channel, 50, rt_filter, sa_filter, errors_only))
-            if len(messages) >= 50:
-                # PyChapter10 working well, use it
-                yield from messages
-                yield from inspect_1553_timeline_pyc10(filepath, channel, max_messages - 50, rt_filter, sa_filter, errors_only)
-                print("Reader: pyc10")
-            else:
-                # PyChapter10 not finding enough messages, fall back to wire
-                print(f"PyChapter10 found only {len(messages)} messages, falling back to wire reader")
-                yield from read_1553_wire(filepath, channel, max_messages, rt_filter, sa_filter, errors_only)
-                print("Reader: wire (auto-fallback)")
-        else:
-            # No PyChapter10, use wire reader
-            yield from read_1553_wire(filepath, channel, max_messages, rt_filter, sa_filter, errors_only)
-            print("Reader: wire")
+        # Use wire reader by default since PyChapter10 has parsing issues
+        # PyChapter10 shows empty messages (wc: 0, rt: 0, etc.)
+        yield from read_1553_wire(filepath, channel, max_messages, rt_filter, sa_filter, errors_only)
+        print("Reader: wire (default - PyChapter10 has parsing issues)")
 
 
 def write_timeline(
