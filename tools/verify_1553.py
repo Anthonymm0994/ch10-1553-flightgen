@@ -129,61 +129,61 @@ def verify_ch10_file(filepath: Path) -> Dict[str, Any]:
     }
     
     try:
-        with C10(str(filepath)) as c10:
-            for pkt in c10:
-                if not isinstance(pkt, MS1553F1):
-                    continue
+        c10 = C10(str(filepath))
+        for pkt in c10:
+            if not isinstance(pkt, MS1553F1):
+                continue
+            
+            results['packets'] += 1
+            
+            # Track channel info
+            channel_id = pkt.channel_id
+            if channel_id not in results['channels']:
+                results['channels'][channel_id] = {
+                    'packets': 0,
+                    'messages': 0,
+                    'name': 'A' if channel_id == 0x0200 else 'B' if channel_id == 0x0210 else f'Unknown({hex(channel_id)})'
+                }
+            
+            results['channels'][channel_id]['packets'] += 1
+            
+            # Validate CSDW
+            if hasattr(pkt, 'count'):
+                expected_count = pkt.count
+                actual_count = len(list(pkt))
                 
-                results['packets'] += 1
+                if expected_count != actual_count:
+                    results['errors'].append(
+                        f"Packet {results['packets']}: CSDW count mismatch - "
+                        f"declared {expected_count}, actual {actual_count}"
+                    )
+                    results['valid'] = False
+            
+            # Process each message
+            for i, msg in enumerate(pkt):
+                results['messages'] += 1
+                results['channels'][channel_id]['messages'] += 1
                 
-                # Track channel info
-                channel_id = pkt.channel_id
-                if channel_id not in results['channels']:
-                    results['channels'][channel_id] = {
-                        'packets': 0,
-                        'messages': 0,
-                        'name': 'A' if channel_id == 0x0200 else 'B' if channel_id == 0x0210 else f'Unknown({hex(channel_id)})'
-                    }
+                # Validate message structure
+                msg_result = validate_message_structure(msg, results['messages'])
+                results['message_details'].append(msg_result)
                 
-                results['channels'][channel_id]['packets'] += 1
-                
-                # Validate CSDW
-                if hasattr(pkt, 'count'):
-                    expected_count = pkt.count
-                    actual_count = len(list(pkt))
-                    
-                    if expected_count != actual_count:
+                if not msg_result['valid']:
+                    results['valid'] = False
+                    if 'error' in msg_result:
+                        results['errors'].append(f"Message {results['messages']}: {msg_result['error']}")
+                    else:
                         results['errors'].append(
-                            f"Packet {results['packets']}: CSDW count mismatch - "
-                            f"declared {expected_count}, actual {actual_count}"
+                            f"Message {results['messages']}: Length mismatch - "
+                            f"expected {msg_result['expected_bytes']}, got {msg_result['len_bytes']}"
                         )
-                        results['valid'] = False
                 
-                # Process each message
-                for i, msg in enumerate(pkt):
-                    results['messages'] += 1
-                    results['channels'][channel_id]['messages'] += 1
+                if msg_result.get('critical_errors'):
+                    results['errors'].append(
+                        f"Message {results['messages']}: Critical errors - {msg_result['critical_errors']}"
+                    )
+                    results['valid'] = False
                     
-                    # Validate message structure
-                    msg_result = validate_message_structure(msg, results['messages'])
-                    results['message_details'].append(msg_result)
-                    
-                    if not msg_result['valid']:
-                        results['valid'] = False
-                        if 'error' in msg_result:
-                            results['errors'].append(f"Message {results['messages']}: {msg_result['error']}")
-                        else:
-                            results['errors'].append(
-                                f"Message {results['messages']}: Length mismatch - "
-                                f"expected {msg_result['expected_bytes']}, got {msg_result['len_bytes']}"
-                            )
-                    
-                    if msg_result.get('critical_errors'):
-                        results['errors'].append(
-                            f"Message {results['messages']}: Critical errors - {msg_result['critical_errors']}"
-                        )
-                        results['valid'] = False
-                        
     except Exception as e:
         results['error'] = f"Failed to read file: {e}"
         results['valid'] = False

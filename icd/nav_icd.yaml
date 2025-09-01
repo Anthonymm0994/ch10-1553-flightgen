@@ -5,7 +5,7 @@ messages:
     rt: 10
     tr: BC2RT
     sa: 1
-    wc: 14
+    wc: 12
     words:
       - { name: roll_deg,       src: flight.roll_deg,       encode: bnr16, scale: 1.0 }
       - { name: pitch_deg,      src: flight.pitch_deg,      encode: bnr16, scale: 1.0 }
@@ -13,8 +13,8 @@ messages:
       - { name: altitude_ft,    src: flight.altitude_ft,    encode: bnr16, scale: 1.0 }
       - { name: ias_kt,         src: flight.ias_kt,         encode: bnr16, scale: 1.0 }
       - { name: mach_x1000,     src: derived.mach_x1000,    encode: u16   }
-      - { name: lat_deg,        src: flight.lat_deg,        encode: float32_split, word_order: lsw_msw }
-      - { name: lon_deg,        src: flight.lon_deg,        encode: float32_split, word_order: lsw_msw }
+      - { name: lat_deg,        src: flight.lat_deg,        encode: u16   }
+      - { name: lon_deg,        src: flight.lon_deg,        encode: u16   }
       - { name: status_bits,    src: derived.status,        encode: u16 }
       - { name: reserved_0,     encode: u16, const: 0 }
       - { name: reserved_1,     encode: u16, const: 0 }

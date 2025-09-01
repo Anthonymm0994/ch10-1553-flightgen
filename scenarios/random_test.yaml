@@ -6,50 +6,51 @@ name: random_test
 description: Generate random test data for all ICD fields
 duration: 10  # seconds
 
-# Random data generation mode
-data_mode: random
-
-# Random data configuration
-random_config:
-  # Generate values for all fields
-  populate_all_fields: true
+# Configuration section that scenario manager expects
+config:
+  default_mode: random  # This is what the scenario manager looks for
   
-  # Value ranges for different types
-  ranges:
-    u16:
-      min: 0
-      max: 65535
-    i16:
-      min: -32768
-      max: 32767
-    bnr16:
-      min: -180.0
-      max: 180.0
-    bcd:
-      min: 0
-      max: 9999
-    discrete:
-      values: [0, 1, 2, 3, 4, 5, 6, 7]
-    status:
-      values: [0, 1]
-  
-  # Variation patterns
-  variation:
-    # How often values change (in Hz)
-    change_rate: 10
+  # Random data configuration
+  random_config:
+    # Generate values for all fields
+    populate_all_fields: true
     
-    # Variation types per field
-    patterns:
-      - type: random      # Pure random
-        weight: 0.4
-      - type: increment   # Incrementing counter
-        weight: 0.2
-      - type: sine        # Sine wave pattern
-        weight: 0.2
-      - type: constant    # Constant value
-        weight: 0.1
-      - type: toggle      # Toggle between values
-        weight: 0.1
+    # Value ranges for different types
+    ranges:
+      u16:
+        min: 0
+        max: 65535
+      i16:
+        min: -32768
+        max: 32767
+      bnr16:
+        min: -180.0
+        max: 180.0
+      bcd:
+        min: 0
+        max: 9999
+      discrete:
+        values: [0, 1, 2, 3, 4, 5, 6, 7]
+      status:
+        values: [0, 1]
+    
+    # Variation patterns
+    variation:
+      # How often values change (in Hz)
+      change_rate: 10
+      
+      # Variation types per field
+      patterns:
+        - type: random      # Pure random
+          weight: 0.4
+        - type: increment   # Incrementing counter
+          weight: 0.2
+        - type: sine        # Sine wave pattern
+          weight: 0.2
+        - type: constant    # Constant value
+          weight: 0.1
+        - type: toggle      # Toggle between values
+          weight: 0.1
 
 # Bus configuration
 bus_config:

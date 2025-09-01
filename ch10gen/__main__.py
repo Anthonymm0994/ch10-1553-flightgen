@@ -48,7 +48,7 @@ def cli():
 @click.option('--scenario', '-s', type=click.Path(exists=True), required=True,
               help='Path to scenario YAML file')
 @click.option('--icd', '-i', type=click.Path(exists=True), required=True,
-              help='Path to ICD YAML file')
+              help='    ')
 @click.option('--out', '-o', type=click.Path(), required=True,
               help='Output CH10 file path')
 @click.option('--writer', type=click.Choice(['irig106', 'pyc10']), default='irig106',

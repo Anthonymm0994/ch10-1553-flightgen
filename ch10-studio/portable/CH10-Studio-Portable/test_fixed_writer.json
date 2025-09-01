@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-09-01T12:21:25.328730",
+  "file_stats": {
+    "size_bytes": 460,
+    "total_packets": 8,
+    "total_messages": 5,
+    "duration_seconds": 0.08
+  },
+  "packet_types": {},
+  "message_stats": {},
+  "backend": "irig106",
+  "spec_compliant": false,
+  "ch10_file": {
+    "path": "test_fixed_writer.ch10",
+    "name": "test_fixed_writer.ch10",
+    "created": "2025-09-01T08:21:25.327216"
+  }
+}

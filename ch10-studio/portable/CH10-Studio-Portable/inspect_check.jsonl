@@ -1,0 +1,2 @@
+{"ipts_ns": 1000000000, "t_rel_ms": 0, "bus": "A", "rt": 10, "sa": 1, "tr": "RT2BC", "wc": 12, "status": 20480, "errors": ["MESSAGE_ERROR", "SERVICE_REQUEST"]}
+{"ipts_ns": 20000000000000000, "t_rel_ms": 19999999000.0, "bus": "A", "rt": 10, "sa": 1, "tr": "RT2BC", "wc": 12, "status": 20480, "errors": ["MESSAGE_ERROR", "SERVICE_REQUEST"]}

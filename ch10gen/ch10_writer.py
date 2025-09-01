@@ -293,8 +293,9 @@ class Ch10Writer:
             message_data = b''.join(struct.pack('<H', word) for word in message_words)
             
             # Create 1553 message and set data
-            msg = MS1553F1.Message()
+            msg = packet.Message()
             msg.data = message_data
+            msg.length = len(message_data)  # PyChapter10 doesn't calculate this automatically
             
             # Set message attributes (IPTS in nanoseconds from start)
             # Ensure IPTS is always strictly increasing to maintain monotonicity

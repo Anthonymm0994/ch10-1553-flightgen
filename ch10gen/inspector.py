@@ -221,10 +221,14 @@ def inspect_1553_timeline(
             yield from inspect_1553_timeline_pyc10(filepath, channel, max_messages, rt_filter, sa_filter, errors_only)
             print("Reader: pyc10")
     else:  # auto mode
-        # Use wire reader by default since PyChapter10 has parsing issues
-        # PyChapter10 shows empty messages (wc: 0, rt: 0, etc.)
-        yield from read_1553_wire(filepath, channel, max_messages, rt_filter, sa_filter, errors_only)
-        print("Reader: wire (default - PyChapter10 has parsing issues)")
+        # Use PyChapter10 by default since it's the standard library
+        if not PYCHAPTER10_AVAILABLE:
+            print("PyChapter10 not available, using wire reader")
+            yield from read_1553_wire(filepath, channel, max_messages, rt_filter, sa_filter, errors_only)
+            print("Reader: wire (fallback)")
+        else:
+            yield from inspect_1553_timeline_pyc10(filepath, channel, max_messages, rt_filter, sa_filter, errors_only)
+            print("Reader: pyc10 (default)")
 
 
 def write_timeline(
