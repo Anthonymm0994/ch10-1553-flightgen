@@ -173,7 +173,7 @@ class Ch10Writer:
         """Write time packet."""
         time_packet = TimeF1()
         time_packet.channel_id = self.config.time_channel_id
-        time_packet.data_type = 0x11  # Time data type F1
+        time_packet.data_type = 0x02  # Time F1 (IRIG-B time)
         # Ensure RTC is non-negative
         rtc_value = datetime_to_rtc(timestamp, self.start_time)
         time_packet.rtc = max(0, rtc_value)

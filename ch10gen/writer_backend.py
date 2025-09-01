@@ -218,7 +218,7 @@ class Irig106LibBackend(Ch10WriterBackend):
     def write_time(self, timestamp: datetime, channel_id: int, rtc: int) -> None:
         """Write spec-compliant Time F1 packet."""
         sync = 0xEB25
-        data_type = 0x11  # Time F1 per spec
+        data_type = 0x02  # Time F1 per spec
         
         # Build time data (IRIG-106 Ch 11 format)
         # This is simplified - real implementation would follow spec exactly

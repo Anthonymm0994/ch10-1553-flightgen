@@ -88,7 +88,7 @@ class Ch10Validator:
                     if hasattr(packet, 'body'):
                         self._validate_tmats(packet)
                     
-                elif isinstance(packet, TimeF1):
+                elif isinstance(packet, TimeF1) or (hasattr(packet, 'data_type') and packet.data_type == 0x02):
                     self.stats['time_packets'] += 1
                     self._validate_time_packet(packet)
                     
