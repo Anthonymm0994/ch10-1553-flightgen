@@ -1,15 +1,17 @@
 # Level 2: Technical Overview
-## CH10 Generator - System Architecture and Implementation
+## CH10-1553-FlightGen - System Architecture and Implementation
 
 ### System Purpose and Design Philosophy
 
-The CH10 Generator is engineered to solve a critical problem in aerospace testing: the need for realistic, standards-compliant flight test data without the cost and risk of actual flights. Our design philosophy centers on:
+The CH10-1553-FlightGen is engineered to solve a critical problem in aerospace testing: the need for realistic, standards-compliant flight test data without the cost and risk of actual flights. Our design philosophy centers on:
 
 1. **Accuracy**: Data must match what real systems produce
 2. **Flexibility**: Features accessible through configuration files
 3. **Standards Compliance**: Strict adherence to IRIG-106 and MIL-STD-1553
 4. **Validation at Every Step**: Built-in checks and external tool compatibility
 5. **Performance at Scale**: Handle real-world data rates and file sizes
+6. **Usability**: Multiple interfaces for different user needs
+7. **Portability**: Standalone executables for easy deployment
 
 **Why This Matters:**
 - **Cost Savings**: Testing can be performed with simulated data instead of expensive flight hours
@@ -23,56 +25,76 @@ The CH10 Generator is engineered to solve a critical problem in aerospace testin
 ```mermaid
 graph TB
     subgraph "User Interface Layer"
-        CLI[CLI - Click]
-        GUI[GUI - Tauri/React]
+        CLI[CLI - Click Framework]
+        GUI[CH10-Studio - Tauri/React]
+        API[Python API]
+        PORT[Portable Executables]
     end
     
     subgraph "Configuration Layer"
-        YAML[YAML Parser]
+        YAML[YAML Parser & Validator]
         ICDV[ICD Validator]
         SCMGR[Scenario Manager]
+        CONFIG[Configuration Manager]
     end
     
-    subgraph "Core Engine"
+    subgraph "Core Processing Engine"
         FS[Flight Simulator]
         MS[Message Scheduler]
         EI[Error Injector]
+        SM[Scenario Manager]
     end
     
     subgraph "Data Encoding Layer"
         E1553[1553 Encoder]
         BP[Bitfield Packer]
         EBNR[BNR/BCD Encoder]
+        FLOAT[Float32 Split Encoder]
     end
     
-    subgraph "Output Layer"
-        CW[CH10 Writer]
+    subgraph "Output Generation Layer"
+        CW[CH10 Writer Backend]
         TG[TMATS Generator]
         PE[PCAP Exporter]
+        JSON[JSON Exporter]
+        EXPORT[Export Manager]
     end
     
-    subgraph "Validation Layer"
-        PC[PyChapter10]
+    subgraph "Validation & Quality Layer"
+        PC[PyChapter10 Validator]
         TS[TShark Interface]
-        IC[Internal Checks]
+        IC[Internal Validator]
+        EXT[External Tools]
     end
     
     CLI --> YAML
     GUI --> YAML
+    API --> YAML
+    PORT --> YAML
+    
     YAML --> ICDV
-    ICDV --> FS
+    ICDV --> CONFIG
+    CONFIG --> FS
     SCMGR --> FS
+    
     FS --> MS
     MS --> EI
     EI --> E1553
+    
     E1553 --> BP
     BP --> EBNR
-    EBNR --> CW
+    EBNR --> FLOAT
+    FLOAT --> CW
+    
     CW --> TG
     CW --> PE
+    CW --> JSON
+    CW --> EXPORT
+    
     CW --> PC
     CW --> TS
     CW --> IC
+    CW --> EXT
 ```
 
 ### Core Components Explained
@@ -360,6 +382,12 @@ Different configurations can be used for different environments:
 
 **Tauri (GUI Framework)**: For the graphical interface, something was needed that could create native desktop applications without the overhead of Electron. Tauri provides the performance and native feel that users expect.
 
+**NumPy/SciPy**: For efficient numerical computations in flight simulation, data encoding, and mathematical operations. These libraries provide optimized implementations for the heavy computational work.
+
+**PyInstaller**: For creating standalone executables and portable distributions. This enables deployment without requiring Python installations on target systems.
+
+**React/TypeScript**: For the CH10-Studio GUI frontend, providing a modern, responsive user interface with type safety and component-based architecture.
+
 #### Development Journey
 
 The system started with a simple Python script that could generate basic 1553 messages. As more was learned about the standards and user needs, the architecture evolved:
@@ -369,6 +397,11 @@ The system started with a simple Python script that could generate basic 1553 me
 3. **Phase 3**: Flight simulation for realistic data
 4. **Phase 4**: Bitfield packing for efficient word usage
 5. **Phase 5**: Validation with external tools
+6. **Phase 6**: GUI development (CH10-Studio)
+7. **Phase 7**: Portable executable creation
+8. **Phase 8**: Advanced error injection and scenario management
+9. **Phase 9**: Multi-backend support (PyChapter10 and IRIG106)
+10. **Phase 10**: Comprehensive testing and validation framework
 
 Each phase was driven by real user feedback and discoveries about what aerospace engineers actually need. Everything was not built at once - the system was built to solve immediate problems, then refined based on usage.
 

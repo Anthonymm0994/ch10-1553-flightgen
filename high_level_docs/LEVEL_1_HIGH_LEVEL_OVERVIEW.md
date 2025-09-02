@@ -1,15 +1,17 @@
 # Level 1: High-Level Overview
-## CH10 Generator - Technical Foundation
+## CH10-1553-FlightGen - Technical Foundation
 
 ### Project Overview
 
-The CH10 Generator creates IRIG-106 Chapter 10 format files containing MIL-STD-1553 bus data. This tool simulates flight test instrumentation data for testing and development purposes.
+The CH10-1553-FlightGen is a comprehensive flight test data generation system that creates IRIG-106 Chapter 10 format files containing MIL-STD-1553 bus data. This tool simulates realistic flight test instrumentation data for testing, development, and validation purposes.
 
 **What This Means for Users:**
-- Generate realistic flight test data without actual aircraft
-- Create files that work with existing aerospace analysis tools
-- Test systems with known, controlled data patterns
-- Validate data recording and processing pipelines
+- Generate realistic flight test data without actual aircraft operations
+- Create standards-compliant files that work with existing aerospace analysis tools
+- Test systems with known, controlled data patterns and edge cases
+- Validate data recording and processing pipelines before flight testing
+- Train operators and engineers with realistic scenarios
+- Develop and test analysis algorithms with controlled datasets
 
 ### Key Standards and Formats
 
@@ -164,31 +166,59 @@ The system supports bitfield packing as specified in Interface Control Documents
 ### System Components
 
 ```mermaid
-graph LR
-    subgraph "Serial Data Flow Pipeline"
+graph TB
+    subgraph "User Interfaces"
+        CLI[CLI Interface]
+        GUI[CH10-Studio GUI]
+        API[Python API]
+    end
+    
+    subgraph "Configuration Layer"
         ICD[ICD YAML]
         SCEN[Scenario YAML]
-        PARSE[Parser]
-        SCHED[Scheduler]
-        ENC[Encoder]
-        PACK[Packer]
-        CH10[CH10 File]
+        CONFIG[Config Files]
     end
+    
+    subgraph "Core Processing Engine"
+        PARSE[Parser & Validator]
+        SIM[Flight Simulator]
+        SCHED[Message Scheduler]
+        ENC[Data Encoder]
+        ERR[Error Injector]
+    end
+    
+    subgraph "Output Generation"
+        WRITER[CH10 Writer]
+        TMATS[TMATS Generator]
+        EXPORT[Export Modules]
+    end
+    
+    subgraph "Validation & Quality"
+        VAL[Internal Validator]
+        PYCH[PyChapter10]
+        TSHARK[TShark/Wireshark]
+    end
+    
+    CLI --> ICD
+    GUI --> ICD
+    API --> ICD
     
     ICD --> PARSE
     SCEN --> PARSE
-    PARSE --> SCHED
+    CONFIG --> PARSE
+    
+    PARSE --> SIM
+    SIM --> SCHED
     SCHED --> ENC
-    ENC --> PACK
-    PACK --> CH10
+    ENC --> ERR
+    ERR --> WRITER
     
-    subgraph "Parallel Outputs"
-        META[Metadata JSON]
-        PCAP[PCAP Export]
-    end
+    WRITER --> TMATS
+    WRITER --> EXPORT
+    WRITER --> VAL
     
-    PACK --> META
-    PACK --> PCAP
+    VAL --> PYCH
+    VAL --> TSHARK
 ```
 
 ### Configuration Files
@@ -210,22 +240,31 @@ Defines the simulation parameters:
 
 ### Validation Methods
 
-The system provides multiple validation approaches:
+The system provides comprehensive multi-layer validation:
 
 ```mermaid
 graph TD
-    CH10[CH10 File] --> V1[Internal Validation]
-    CH10 --> V2[PyChapter10]
+    CH10[Generated CH10 File] --> V1[Internal Validation]
+    CH10 --> V2[PyChapter10 Validation]
     CH10 --> V3[TShark/Wireshark]
+    CH10 --> V4[External Tools]
     
-    V1 --> R1[Format Check]
-    V1 --> R2[Checksum Verify]
+    V1 --> R1[Format Compliance]
+    V1 --> R2[Checksum Verification]
+    V1 --> R3[Timing Accuracy]
+    V1 --> R4[Data Integrity]
     
-    V2 --> R3[Packet Parse]
-    V2 --> R4[Message Count]
+    V2 --> R5[Packet Structure]
+    V2 --> R6[Message Parsing]
+    V2 --> R7[IPTS Monotonicity]
     
-    V3 --> R5[Protocol Analysis]
-    V3 --> R6[Timing Verification]
+    V3 --> R8[Protocol Analysis]
+    V3 --> R9[1553 Compliance]
+    V3 --> R10[Timing Verification]
+    
+    V4 --> R11[c10-tools]
+    V4 --> R12[i106stat]
+    V4 --> R13[Custom Validators]
 ```
 
 ### File Structure Example
@@ -404,15 +443,19 @@ The file is written sequentially with packets at specific positions:
 
 #### Tools That Were Leveraged
 
-Not everything was built from scratch. Instead, proven tools were utilized:
+The system leverages proven, industry-standard tools rather than reinventing functionality:
 
-**PyChapter10**: An existing Python library that handles reading CH10 files. This library is used to validate output and understand the format better.
+**PyChapter10**: A mature Python library for reading and writing IRIG-106 Chapter 10 files. Used for validation and format compliance verification.
 
-**Wireshark/TShark**: The industry standard for protocol analysis. This tool serves as the primary validation method - if TShark can read the generated files, standards-compliant output is confirmed.
+**Wireshark/TShark**: The industry standard for protocol analysis. Serves as the primary validation method - if TShark can read the generated files, standards-compliant output is confirmed.
 
-**Click**: A CLI framework that provides the structure and help system found in aerospace tools.
+**Click**: A robust CLI framework that provides the structure and help system expected in aerospace tools.
 
-**Tauri**: A modern framework for building native desktop applications without the overhead of web technologies.
+**Tauri**: A modern framework for building native desktop applications (CH10-Studio) without the overhead of web technologies.
+
+**NumPy/SciPy**: For efficient numerical computations in flight simulation and data encoding.
+
+**PyInstaller**: For creating standalone executables and portable distributions.
 
 #### Development Approach
 
@@ -439,15 +482,22 @@ Each step was driven by understanding what aerospace engineers actually need, no
 ### Getting Started with This Tool
 
 **What Is Needed:**
-- Python 3.8+ (for the CLI version)
+- Python 3.8+ (for the CLI version) or Windows executable
 - YAML configuration files (ICD and scenario)
 - Basic understanding of 1553 message structure
+- Optional: Wireshark for validation
 
 **Quick Start:**
 1. **Define Data**: Create an ICD file describing 1553 messages
 2. **Set Scenario**: Configure flight parameters and duration
 3. **Generate Data**: Run the tool to create CH10 files
 4. **Validate Output**: Use TShark or PyChapter10 to verify files
+
+**Available Interfaces:**
+- **CLI**: Command-line interface for automation and scripting
+- **CH10-Studio**: Graphical user interface for interactive use
+- **Python API**: Programmatic access for integration
+- **Portable**: Standalone executables for deployment
 
 **Example Use Case:**
 - **Goal**: Test 1553 analysis software
@@ -460,5 +510,6 @@ Each step was driven by understanding what aerospace engineers actually need, no
 - **Configurable**: Can be adapted to specific message definitions
 - **Validated**: Multiple validation layers ensure correctness
 - **Scalable**: Data volumes needed for testing can be generated
+- **Portable**: Standalone executables for easy deployment
 
 
