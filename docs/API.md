@@ -108,14 +108,14 @@ from ch10gen.core.encode1553 import encode_i16
 word = encode_i16(-1000)  # Two's complement
 ```
 
-##### `encode_bnr16(value: float, scale: float) -> int`
+##### `bnr16(value: float, scale: float = 1.0, offset: float = 0.0) -> int`
 Encode Binary Number Representation (BNR) value.
 
 ```python
-from ch10gen.core.encode1553 import encode_bnr16
+from ch10gen.core.encode1553 import bnr16
 
 # Encode altitude with 1 ft resolution
-word = encode_bnr16(altitude_ft, scale=1.0)
+word = bnr16(altitude_ft, scale=1.0)
 ```
 
 ##### `encode_bitfield(value, mask, shift, scale=1.0, offset=0.0) -> int`
@@ -126,6 +126,16 @@ from ch10gen.core.encode1553 import encode_bitfield
 
 # Pack 5-bit value at position 3
 encoded = encode_bitfield(value=15, mask=0x1F, shift=3)
+```
+
+##### `float32_split(value: float, word_order: str = 'lsw_msw') -> Tuple[int, int]`
+Split 32-bit float into two 16-bit words.
+
+```python
+from ch10gen.core.encode1553 import float32_split
+
+# Split float into two words
+lsw, msw = float32_split(123.456, word_order='lsw_msw')
 ```
 
 ##### `pack_bitfields(fields: Dict) -> int`
@@ -223,9 +233,13 @@ Configuration for CH10 file generation.
 ```python
 @dataclass
 class Ch10WriterConfig:
-    packet_size: int = 65536
-    time_format: str = 'irig106'
-    include_tmats: bool = True
+    time_channel_id: int = 0x001
+    tmats_channel_id: int = 0x000
+    bus_a_channel_id: int = 0x002
+    bus_b_channel_id: int = 0x003
+    target_packet_bytes: int = 65536
+    time_packet_interval_s: float = 1.0
+    include_filler: bool = False
 ```
 
 #### Functions
@@ -254,9 +268,9 @@ write_ch10_file(
 Generate CH10 file from ICD and scenario.
 
 ```bash
-ch10gen build \
-    --scenario scenarios/test.yaml \
-    --icd icd/nav.yaml \
+python -m ch10gen build \
+    --scenario scenarios/random_test.yaml \
+    --icd icd/nav_icd.yaml \
     --out output.ch10 \
     --duration 60
 ```
@@ -267,36 +281,44 @@ ch10gen build \
 - `--out, -o`: Output CH10 file (required)
 - `--duration, -d`: Duration in seconds
 - `--seed`: Random seed for reproducibility
-- `--config, -c`: Configuration file
-- `--errors, -e`: Error injection config
+- `--writer`: Writer backend (pyc10, irig106)
+- `--verbose, -v`: Verbose output
 
 #### `ch10gen validate`
-Validate ICD or CH10 file.
+Validate CH10 file.
 
 ```bash
-# Validate ICD
-ch10gen validate icd/test.yaml
-
 # Validate CH10 file
-ch10gen validate output.ch10
+python -m ch10gen validate output.ch10
 ```
 
 **Options:**
-- `FILE`: File to validate (required)
+- `FILE`: CH10 file to validate (required)
+- `--verbose, -v`: Verbose output
+
+#### `ch10gen check-icd`
+Validate ICD file.
+
+```bash
+# Validate ICD
+python -m ch10gen check-icd icd/nav_icd.yaml
+```
+
+**Options:**
+- `ICD`: ICD file to validate (required)
 - `--verbose, -v`: Verbose output
 
 #### `ch10gen inspect`
 Inspect CH10 file contents.
 
 ```bash
-ch10gen inspect output.ch10 --summary
+python -m ch10gen inspect output.ch10 --max-messages 10
 ```
 
 **Options:**
 - `FILE`: CH10 file to inspect (required)
-- `--summary`: Show summary only
-- `--messages`: List message types
-- `--packets`: Show packet details
+- `--max-messages`: Maximum messages to display
+- `--verbose, -v`: Verbose output
 
 ## Examples
 
@@ -328,7 +350,7 @@ write_ch10_file(
 
 ### Custom Encoding
 ```python
-from ch10gen.core.encode1553 import encode_bitfield, pack_bitfields
+from ch10gen.core.encode1553 import encode_bitfield, pack_bitfields, float32_split
 
 # Single bitfield
 altitude_encoded = encode_bitfield(
@@ -337,6 +359,9 @@ altitude_encoded = encode_bitfield(
     shift=0,
     scale=0.1    # 0.1 ft resolution
 )
+
+# Float32 split encoding
+lat_lsw, lat_msw = float32_split(latitude_deg, word_order='lsw_msw')
 
 # Multiple fields in one word
 status_word = pack_bitfields({

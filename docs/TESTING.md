@@ -12,6 +12,7 @@ tests/
 │   ├── test_bitfield_packing.py    # Bitfield encoding/decoding
 │   ├── test_icd.py                 # ICD validation
 │   ├── test_encode1553.py          # 1553 encoding
+│   ├── test_float32_encoding.py    # Float32 split encoding
 │   └── test_1553_encode.py         # Additional encoding tests
 ├── Integration Tests
 │   ├── test_ch10_roundtrip.py      # End-to-end generation
@@ -19,7 +20,12 @@ tests/
 │   └── test_integration_spec.py    # Specification compliance
 ├── Validation Tests
 │   ├── test_tshark_validation.py   # TShark/Wireshark validation
+│   ├── test_ch10_validation.py     # CH10 file validation
+│   ├── test_pyc10_parsing.py       # PyChapter10 parsing
 │   └── test_comprehensive_bitfields.py # Bitfield edge cases
+├── Phase 1 Compliance Tests
+│   ├── test_phase1_compliance.py   # Time-F1 packet compliance
+│   └── test_phase1_sanity_checks_fixed.py # Pre-Phase-2 sanity checks
 └── Performance Tests
     └── test_performance.py          # Performance benchmarks
 ```
@@ -29,7 +35,10 @@ tests/
 ### Quick Test
 ```bash
 # Run core tests only
-pytest tests/test_bitfield_packing.py tests/test_icd.py -v
+pytest tests/test_bitfield_packing.py tests/test_icd.py tests/test_float32_encoding.py -v
+
+# Run Phase 1 compliance tests
+pytest tests/test_phase1_compliance.py tests/test_phase1_sanity_checks_fixed.py -v
 
 # Run with coverage
 pytest tests/ --cov=ch10gen --cov-report=html
@@ -62,8 +71,8 @@ pytest tests/test_tshark_comprehensive.py -v
 
 ### 1. Unit Tests
 - **Purpose**: Test individual functions and classes
-- **Files**: `test_encode1553.py`, `test_icd.py`
-- **Coverage**: Core encoding, validation logic
+- **Files**: `test_encode1553.py`, `test_icd.py`, `test_float32_encoding.py`
+- **Coverage**: Core encoding, validation logic, float32 split encoding
 
 ### 2. Integration Tests
 - **Purpose**: Test component interactions
@@ -72,10 +81,15 @@ pytest tests/test_tshark_comprehensive.py -v
 
 ### 3. Validation Tests
 - **Purpose**: Verify output correctness
-- **Files**: `test_tshark_validation.py`
-- **Coverage**: External tool validation
+- **Files**: `test_tshark_validation.py`, `test_ch10_validation.py`, `test_pyc10_parsing.py`
+- **Coverage**: External tool validation, CH10 file validation, PyChapter10 parsing
 
-### 4. Performance Tests
+### 4. Phase 1 Compliance Tests
+- **Purpose**: Verify IRIG-106 Chapter 10 compliance
+- **Files**: `test_phase1_compliance.py`, `test_phase1_sanity_checks_fixed.py`
+- **Coverage**: Time-F1 packets, channel assignments, CSDW fields, packet ordering
+
+### 5. Performance Tests
 - **Purpose**: Ensure performance requirements
 - **Files**: `test_performance.py`
 - **Coverage**: Speed, memory usage

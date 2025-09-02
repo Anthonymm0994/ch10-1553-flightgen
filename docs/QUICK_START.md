@@ -55,25 +55,31 @@ python -m ch10gen build \
 ### Step 2: Validate the Output
 ```bash
 # Check that the file is valid
-ch10gen validate my_first_flight.c10
+python -m ch10gen validate my_first_flight.ch10
 ```
 
 You should see output like:
 ```
-[SUCCESS] CH10 file validation passed
-  - TMATS packet found
-  - Time packets: 300
-  - 1553 messages: 15,000
-  - File size: 5.2 MB
+Validation Results:
+  File size: 5,200,000 bytes
+  Packets: 15,300
+  TMATS: [PRESENT]
+  Time packets: 300
+  1553 packets: 15,000
+  1553 messages: 15,000
+  Message rate: 50.0 Hz
+
+[SUCCESS] Validation PASSED
+File 'my_first_flight.ch10' is valid and ready for use
 ```
 
 ### Step 3: Inspect the Generated Data
 ```bash
-# View statistics
-ch10gen inspect my_first_flight.c10 --stats
+# View message timeline
+python -m ch10gen inspect my_first_flight.ch10 --max-messages 10
 
-# Export first 100 messages to CSV
-ch10gen export my_first_flight.c10 --format csv --limit 100 --out preview.csv
+# Check ICD validity
+python -m ch10gen check-icd icd/nav_icd.yaml
 ```
 
 ## Understanding the Data Flow
@@ -143,32 +149,33 @@ npm run tauri dev
 ### 1. Testing a CH10 Reader
 ```bash
 # Generate predictable test data
-ch10gen build \
-    --scenario scenarios/test_pattern.yaml \
-    --icd icd/simple_nav.yaml \
-    --out test_data.c10 \
+python -m ch10gen build \
+    --scenario scenarios/random_test.yaml \
+    --icd icd/nav_icd.yaml \
+    --out test_data.ch10 \
     --seed 42  # Reproducible output
 ```
 
 ### 2. Simulating Flight Test Data
 ```bash
 # Create realistic flight test data
-ch10gen build \
-    --scenario scenarios/flight_test.yaml \
-    --icd icd/full_avionics.yaml \
-    --out flight_test.c10 \
+python -m ch10gen build \
+    --scenario scenarios/random_test.yaml \
+    --icd icd/nav_icd.yaml \
+    --out flight_test.ch10 \
     --duration 3600 \
-    --err.parity 0.01  # 1% parity errors
+    --writer pyc10
 ```
 
 ### 3. Stress Testing
 ```bash
 # High-rate message generation
-ch10gen build \
-    --scenario scenarios/stress_test.yaml \
-    --icd icd/high_rate.yaml \
-    --out stress_test.c10 \
-    --packet-bytes 65536  # Large packets
+python -m ch10gen build \
+    --scenario scenarios/random_test.yaml \
+    --icd icd/nav_icd.yaml \
+    --out stress_test.ch10 \
+    --duration 600 \
+    --writer pyc10
 ```
 
 ## Creating Your Own Scenarios
@@ -230,17 +237,17 @@ pip install -r requirements.txt
 ### Issue: "Invalid YAML"
 ```bash
 # Validate your YAML files
-ch10gen check-icd your_icd.yaml
-ch10gen check-scenario your_scenario.yaml
+python -m ch10gen check-icd your_icd.yaml
 ```
 
 ### Issue: "Memory error on large files"
 ```bash
-# Use streaming mode for large files
-ch10gen build --streaming \
-    --scenario large_scenario.yaml \
-    --icd complex_icd.yaml \
-    --out large_file.c10
+# Use smaller duration for large files
+python -m ch10gen build \
+    --scenario scenarios/random_test.yaml \
+    --icd icd/nav_icd.yaml \
+    --out large_file.ch10 \
+    --duration 60
 ```
 
 ## Next Steps
@@ -251,8 +258,8 @@ Now that you've generated your first CH10 file:
 2. **Read the Documentation**: 
    - [Configuration Guide](CONFIGURATION.md) - Detailed YAML options
    - [Architecture Overview](ARCHITECTURE.md) - How it all works
-   - [Operations Manual](OPERATIONS.md) - Advanced CLI usage
-3. **Join the Community**: Report issues and contribute on GitHub
+   - [IRIG-106 Chapter 10 Structure](IRIG_106_CHAPTER_10_STRUCTURE.md) - CH10 file format details
+3. **Test the CLI**: Try different scenarios and ICD configurations
 
 ## Pro Tips
 
@@ -260,14 +267,14 @@ Now that you've generated your first CH10 file:
 2. **Start Small**: Test with short durations first, then scale up
 3. **Monitor Performance**: Use `--verbose` to see detailed progress
 4. **Validate Often**: Run `validate` after each generation to catch issues early
-5. **Export for Analysis**: Use the `export` command to inspect data in Excel/CSV
+5. **Inspect Data**: Use the `inspect` command to view message timeline
 
 ## Getting Help
 
 - **Documentation**: Full docs in the `docs/` directory
 - **Examples**: Working examples in `scenarios/` and `icd/`
-- **Issues**: [GitHub Issues](https://github.com/yourusername/ch10-1553-flightgen/issues)
-- **Discord**: [Join our community](https://discord.gg/example)
+- **Tests**: Test files in `tests/` directory
+- **Troubleshooting**: See [Troubleshooting Guide](TROUBLESHOOTING.md)
 
 ---
 

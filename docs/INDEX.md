@@ -13,6 +13,7 @@ Welcome to the CH10 Generator documentation! This index helps you find the right
 ### System Design
 - **[Architecture](ARCHITECTURE.md)** - System design and component overview
 - **[Dependencies and Tools](DEPENDENCIES_AND_TOOLS.md)** - External tools and libraries used
+- **[IRIG-106 Chapter 10 Structure](IRIG_106_CHAPTER_10_STRUCTURE.md)** - CH10 file format and packet structure details
 
 ### Usage Guides
 - **[Testing Guide](TESTING.md)** - How to run and write tests
@@ -29,13 +30,15 @@ Welcome to the CH10 Generator documentation! This index helps you find the right
 ### For Developers
 1. Start with [Quick Start](QUICK_START.md)
 2. Review [Architecture](ARCHITECTURE.md)
-3. Study [API Reference](API.md)
-4. Learn [Testing](TESTING.md)
+3. Study [IRIG-106 Chapter 10 Structure](IRIG_106_CHAPTER_10_STRUCTURE.md)
+4. Study [API Reference](API.md)
+5. Learn [Testing](TESTING.md)
 
 ### For Test Engineers
 1. Read [Configuration Guide](CONFIGURATION.md)
-2. Understand [TShark Validation](TSHARK_VALIDATION.md)
-3. Review [Troubleshooting](TROUBLESHOOTING.md)
+2. Study [IRIG-106 Chapter 10 Structure](IRIG_106_CHAPTER_10_STRUCTURE.md)
+3. Understand [TShark Validation](TSHARK_VALIDATION.md)
+4. Review [Troubleshooting](TROUBLESHOOTING.md)
 
 ### For System Administrators
 1. Follow [Build Guide](BUILD.md)
@@ -138,10 +141,10 @@ Can't find what you're looking for?
 
 ## 📈 Documentation Metrics
 
-- **Total Documents**: 11
-- **Total Lines**: ~3,500
+- **Total Documents**: 12
+- **Total Lines**: ~4,000
 - **Code Examples**: 100+
 - **API Functions**: 50+
 - **Configuration Options**: 40+
 
-Last Updated: 2024-01-20
+Last Updated: 2024-09-01

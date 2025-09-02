@@ -33,7 +33,7 @@ class TMATSBuilder:
         self.attributes['R\\MN'] = model
         self.attributes['R\\SN'] = serial
     
-    def add_time_channel(self, channel_id: int = 0x100,
+    def add_time_channel(self, channel_id: int = 0x001,
                         time_format: str = 'IRIG-B') -> None:
         """Add time data channel."""
         ch_idx = self._get_next_channel_index()
@@ -43,7 +43,7 @@ class TMATSBuilder:
         self.attributes[f'R-{ch_idx}\\TF1'] = time_format
         self.attributes[f'R-{ch_idx}\\TIMEFMT'] = '1'  # Time format 1
     
-    def add_1553_channel(self, channel_id: int = 0x210,
+    def add_1553_channel(self, channel_id: int = 0x002,
                         bus_name: str = 'BUS-A',
                         description: str = 'MIL-STD-1553 Bus A') -> None:
         """Add 1553 data channel."""
@@ -153,8 +153,8 @@ def create_default_tmats(scenario_name: str = "Demo Mission",
     builder.set_recorder_info()
     
     # Add channels
-    builder.add_time_channel(channel_id=0x100)
-    builder.add_1553_channel(channel_id=0x210, bus_name='BUS-A')
+    builder.add_time_channel(channel_id=0x001)  # Time on Channel 1
+    builder.add_1553_channel(channel_id=0x002, bus_name='BUS-A')  # 1553 on Channel 2
     
     # Add summary information
     if icd_messages:

@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-09-01T18:16:11.458394",
+  "file_stats": {
+    "size_bytes": 18316,
+    "total_packets": 258,
+    "total_messages": 251,
+    "duration_seconds": 4.999999999999981
+  },
+  "packet_types": {},
+  "message_stats": {},
+  "backend": "pyc10",
+  "spec_compliant": false,
+  "ch10_file": {
+    "path": "test_random_build.ch10",
+    "name": "test_random_build.ch10",
+    "created": "2025-09-01T14:16:11.429440"
+  }
+}

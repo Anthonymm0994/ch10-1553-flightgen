@@ -82,15 +82,22 @@ class Ch10Validator:
                 if isinstance(packet, MessageF0):
                     self.stats['tmats_present'] = True
                     self._validate_tmats(packet)
-                elif hasattr(packet, 'channel_id') and packet.channel_id == 0x001:
-                    # Alternative check for TMATS by channel ID
+                elif hasattr(packet, 'channel_id') and packet.channel_id == 0x000:
+                    # Alternative check for TMATS by channel ID (Channel 0)
                     self.stats['tmats_present'] = True
                     if hasattr(packet, 'body'):
                         self._validate_tmats(packet)
                     
-                elif isinstance(packet, TimeF1) or (hasattr(packet, 'data_type') and packet.data_type == 0x02):
+                elif isinstance(packet, TimeF1) or (hasattr(packet, 'data_type') and packet.data_type == 0x11):
                     self.stats['time_packets'] += 1
                     self._validate_time_packet(packet)
+                elif hasattr(packet, 'data_type') and packet.data_type == 0x02:
+                    print(f"DEBUG: WHY IS THIS NOT WORKING? Packet {self.stats['packet_count']}: {type(packet).__name__}, data_type: 0x{packet.data_type:02X}")
+                    print(f"DEBUG: hasattr(packet, 'data_type'): {hasattr(packet, 'data_type')}")
+                    print(f"DEBUG: packet.data_type: {packet.data_type}")
+                    print(f"DEBUG: packet.data_type == 0x02: {packet.data_type == 0x02}")
+                    print(f"DEBUG: 0x02: {0x02}")
+                    print(f"DEBUG: type(packet.data_type): {type(packet.data_type)}")
                     
                 elif isinstance(packet, MS1553F1):
                     self.stats['1553_packets'] += 1
@@ -152,14 +159,26 @@ class Ch10Validator:
         except Exception as e:
             self.stats['warnings'].append(f"Failed to parse TMATS: {e}")
     
-    def _validate_time_packet(self, packet: TimeF1) -> None:
-        """Validate time packet."""
+    def _validate_time_packet(self, packet) -> None:
+        """Validate Time Data, Format 1 packet (data_type = 0x11)."""
         try:
-            # Check time format
+            # Validate Time-F1 packet structure and content
             if not hasattr(packet, 'time_format'):
                 self.stats['warnings'].append("Time packet missing time_format")
+            else:
+                # Validate time format (should be 0x0 for IRIG-B)
+                if packet.time_format != 0:
+                    self.stats['warnings'].append(f"Time packet has unexpected format: {packet.time_format} (expected 0 for IRIG-B)")
             
-            # Check for reasonable values
+            # Validate time source
+            if not hasattr(packet, 'time_source'):
+                self.stats['warnings'].append("Time packet missing time_source")
+            
+            # Validate leap year flag (PyChapter10 uses 'leap')
+            if not hasattr(packet, 'leap'):
+                self.stats['warnings'].append("Time packet missing leap flag")
+            
+            # Check for reasonable time values
             if hasattr(packet, 'seconds') and (packet.seconds < 0 or packet.seconds > 59):
                 self.stats['warnings'].append(f"Time packet has invalid seconds: {packet.seconds}")
                 
@@ -168,6 +187,9 @@ class Ch10Validator:
                 
             if hasattr(packet, 'hours') and (packet.hours < 0 or packet.hours > 23):
                 self.stats['warnings'].append(f"Time packet has invalid hours: {packet.hours}")
+                
+            if hasattr(packet, 'days') and (packet.days < 1 or packet.days > 366):
+                self.stats['warnings'].append(f"Time packet has invalid days: {packet.days}")
                 
         except Exception as e:
             self.stats['warnings'].append(f"Failed to validate time packet: {e}")

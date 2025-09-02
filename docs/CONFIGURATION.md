@@ -489,20 +489,13 @@ words:
 
 ### CLI Arguments
 ```bash
-ch10gen build \
-    --scenario scenarios/flight.yaml \
-    --icd icd/bus.yaml \
-    --out output.c10 \
+python -m ch10gen build \
+    --scenario scenarios/random_test.yaml \
+    --icd icd/nav_icd.yaml \
+    --out output.ch10 \
     --duration 3600 \
     --seed 42 \
-    --start "2025-01-15T14:00:00Z" \
-    --rate-hz 100 \
-    --packet-bytes 65536 \
-    --err.parity 0.1 \
-    --err.late 0.05 \
-    --err.no-response 0.02 \
-    --jitter-ms 2 \
-    --writer irig106 \
+    --writer pyc10 \
     --verbose
 ```
 
@@ -605,8 +598,7 @@ seed: 42  # Reproducible output for testing
 ### 5. **Validate Early**
 ```bash
 # Always validate before generation
-ch10gen check-scenario scenarios/my_scenario.yaml
-ch10gen check-icd icd/my_icd.yaml
+python -m ch10gen check-icd icd/my_icd.yaml
 ```
 
 ## Troubleshooting

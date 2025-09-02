@@ -40,12 +40,12 @@ except ImportError:
 @dataclass
 class Ch10WriterConfig:
     """Configuration for Chapter 10 writer."""
-    time_channel_id: int = 0x100
-    tmats_channel_id: int = 0x001  # TMATS should be 0x001
-    bus_a_channel_id: int = 0x0200  # Standard 1553 Bus A channel
-    bus_b_channel_id: int = 0x0210  # Standard 1553 Bus B channel
-    target_packet_bytes: int = 1024  # Smaller packets for better compatibility
-    time_packet_interval_s: float = 1.0
+    time_channel_id: int = 0x001  # Time packets on Channel 1 (user-friendly)
+    tmats_channel_id: int = 0x000  # TMATS on Channel 0 (required by standard)
+    bus_a_channel_id: int = 0x002  # 1553 Bus A on Channel 2 (user-friendly)
+    bus_b_channel_id: int = 0x003  # 1553 Bus B on Channel 3 (user-friendly)
+    target_packet_bytes: int = 65536  # Standard packet size target
+    time_packet_interval_s: float = 1.0  # 1 Hz time packets (required by standard)
     include_filler: bool = False
 
 
@@ -117,11 +117,11 @@ class Ch10Writer:
             # Write TMATS as first packet
             self._write_tmats_packet(scenario_name, icd, schedule)
             
-            # Write initial time packet
+            # Write initial time packet (first dynamic packet, required by standard)
             self._write_time_packet(start_time)
             
-            # Group messages into packets and write
-            self._write_1553_packets(schedule, flight_profile, icd, error_injector)
+            # Group messages into packets and write with continuous time packets
+            self._write_1553_packets_with_time(schedule, flight_profile, icd, error_injector)
             
             # Write final time packet
             if schedule.messages:
@@ -170,20 +170,27 @@ class Ch10Writer:
         self.packet_count += 1
     
     def _write_time_packet(self, timestamp: datetime) -> None:
-        """Write time packet."""
+        """Write Time Data, Format 1 packet (data_type = 0x11) with proper CSDW fields."""
+        # Create TimeF1 packet with correct data type
         time_packet = TimeF1()
         time_packet.channel_id = self.config.time_channel_id
-        time_packet.data_type = 0x02  # Time F1 (IRIG-B time)
+        time_packet.data_type = 0x11  # Time Data, Format 1 (IRIG-106 standard)
+        
         # Ensure RTC is non-negative
         rtc_value = datetime_to_rtc(timestamp, self.start_time)
         time_packet.rtc = max(0, rtc_value)
         
-        # Set time source and format
-        time_packet.time_source = 1  # Internal/GPS
-        time_packet.time_format = 1  # IRIG-B
+        # Set proper CSDW fields for Time-F1 packets (eliminates "missing time_format" warnings)
+        # SRC (bits 3-0): 0x1 = External time source (GPS)
+        time_packet.time_source = 1  # External time source
+        
+        # FMT (bits 7-4): 0x0 = IRIG-B (most common for flight test)
+        time_packet.time_format = 0  # IRIG-B format
+        
+        # DATE (bits 11-8): bit 9 = day-of-year vs month/year, bit 8 = leap year
         time_packet.leap_year = timestamp.year % 4 == 0
         
-        # Set time values
+        # Set time values (IRIG-B format)
         time_packet.seconds = timestamp.second
         time_packet.minutes = timestamp.minute
         time_packet.hours = timestamp.hour
@@ -192,6 +199,77 @@ class Ch10Writer:
         # Write packet
         self.file.write(bytes(time_packet))
         self.packet_count += 1
+    
+    def _write_1553_packets_with_time(self, schedule: BusSchedule,
+                                     flight_profile: FlightProfile,
+                                     icd: ICDDefinition,
+                                     error_injector: Optional[MessageErrorInjector]) -> None:
+        """Write 1553 packets from schedule with continuous time packets at 1 Hz."""
+        if not schedule.messages:
+            return
+            
+        # Calculate total duration and time packet intervals
+        total_duration_s = schedule.messages[-1].time_s
+        time_interval_s = self.config.time_packet_interval_s
+        
+        # Generate time packet timestamps (1 Hz)
+        time_timestamps = []
+        current_time_s = 0.0
+        while current_time_s <= total_duration_s:
+            time_timestamps.append(current_time_s)
+            current_time_s += time_interval_s
+        
+        # Merge 1553 messages and time packets in chronological order
+        all_events = []
+        
+        # Add 1553 messages
+        for sched_msg in schedule.messages:
+            all_events.append(('1553', sched_msg))
+        
+        # Add time packets
+        for time_s in time_timestamps:
+            if time_s > 0:  # Skip initial time packet (already written)
+                timestamp = datetime.fromtimestamp(self.start_time.timestamp() + time_s)
+                all_events.append(('time', timestamp))
+        
+        # Sort by time
+        all_events.sort(key=lambda x: x[1].time_s if x[0] == '1553' else (x[1] - self.start_time).total_seconds())
+        
+        # Process events in order
+        packet_messages = []
+        packet_size = 0
+        last_time_packet_s = 0.0
+        
+        for event_type, event_data in all_events:
+            if event_type == 'time':
+                # Write time packet
+                self._write_time_packet(event_data)
+                last_time_packet_s = (event_data - self.start_time).total_seconds()
+            elif event_type == '1553':
+                sched_msg = event_data
+                
+                # Estimate message size
+                msg_size = 4 + 18 + (sched_msg.message.wc * 2)
+                
+                # Add message to current packet
+                packet_messages.append(sched_msg)
+                packet_size += msg_size
+                
+                # Check if we should flush packet (size or time-based)
+                time_since_last_packet = sched_msg.time_s - last_time_packet_s
+                should_flush = (len(packet_messages) >= 1 or  # Max 1 message per packet for PyChapter10
+                              packet_size > self.config.target_packet_bytes or
+                              time_since_last_packet >= 0.1)  # 100ms time flush
+                
+                if should_flush:
+                    self._write_1553_packet(packet_messages, flight_profile, icd, error_injector)
+                    packet_messages = []
+                    packet_size = 0
+                    last_time_packet_s = sched_msg.time_s
+        
+        # Write remaining messages
+        if packet_messages:
+            self._write_1553_packet(packet_messages, flight_profile, icd, error_injector)
     
     def _write_1553_packets(self, schedule: BusSchedule,
                            flight_profile: FlightProfile,
@@ -401,6 +479,31 @@ class Ch10Writer:
         
         # Default to zero if source not recognized
         return 0.0
+    
+    def _build_test_schedule(self, icd: ICDDefinition, duration_s: float):
+        """Build a test schedule for testing purposes."""
+        from .schedule import BusSchedule, ScheduledMessage
+        
+        messages = []
+        current_time = 0.0
+        interval = 1.0 / icd.messages[0].rate_hz
+        major_frame = 0
+        minor_frame = 0
+        
+        while current_time <= duration_s:
+            messages.append(ScheduledMessage(
+                message=icd.messages[0],
+                time_s=current_time,
+                major_frame=major_frame,
+                minor_frame=minor_frame
+            ))
+            current_time += interval
+            minor_frame += 1
+            if minor_frame >= 50:  # 50 minor frames per major frame
+                minor_frame = 0
+                major_frame += 1
+        
+        return BusSchedule(messages=messages)
 
 
 def write_ch10_file(output_path: Path,
