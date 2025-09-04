@@ -1,4 +1,18 @@
-"""1553 word encoders (BNR/BCD/float splits) with bitfield packing support."""
+"""
+1553 word encoders (BNR/BCD/float splits) with bitfield packing support.
+
+This module provides the core encoding functions for MIL-STD-1553 data words.
+It implements various encoding formats commonly used in avionics systems:
+
+- BNR (Binary Natural Representation): Scaled/offset values with rounding
+- BCD (Binary Coded Decimal): Decimal values encoded in binary
+- Float32 Split: 32-bit floats split across two 16-bit words
+- Bitfield Packing: Multiple fields packed into single words
+- Command/Status Word Building: Standard 1553 protocol words
+
+These encoders ensure data is properly formatted according to IRIG-106
+and MIL-STD-1553 standards for Chapter 10 file generation.
+"""
 
 import struct
 from typing import Tuple, Optional, Union, Dict
@@ -283,15 +297,19 @@ def build_command_word(rt: int, tr: bool, sa: int, wc: int) -> int:
     """
     Build 1553 command word.
     
+    This function creates a MIL-STD-1553 command word according to the standard.
+    Command words are sent by the Bus Controller to initiate data transfers.
+    
     Args:
-        rt: Remote Terminal address (0-31)
-        tr: True for receive (BC->RT), False for transmit (RT->BC)
-        sa: Subaddress (0-31)
-        wc: Word count (1-32, where 32 is encoded as 0)
+        rt: Remote Terminal address (0-31) - which RT to communicate with
+        tr: True for receive (BC->RT), False for transmit (RT->BC) - data direction
+        sa: Subaddress (0-31) - which subaddress to use for the transfer
+        wc: Word count (1-32, where 32 is encoded as 0) - number of data words
     
     Returns:
-        16-bit command word
+        16-bit command word ready for transmission
     """
+    # Validate inputs according to MIL-STD-1553 standard
     if rt < 0 or rt > 31:
         raise ValueError(f"Remote Terminal (RT) address must be 0-31, got {rt}")
     if sa < 0 or sa > 31:
@@ -299,10 +317,15 @@ def build_command_word(rt: int, tr: bool, sa: int, wc: int) -> int:
     if wc < 1 or wc > 32:
         raise ValueError(f"Word count (WC) must be 1-32, got {wc}")
     
-    # Encode word count (32 -> 0)
+    # Encode word count (32 -> 0 per MIL-STD-1553 standard)
+    # This is a quirk of the protocol where 32 words is encoded as 0
     wc_field = wc if wc < 32 else 0
     
-    # Build command word: RT(5) | TR(1) | SA(5) | WC(5)
+    # Build command word according to MIL-STD-1553 bit layout:
+    # Bits 15-11: RT address (5 bits)
+    # Bit 10: TR (1 bit) - 1=receive, 0=transmit
+    # Bits 9-5: Subaddress (5 bits)
+    # Bits 4-0: Word count (5 bits)
     cmd = (rt << 11) | (int(tr) << 10) | (sa << 5) | wc_field
     
     return cmd & 0xFFFF
@@ -316,24 +339,38 @@ def build_status_word(rt: int, message_error: bool = False,
     """
     Build 1553 status word.
     
+    This function creates a MIL-STD-1553 status word according to the standard.
+    Status words are sent by Remote Terminals in response to command words.
+    
     Args:
-        rt: Remote Terminal address (0-31)
-        message_error: Message error flag
-        instrumentation: Instrumentation flag
-        service_request: Service request flag
-        broadcast_received: Broadcast command received flag
-        busy: Busy flag
-        subsystem_flag: Subsystem flag
-        dynamic_bus_control: Dynamic bus control acceptance flag
-        terminal_flag: Terminal flag
+        rt: Remote Terminal address (0-31) - which RT is responding
+        message_error: Message error flag - indicates transmission error
+        instrumentation: Instrumentation flag - indicates test mode
+        service_request: Service request flag - RT needs attention
+        broadcast_received: Broadcast command received flag - BC broadcast received
+        busy: Busy flag - RT cannot accept new commands
+        subsystem_flag: Subsystem flag - subsystem-specific status
+        dynamic_bus_control: Dynamic bus control acceptance flag - RT can be BC
+        terminal_flag: Terminal flag - RT-specific status
     
     Returns:
-        16-bit status word
+        16-bit status word ready for transmission
     """
+    # Validate RT address according to MIL-STD-1553 standard
     if rt < 0 or rt > 31:
         raise ValueError(f"Remote Terminal (RT) address must be 0-31, got {rt}")
     
-    # Build status word: RT(5) | ME(1) | I(1) | SR(1) | Reserved(3) | BCR(1) | B(1) | SF(1) | DBC(1) | TF(1)
+    # Build status word according to MIL-STD-1553 bit layout:
+    # Bits 15-11: RT address (5 bits)
+    # Bit 10: Message error flag (1 bit)
+    # Bit 9: Instrumentation flag (1 bit)
+    # Bit 8: Service request flag (1 bit)
+    # Bits 7-5: Reserved (3 bits)
+    # Bit 4: Broadcast command received flag (1 bit)
+    # Bit 3: Busy flag (1 bit)
+    # Bit 2: Subsystem flag (1 bit)
+    # Bit 1: Dynamic bus control acceptance flag (1 bit)
+    # Bit 0: Terminal flag (1 bit)
     status = (rt << 11)
     
     if message_error:
@@ -342,7 +379,7 @@ def build_status_word(rt: int, message_error: bool = False,
         status |= (1 << 9)
     if service_request:
         status |= (1 << 8)
-    # Bits 7-5 are reserved
+    # Bits 7-5 are reserved per MIL-STD-1553 standard
     if broadcast_received:
         status |= (1 << 4)
     if busy:

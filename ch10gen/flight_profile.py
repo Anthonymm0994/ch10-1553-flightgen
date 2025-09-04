@@ -1,4 +1,20 @@
-"""Flight profile generation for realistic flight test data."""
+"""
+Flight profile generation for realistic flight test data.
+
+This module provides flight profile generation capabilities for creating
+realistic aircraft state data that can be used in Chapter 10 files. It
+implements various flight phases and atmospheric calculations.
+
+Key components:
+- FlightState: Represents current aircraft state (altitude, speed, attitude, etc.)
+- FlightProfile: Generates flight profiles with different phases
+- ISA Atmosphere: International Standard Atmosphere calculations
+- Flight Phases: Climb, cruise, turn, descent with realistic parameters
+
+The module supports both deterministic and random flight profiles,
+enabling generation of consistent test data or varied scenarios.
+"""
+
 import math
 import random
 from typing import Dict, Any, Optional, List, Tuple
@@ -8,16 +24,22 @@ from datetime import datetime, timedelta
 
 @dataclass
 class FlightState:
-    """Current state of the aircraft."""
-    timestamp: datetime
-    altitude_ft: float
-    airspeed_kts: float
-    heading_deg: float
-    pitch_deg: float
-    roll_deg: float
-    g_force: float
-    latitude_deg: float
-    longitude_deg: float
+    """
+    Current state of the aircraft.
+    
+    This class represents the complete state of an aircraft at a specific
+    point in time. It includes position, attitude, and performance parameters
+    that are commonly recorded in flight test data.
+    """
+    timestamp: datetime  # Time of this state
+    altitude_ft: float  # Altitude above sea level (feet)
+    airspeed_kts: float  # Indicated airspeed (knots)
+    heading_deg: float  # Magnetic heading (degrees)
+    pitch_deg: float  # Pitch angle (degrees, positive = nose up)
+    roll_deg: float  # Roll angle (degrees, positive = right wing down)
+    g_force: float  # G-force load factor (1.0 = normal gravity)
+    latitude_deg: float  # Latitude (degrees)
+    longitude_deg: float  # Longitude (degrees)
     
     def __init__(self, timestamp=None, altitude_ft=0.0, airspeed_kts=0.0, heading_deg=0.0, 
                  pitch_deg=0.0, roll_deg=0.0, g_force=1.0, latitude_deg=0.0, longitude_deg=0.0,
