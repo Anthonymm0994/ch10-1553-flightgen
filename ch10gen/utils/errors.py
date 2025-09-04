@@ -1,4 +1,24 @@
-"""Error and jitter injection for 1553 messages."""
+"""
+Error and jitter injection for 1553 messages.
+
+This module provides configurable error injection capabilities for MIL-STD-1553
+messages, enabling generation of realistic test data that includes various
+types of bus errors and timing issues.
+
+Key components:
+- ErrorType: Enumeration of supported error types
+- ErrorInjectionConfig: Configuration for error injection rates
+- MessageErrorInjector: Main class for injecting errors into messages
+
+The error injection system supports:
+- Parity errors: Bit errors in transmitted words
+- Response errors: Missing or late responses from RTs
+- Protocol errors: Word count mismatches, sync errors
+- Timing errors: Jitter and bus failover scenarios
+
+This is essential for creating comprehensive test data that exercises
+error handling and recovery mechanisms in ground station software.
+"""
 
 import random
 from dataclasses import dataclass
@@ -7,15 +27,21 @@ from enum import IntEnum
 
 
 class ErrorType(IntEnum):
-    """Types of 1553 errors."""
-    NONE = 0
-    PARITY_ERROR = 1
-    NO_RESPONSE = 2
-    LATE_RESPONSE = 3
-    WORD_COUNT_MISMATCH = 4
-    MANCHESTER_ERROR = 5
-    SYNC_ERROR = 6
-    BUS_FAILOVER = 7
+    """
+    Types of 1553 errors that can be injected.
+    
+    These correspond to common error conditions that occur in real
+    MIL-STD-1553 bus systems and are important for testing ground
+    station error handling capabilities.
+    """
+    NONE = 0  # No error (normal operation)
+    PARITY_ERROR = 1  # Bit error in transmitted word
+    NO_RESPONSE = 2  # Remote Terminal fails to respond
+    LATE_RESPONSE = 3  # Remote Terminal responds too late
+    WORD_COUNT_MISMATCH = 4  # Incorrect number of data words
+    MANCHESTER_ERROR = 5  # Manchester encoding violation
+    SYNC_ERROR = 6  # Sync word error
+    BUS_FAILOVER = 7  # Bus A/B failover event
 
 
 @dataclass
@@ -74,16 +100,35 @@ class ErrorInjectionConfig:
 
 
 class MessageErrorInjector:
-    """Inject errors into 1553 messages."""
+    """
+    Inject errors into 1553 messages.
+    
+    This class provides the main interface for injecting various types of
+    errors into MIL-STD-1553 messages. It maintains error statistics and
+    handles bus failover scenarios.
+    
+    The injector can modify:
+    - Command words (parity errors, sync errors)
+    - Status words (parity errors, response errors)
+    - Data words (parity errors, word count mismatches)
+    - Timing (jitter, late responses)
+    - Bus selection (A/B failover)
+    """
     
     def __init__(self, config: ErrorInjectionConfig, seed: Optional[int] = None):
-        """Initialize with error configuration."""
+        """
+        Initialize with error configuration.
+        
+        Args:
+            config: Error injection configuration with rates and timing
+            seed: Random seed for reproducible error injection
+        """
         self.config = config
-        self.current_bus = 'A'
-        self.error_count = {error_type: 0 for error_type in ErrorType}
+        self.current_bus = 'A'  # Track which bus is currently active
+        self.error_count = {error_type: 0 for error_type in ErrorType}  # Error statistics
         self.message_count = 0  # Track total messages processed
         
-        # Set random seed if provided
+        # Set random seed if provided for reproducible error patterns
         if seed is not None:
             random.seed(seed)
     
