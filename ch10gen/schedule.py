@@ -1,8 +1,26 @@
-"""Schedule building for 1553 bus messages."""
+"""
+Schedule building for 1553 bus messages.
+
+This module handles the scheduling and timing of MIL-STD-1553 messages within
+Chapter 10 files. It implements a frame-based scheduling system that mimics
+real avionics systems where messages are organized into major and minor frames.
+
+Key components:
+- ScheduledMessage: Individual message with timing information
+- MinorFrame: 20ms frame containing multiple messages
+- MajorFrame: 1 second frame containing 50 minor frames
+- BusSchedule: Complete schedule for a 1553 bus
+
+The scheduling system ensures proper timing coordination and realistic
+message distribution patterns similar to actual flight test data.
+"""
+
 import math
 import random
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
+
+# Import ICD definitions with fallback for different execution contexts
 try:
     from .icd import ICDDefinition, MessageDefinition
 except ImportError:
@@ -11,11 +29,16 @@ except ImportError:
 
 @dataclass
 class ScheduledMessage:
-    """A message scheduled for a specific time."""
-    message: MessageDefinition
-    time_s: float  # Time relative to start
-    minor_frame: int  # Which minor frame this belongs to
-    major_frame: int  # Which major frame this belongs to
+    """
+    A message scheduled for a specific time.
+    
+    This represents a single MIL-STD-1553 message that has been scheduled
+    for transmission at a specific time within the Chapter 10 file.
+    """
+    message: MessageDefinition  # The message definition from ICD
+    time_s: float  # Time relative to start (seconds)
+    minor_frame: int  # Which minor frame this belongs to (0-49)
+    major_frame: int  # Which major frame this belongs to (0+)
     
     def __init__(self, message, time_s, major_frame, minor_frame, **kwargs):
         """Initialize ScheduledMessage with optional legacy parameters."""
@@ -249,17 +272,35 @@ def build_schedule_from_icd(
     minor_frame_s: float = 0.02,
     jitter_ms: float = 0.0
 ) -> BusSchedule:
-    """Build a schedule from ICD definition."""
+    """
+    Build a schedule from ICD definition.
+    
+    This is the main scheduling function that converts ICD message definitions
+    into a timed schedule of 1553 messages. It implements a frame-based
+    scheduling system that mimics real avionics systems.
+    
+    Args:
+        icd: ICD definition containing message specifications
+        duration_s: Total duration of the schedule (seconds)
+        major_frame_s: Duration of each major frame (default 1.0s)
+        minor_frame_s: Duration of each minor frame (default 0.02s = 20ms)
+        jitter_ms: Random timing jitter to add (milliseconds)
+    
+    Returns:
+        BusSchedule: Complete schedule with all messages timed
+    """
+    # Initialize schedule with frame timing parameters
+    # Major frames are 1 second, minor frames are 20ms (50 minor frames per major)
     schedule = BusSchedule(
         major_frame_duration_s=major_frame_s,
         minor_frame_duration_s=minor_frame_s,
         minor_frames_per_major=int(major_frame_s / minor_frame_s)
     )
     
-    # Calculate how many major frames we need
+    # Calculate how many major frames we need for the duration
     num_major_frames = math.ceil(duration_s / major_frame_s)
     
-    # Create major frames
+    # Create major frames (1 second each)
     for mf_idx in range(num_major_frames):
         major_frame = MajorFrame(
             index=mf_idx,
@@ -268,7 +309,7 @@ def build_schedule_from_icd(
         )
         schedule.add_major_frame(major_frame)
         
-        # Create minor frames for this major frame
+        # Create minor frames for this major frame (20ms each)
         for mmf_idx in range(schedule.minor_frames_per_major):
             minor_frame = MinorFrame(
                 index=mmf_idx,
