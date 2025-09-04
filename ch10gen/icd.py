@@ -1,4 +1,23 @@
-"""ICD (Interface Control Document) definitions and validation."""
+"""
+ICD (Interface Control Document) definitions and validation.
+
+This module defines the data structures for Interface Control Documents (ICDs),
+which specify how MIL-STD-1553 messages are structured and encoded. ICDs are
+the core configuration mechanism that allows users to define custom message
+formats without modifying code.
+
+Key components:
+- WordDefinition: Defines individual data fields within a message
+- MessageDefinition: Defines complete 1553 messages with timing
+- ICDDefinition: Container for multiple messages with validation
+
+The ICD system supports various encoding formats:
+- u16/i16: Unsigned/signed 16-bit integers
+- bnr16: Binary Natural Representation (scaled/offset values)
+- bcd: Binary Coded Decimal
+- float32_split: 32-bit floats split across two 16-bit words
+- bitfield: Packed bit fields within words
+"""
 
 import yaml
 from pathlib import Path
@@ -8,15 +27,21 @@ from dataclasses import dataclass, field
 
 @dataclass
 class WordDefinition:
-    """Definition of a single word in a message."""
-    name: str
-    encode: str  # u16, i16, bnr16, bcd, float32_split
-    src: Optional[str] = None  # Source path for dynamic values
-    const: Optional[Union[int, float]] = None  # Constant value
-    scale: float = 1.0
-    offset: float = 0.0
-    min_value: Optional[Union[int, float]] = None
-    max_value: Optional[Union[int, float]] = None
+    """
+    Definition of a single word in a 1553 message.
+    
+    This class represents one data field within a MIL-STD-1553 message.
+    It specifies how the field should be encoded, where data comes from,
+    and any scaling/validation rules.
+    """
+    name: str  # Field name (e.g., "altitude_ft", "airspeed_kt")
+    encode: str  # Encoding format: u16, i16, bnr16, bcd, float32_split
+    src: Optional[str] = None  # Source path for dynamic values (e.g., "flight.altitude_ft")
+    const: Optional[Union[int, float]] = None  # Constant value if not dynamic
+    scale: float = 1.0  # Scale factor for engineering units conversion
+    offset: float = 0.0  # Offset for engineering units conversion
+    min_value: Optional[Union[int, float]] = None  # Minimum valid value
+    max_value: Optional[Union[int, float]] = None  # Maximum valid value
     word_order: Optional[str] = None  # For float32_split: 'lsw_msw' or 'msw_lsw'
     rounding: str = 'nearest'  # Rounding mode for bnr16 encoding
     mask: Optional[int] = None  # Bit mask for bitfield packing (0x0000-0xFFFF)

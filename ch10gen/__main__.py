@@ -1,4 +1,10 @@
-"""CLI entry point for ch10gen."""
+"""
+CLI entry point for ch10gen.
+
+This module provides the command-line interface for generating IRIG 106 Chapter 10 files
+with MIL-STD-1553 bus data. It handles multiple import strategies to work in different
+execution contexts (package, direct, or installed).
+"""
 
 import sys
 import click
@@ -7,6 +13,11 @@ import random
 from pathlib import Path
 from datetime import datetime, timezone
 
+# Import strategy: Try multiple approaches to handle different execution contexts
+# This is necessary because the module can be run as:
+# 1. python -m ch10gen (package execution)
+# 2. python ch10gen/__main__.py (direct execution)
+# 3. ch10gen (installed package)
 try:
     # Package execution (python -m ch10gen)
     from .icd import load_icd, validate_icd_file
@@ -27,7 +38,7 @@ except ImportError:
         from validate import validate_file
         from utils.errors import create_error_config_from_dict, MessageErrorInjector
     except ImportError:
-        # Try importing from ch10gen package
+        # Try importing from ch10gen package (installed package execution)
         from ch10gen.icd import load_icd, validate_icd_file
         from ch10gen.flight_profile import FlightProfile
         from ch10gen.schedule import build_schedule_from_icd

@@ -1,4 +1,17 @@
-"""Chapter 10 writer using PyChapter10."""
+"""
+Chapter 10 writer using PyChapter10.
+
+This module is the core of the CH10 file generation system. It handles:
+- Writing TMATS (Telemetry Attributes Transfer Standard) packets
+- Writing IRIG-B time packets (TimeF1 format)
+- Writing MIL-STD-1553 message packets (MS1553F1 format)
+- Packet packing and timing coordination
+- Error injection and validation
+
+The writer supports two backends:
+- irig106: Uses PyChapter10 library for spec-compliant output
+- pyc10: Alternative backend for compatibility testing
+"""
 
 import struct
 import math
@@ -7,15 +20,20 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional, BinaryIO
 from dataclasses import dataclass
 
+# PyChapter10 is the primary library for CH10 file generation
+# It provides the low-level packet structures and encoding
 try:
     from chapter10 import C10, Packet
-    from chapter10.time import TimeF1
-    from chapter10.ms1553 import MS1553F1
-    from chapter10.message import MessageF0  # TMATS uses MessageF0
+    from chapter10.time import TimeF1  # IRIG-B time packets
+    from chapter10.ms1553 import MS1553F1  # 1553 message packets
+    from chapter10.message import MessageF0  # TMATS uses MessageF0 format
 except ImportError:
     raise ImportError("PyChapter10 is required. Install with: pip install pychapter10")
 
+# Internal module imports with fallback for different execution contexts
+# This allows the module to work both as a package and when run directly
 try:
+    # Package execution (python -m ch10gen)
     from .utils.util_time import datetime_to_rtc, datetime_to_ipts
     from .schedule import BusSchedule, ScheduledMessage
     from .flight_profile import FlightProfile, FlightState
@@ -26,6 +44,7 @@ try:
     from .utils.errors import MessageErrorInjector, ErrorType
     from .core.tmats import create_default_tmats
 except ImportError:
+    # Direct execution fallback
     from utils.util_time import datetime_to_rtc, datetime_to_ipts
     from schedule import BusSchedule, ScheduledMessage
     from flight_profile import FlightProfile, FlightState
@@ -76,6 +95,12 @@ class Ch10Writer:
         """
         Write complete Chapter 10 file.
         
+        This is the main entry point for CH10 file generation. It orchestrates:
+        1. TMATS packet writing (metadata)
+        2. Time packet writing (IRIG-B synchronization)
+        3. 1553 message packet writing (actual bus data)
+        4. Packet packing and timing coordination
+        
         Args:
             filepath: Output file path
             schedule: Bus schedule with messages
@@ -88,15 +113,18 @@ class Ch10Writer:
         Returns:
             Statistics dictionary
         """
+        # Ensure timezone-aware start time for consistent time handling
         if start_time is None:
             start_time = datetime.now(timezone.utc)
         
+        # Initialize writer state
         self.start_time = start_time
         self.message_count = 0
         self.packet_count = 0
         self.last_ipts = 0  # Track last IPTS value for monotonicity
         
         # Initialize scenario manager if scenario provided with data generation config
+        # This handles dynamic data generation based on flight profiles
         self.scenario_manager = None
         if scenario_config and (
             scenario_config.get('data_mode') == 'random' or 
@@ -204,15 +232,28 @@ class Ch10Writer:
                                      flight_profile: FlightProfile,
                                      icd: ICDDefinition,
                                      error_injector: Optional[MessageErrorInjector]) -> None:
-        """Write 1553 packets from schedule with continuous time packets at 1 Hz."""
+        """
+        Write 1553 packets from schedule with continuous time packets at 1 Hz.
+        
+        This is the core packet generation method that:
+        1. Generates IRIG-B time packets at 1 Hz intervals
+        2. Packs multiple 1553 messages per packet (realistic structure)
+        3. Coordinates timing between time and data packets
+        4. Handles error injection and flight profile data
+        
+        The method ensures proper packet structure similar to real flight test data
+        where multiple messages are packed together for efficiency.
+        """
         if not schedule.messages:
             return
             
         # Calculate total duration and time packet intervals
+        # IRIG-106 standard requires 1 Hz time packets for synchronization
         total_duration_s = schedule.messages[-1].time_s
         time_interval_s = self.config.time_packet_interval_s
         
         # Generate time packet timestamps (1 Hz)
+        # These provide IRIG-B time synchronization throughout the file
         time_timestamps = []
         current_time_s = 0.0
         while current_time_s <= total_duration_s:
@@ -235,33 +276,38 @@ class Ch10Writer:
         # Sort by time
         all_events.sort(key=lambda x: x[1].time_s if x[0] == '1553' else (x[1] - self.start_time).total_seconds())
         
-        # Process events in order
+        # Process events in chronological order
+        # This ensures proper timing coordination between time and data packets
         packet_messages = []
         packet_size = 0
         last_time_packet_s = 0.0
         
         for event_type, event_data in all_events:
             if event_type == 'time':
-                # Write time packet
+                # Write IRIG-B time packet immediately
+                # These provide time synchronization and are written individually
                 self._write_time_packet(event_data)
                 last_time_packet_s = (event_data - self.start_time).total_seconds()
             elif event_type == '1553':
                 sched_msg = event_data
                 
-                # Estimate message size
+                # Estimate message size for packet packing
+                # CSDW (4) + PyChapter10 header (18) + command (2) + status (2) + data (WC*2)
                 msg_size = 4 + 18 + (sched_msg.message.wc * 2)
                 
                 # Add message to current packet
                 packet_messages.append(sched_msg)
                 packet_size += msg_size
                 
-                # Check if we should flush packet (size or time-based)
+                # Determine if we should flush the current packet
+                # This implements realistic packet packing similar to real flight test data
                 time_since_last_packet = sched_msg.time_s - last_time_packet_s
                 should_flush = (len(packet_messages) >= 15 or  # Pack multiple messages per packet for realistic structure
                               packet_size > self.config.target_packet_bytes or
                               time_since_last_packet >= 0.1)  # 100ms time flush
                 
                 if should_flush:
+                    # Write the packed 1553 messages as a single packet
                     self._write_1553_packet(packet_messages, flight_profile, icd, error_injector)
                     packet_messages = []
                     packet_size = 0
