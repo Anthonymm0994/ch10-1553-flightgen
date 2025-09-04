@@ -2,7 +2,7 @@
 
 import struct
 import math
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Dict, Any, Optional, BinaryIO
 from dataclasses import dataclass
@@ -89,7 +89,7 @@ class Ch10Writer:
             Statistics dictionary
         """
         if start_time is None:
-            start_time = datetime.utcnow()
+            start_time = datetime.now(timezone.utc)
         
         self.start_time = start_time
         self.message_count = 0
@@ -126,7 +126,7 @@ class Ch10Writer:
             # Write final time packet
             if schedule.messages:
                 last_time_relative_s = schedule.messages[-1].time_s
-                last_time_abs = datetime.fromtimestamp(start_time.timestamp() + last_time_relative_s)
+                last_time_abs = datetime.fromtimestamp(start_time.timestamp() + last_time_relative_s, tz=start_time.tzinfo)
                 self._write_time_packet(last_time_abs)
             
         finally:
@@ -229,7 +229,7 @@ class Ch10Writer:
         # Add time packets
         for time_s in time_timestamps:
             if time_s > 0:  # Skip initial time packet (already written)
-                timestamp = datetime.fromtimestamp(self.start_time.timestamp() + time_s)
+                timestamp = datetime.fromtimestamp(self.start_time.timestamp() + time_s, tz=self.start_time.tzinfo)
                 all_events.append(('time', timestamp))
         
         # Sort by time
@@ -257,7 +257,7 @@ class Ch10Writer:
                 
                 # Check if we should flush packet (size or time-based)
                 time_since_last_packet = sched_msg.time_s - last_time_packet_s
-                should_flush = (len(packet_messages) >= 1 or  # Max 1 message per packet for PyChapter10
+                should_flush = (len(packet_messages) >= 15 or  # Pack multiple messages per packet for realistic structure
                               packet_size > self.config.target_packet_bytes or
                               time_since_last_packet >= 0.1)  # 100ms time flush
                 
@@ -276,6 +276,10 @@ class Ch10Writer:
                            icd: ICDDefinition,
                            error_injector: Optional[MessageErrorInjector]) -> None:
         """Write 1553 packets from schedule."""
+        # Pack multiple messages per packet for realistic file structure
+        # Reference file has ~45 messages per packet, we'll use a conservative 15
+        MAX_MESSAGES_PER_PACKET = 15  # Multiple messages per packet for realistic structure
+        
         # Group messages into packets based on target size
         packet_messages = []
         packet_size = 0
@@ -284,10 +288,6 @@ class Ch10Writer:
             # Estimate message size (CSDW + header + command + status + data words)
             # CSDW: 4 bytes + PyChapter10 format: 14 bytes header + 2 bytes command + 2 bytes status + (WC * 2) bytes data
             msg_size = 4 + 18 + (sched_msg.message.wc * 2)
-            
-            # Limit messages per packet for PyChapter10 compatibility
-            # PyChapter10 has issues with too many messages in one packet
-            MAX_MESSAGES_PER_PACKET = 1  # One message per packet to avoid serialization issues
             
             # Add message to current packet first
             packet_messages.append(sched_msg)

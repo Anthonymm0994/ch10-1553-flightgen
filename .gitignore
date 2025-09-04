@@ -98,3 +98,6 @@ ch10-studio/src-tauri/binaries/
 
 # Keep portable executable
 !ch10-studio/portable/CH10-Studio-Portable/CH10-Studio.exe
+
+# Cursor AI folder
+.cursor/

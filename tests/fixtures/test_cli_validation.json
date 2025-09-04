@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-09-02T09:58:56.896620",
+  "file_stats": {
+    "size_bytes": 7336,
+    "total_packets": 104,
+    "total_messages": 100,
+    "duration_seconds": 1.9800000000000013
+  },
+  "packet_types": {},
+  "message_stats": {},
+  "backend": "irig106",
+  "spec_compliant": false,
+  "ch10_file": {
+    "path": "test_cli_validation.ch10",
+    "name": "test_cli_validation.ch10",
+    "created": "2025-09-02T05:58:56.876680"
+  }
+}
